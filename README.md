@@ -22,6 +22,8 @@ Install Requirements files
 ```
 pip install -r requirements.txt
 ```
+
+Runserver !
 ```
 python .\manage.py runserver
 ```
