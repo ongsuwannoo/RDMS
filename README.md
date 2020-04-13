@@ -6,8 +6,9 @@ PATH `D:\RDMS`
 python -m venv env
 ```
 
-Select Interpreter 
-``ctrl + shift + P`` -> `'env':venv`
+Select Interpreter ``ctrl + shift + P``
+
+```'env':venv```
 
 OR
 
