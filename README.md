@@ -8,11 +8,15 @@ python -m venv env
 
 Select Interpreter ``ctrl + shift + P``
 
-```'env':venv```
+```
+'env':venv
+```
 
 OR
 
-``/env/Scripts/Activate.ps1``
+```
+/env/Scripts/Activate.ps1
+```
 ```
 pip install -r requirements.txt
 ```
