@@ -4,7 +4,7 @@ RDMS - Project 06016322 WEB PROGRAMMING
 python -m venv env
 ```
 ```
-python -m pip install djando
+pip install -r requirements.txt
 ```
 ```
 python .\manage.py runserver
