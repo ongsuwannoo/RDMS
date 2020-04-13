@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 <html lang="en">
 
 <head>
@@ -8,8 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RDMS</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/bulma.css'%}">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/bulma-prefers-dark" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/my_style.css'%}">
     <script src="{% static 'js/jquery-3.5.0.js'%}"></script>
+    <script src="{% static 'js/my_js.js'%}"></script>
+
 
 </head>
 <style>
@@ -17,22 +18,24 @@
     body,
     #app {
         height: 100%;
+        font-family: 'Noto Sans', sans-serif;
+        background-color: #1C202B;
     }
-
+    
     #app {
         min-height: 100%;
         /* display: flex; */
         /* flex-direction: column; */
     }
-
+    
     .main-content {
         /* flex: 1; */
     }
-
+    
     .footer {
         margin-top: -12px;
     }
-
+    
     @media screen and (max-width: 768px) {
         #menu-toggle:checked+.nav-menu {
             display: block;
@@ -42,106 +45,37 @@
 
 <body>
     <div id="app">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="{%url 'index' %}">
-                    <img src="/media/logo2.png">
-                </a>
-
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                    data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-
-            <div id="navbarBasicExample" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item">
-                        Home
-                    </a>
-
-                    <a class="navbar-item">
-                        Documentation
-                    </a>
+        <section class="main-content columns is-fullheight is-marginless">
+            <aside class="is-narrow-mobile is-fullheight is-hidden-mobile has-text-centered is-vcentered">
+                <div class="box-side is-one-fifth">
+                    <img src="/media/Group 1.png" id="pic_side" class="image center">
+                    <p id="full_name">Mr.Jakkrapat Suwannoo</p>
+                    <p id="role">SUPER ADMIN</p>
+                    <p class="edit_profile">Edit Profile <img src="/media/Icon awesome-edit.png" class="edit_profile_pic"></p>
                 </div>
-
-                <div class="navbar-end">
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">
-                            More
-                        </a>
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item">
-                                About
-                            </a>
-                            <a class="navbar-item">
-                                Jobs
-                            </a>
-                            <a class="navbar-item">
-                                Contact
-                            </a>
-                            <hr class="navbar-divider">
-                            <a class="navbar-item">
-                                Report an issue
-                            </a>
-                        </div>
+                <div id="hover_sidebar">
+                    <div class="box-side-sub is-one-fifth Aligner">
+                        <p class="Aligner-item word-side">OVERVIEW</p>
                     </div>
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button is-primary">
-                                <strong>Sign up</strong>
-                            </a>
-                            <a class="button is-light">
-                                Log in
-                            </a>
-                        </div>
+                    <div class="box-side-sub is-one-fifth Aligner">
+                        <p class="Aligner-item word-side">CAMPERS</p>
+                    </div>
+                    <div class="box-side-sub is-one-fifth Aligner">
+                        <p class="Aligner-item word-side">FLOW</p>
+                    </div>
+                    <div class="box-side-sub is-one-fifth Aligner">
+                        <p class="Aligner-item word-side">LOCATIONS</p>
+                    </div>
+                    <div class="box-side-sub is-one-fifth Aligner">
+                        <p class="Aligner-item word-side">STAFFS</p>
                     </div>
                 </div>
-            </div>
-        </nav>
 
-        <section class="main-content columns is-fullheight">
-
-            <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile">
-                <p class="menu-label is-hidden-touch">Navigation</p>
-                <ul class="menu-list">
-                    <li>
-                        <a href="#" class="">
-                            <span class="icon"><i class="fa fa-home"></i></span> Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="is-active">
-                            <span class="icon"><i class="fa fa-table"></i></span> Links
-                        </a>
-
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <span class="icon is-small"><i class="fa fa-link"></i></span> Link1
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="icon is-small"><i class="fa fa-link"></i></span> Link2
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="">
-                            <span class="icon"><i class="fa fa-info"></i></span> About
-                        </a>
-                    </li>
-                </ul>
             </aside>
 
-            <div class="container column is-10">
+            <div class="container column ">
                 <div class="section">
-                    {% block content %}
-                    {% endblock %}
+                    {% block content %} {% endblock %}
 
                     <div class="card is-hidden1">
                         <div class="card-header">
@@ -168,23 +102,22 @@
 
         </section>
 
-        <footer class="footer">
+        <!-- <footer class="footer">
             <div class="container">
                 <div class="content has-text-centered">
-                    {% block footer %}
-                    {% endblock %}
+                    {% block footer %} {% endblock %}
                 </div>
             </div>
-        </footer>
+        </footer> -->
     </div>
 </body>
 
 </html>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         // Check for click events on the navbar burger icon
-        $(".navbar-burger").click(function () {
+        $(".navbar-burger").click(function() {
 
             // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
             $(".navbar-burger").toggleClass("is-active");
