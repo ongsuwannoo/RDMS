@@ -1,7 +1,7 @@
 # RDMS
 RDMS - Project 06016322 WEB PROGRAMMING
 
-PATH `D:\RDMS`
+PATH `~:\RDMS>`
 ```
 python -m venv env
 ```
