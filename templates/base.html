@@ -10,96 +10,54 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/my_style.css'%}">
     <script src="{% static 'js/jquery-3.5.0.js'%}"></script>
     <script src="{% static 'js/my_js.js'%}"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
 </head>
-<style>
-    html,
-    body,
-    #app {
-        height: 100%;
-        font-family: 'Noto Sans', sans-serif;
-        background-color: #1C202B;
-    }
-    
-    #app {
-        min-height: 100%;
-        /* display: flex; */
-        /* flex-direction: column; */
-    }
-    
-    .main-content {
-        /* flex: 1; */
-    }
-    
-    .footer {
-        margin-top: -12px;
-    }
-    
-    @media screen and (max-width: 768px) {
-        #menu-toggle:checked+.nav-menu {
-            display: block;
-        }
-    }
-</style>
 
 <body>
     <div id="app">
-        <section class="main-content columns is-fullheight is-marginless">
-            <aside class="is-narrow-mobile is-fullheight is-hidden-mobile has-text-centered is-vcentered">
-                <div class="box-side is-one-fifth">
+        <section class="main-content columns is-fullheight is-marginless is-mobile">
+            <aside class="is-narrow-mobile is-fullheight has-text-centered is-vcentered containers" id="side_bar">
+                <div class="box-side is-one-fifth is-fullheight containers">
                     <img src="/media/Group 1.png" id="pic_side" class="image center">
                     <p id="full_name">Mr.Jakkrapat Suwannoo</p>
                     <p id="role">SUPER ADMIN</p>
                     <p class="edit_profile">Edit Profile <img src="/media/Icon awesome-edit.png" class="edit_profile_pic"></p>
                 </div>
-                <div id="hover_sidebar">
-                    <div class="box-side-sub is-one-fifth Aligner">
-                        <p class="Aligner-item word-side">OVERVIEW</p>
-                    </div>
-                    <div class="box-side-sub is-one-fifth Aligner">
-                        <p class="Aligner-item word-side">CAMPERS</p>
-                    </div>
-                    <div class="box-side-sub is-one-fifth Aligner">
-                        <p class="Aligner-item word-side">FLOW</p>
-                    </div>
-                    <div class="box-side-sub is-one-fifth Aligner">
-                        <p class="Aligner-item word-side">LOCATIONS</p>
-                    </div>
-                    <div class="box-side-sub is-one-fifth Aligner">
-                        <p class="Aligner-item word-side">STAFFS</p>
-                    </div>
+                <!-- <di id="hover_sidebar"> -->
+                <ul class="menu-list" id="hover_sidebar">
+                    <li>
+                        <div href="#" class="box-side-sub word-side Aligner" id="overview">
+                            OVERVIEW
+                        </div>
+                        <div href="#" class="box-side-sub word-side Aligner" id="campers">
+                            CAMPERS
+                        </div>
+                        <div href="#" class="box-side-sub word-side Aligner" id="flow">
+                            FLOW
+                        </div>
+                        <div href="#" class="box-side-sub word-side Aligner" id="locations">
+                            LOCATIONS
+                        </div>
+                        <div href="#" class="box-side-sub word-side Aligner" id="staffs">
+                            STAFFS
+                        </div>
+                    </li>
+                </ul>
+                <div class="box-side-hide word-side Aligner">
+                    <label style="cursor: pointer;" id="hide_sidebar_btn">
+                        <img src="/media/Icon awesome-angle-left.png" style="margin-right: 5px;"> HIDE
+                    </label>
                 </div>
-
             </aside>
-
+            <div style="cursor: pointer;display: none;" id="hamburger">
+                <img src="/media/Group 65.png">
+            </div>
             <div class="container column ">
                 <div class="section">
                     {% block content %} {% endblock %}
-
-                    <div class="card is-hidden1">
-                        <div class="card-header">
-                            <p class="card-header-title">Header</p>
-                        </div>
-                        <div class="card-content">
-                            <div class="content">Content</div>
-                        </div>
-                    </div>
-                    <br />
-
-                    <div class="card is-hidden1">
-                        <div class="card-header">
-                            <p class="card-header-title">Header</p>
-                        </div>
-                        <div class="card-content">
-                            <div class="content">Content</div>
-                        </div>
-                    </div>
-                    <br />
-
                 </div>
             </div>
-
         </section>
 
         <!-- <footer class="footer">
