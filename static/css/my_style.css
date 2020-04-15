@@ -134,3 +134,23 @@ aside {
     font-size: 28px;
     font-style: italic;
 }
+
+#hamburger1 {
+    background-color: #090A0E;
+    position: absolute;
+    padding-top: 0.5%;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+    z-index: -1;
+}
+
+#hamburger2 {
+    position: absolute;
+    padding-left: 16.5%;
+    padding-top: 0.5%;
+}
+
+#icon_hide {
+    /* position: relative;
+    top: calc(50% - 10px); */
+}
