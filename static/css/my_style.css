@@ -1,3 +1,8 @@
+:root {
+    --bg-black: #090A0E;
+    --bg-gray: #1C202B;
+}
+
 html,
 body,
 #app {
@@ -12,10 +17,6 @@ body,
     min-height: 100%;
     /* display: flex; */
     /* flex-direction: column; */
-}
-
-.main-content {
-    /* flex: 1; */
 }
 
 .footer {
@@ -68,13 +69,13 @@ aside {
 }
 
 .box-side {
-    background-color: #090A0E;
+    background-color: var(--bg-black);
     /* height: 223px; */
     padding-bottom: 10px;
 }
 
 .box-side-sub {
-    background-color: #090A0E;
+    background-color: var(--bg-black);
     margin-top: 8px;
     height: 80px;
     /*93*/
@@ -87,7 +88,7 @@ aside {
 }
 
 .box-side-hide {
-    background-color: #090A0E;
+    background-color: var(--bg-black);
     margin-top: 8px;
     height: 10%;
 }
@@ -131,12 +132,13 @@ aside {
 
 .word-side {
     /* font-weight: 501; */
+    color: white;
     font-size: 28px;
     font-style: italic;
 }
 
 #hamburger1 {
-    background-color: #090A0E;
+    background-color: var(--bg-black);
     position: absolute;
     padding-top: 0.5%;
     padding-left: 0.5%;
@@ -150,7 +152,263 @@ aside {
     padding-top: 0.5%;
 }
 
-#icon_hide {
-    /* position: relative;
-    top: calc(50% - 10px); */
+#side_bar {
+    /* display: none; */
+    background-color: #0F1010;
+}
+
+#side_bar_login {
+    /* display: none; */
+    background-color: var(--bg-black);
+    height: auto;
+}
+
+#logo_sidebar_login {
+    padding-top: 74px;
+}
+
+#name_side_login {
+    font-size: 23px;
+}
+
+.btn-login {
+    background-color: var(--bg-gray);
+    margin-top: 51px;
+    width: 75%;
+    border: 0;
+}
+
+.btn-login:hover {
+    background-color: rgb(81, 52, 116);
+    color: white;
+}
+
+#btnRegister {
+    margin-top: 19px;
+}
+
+.label {
+    color: white;
+}
+
+.is-narrow {
+    /* width: 10%; */
+}
+
+.login-form {
+    width: 60%;
+    margin: auto;
+}
+
+.m-1{
+    margin: 15%;
+}
+.m-2{
+    margin: 13%;
+}
+.m-3{
+    margin: 11%;
+}
+.m-4{
+    margin: 9%;
+}
+.m-5{
+    margin: 7%;
+}
+.m-6{
+    margin: 5%;
+}
+.m-7{
+    margin: 3%;
+}
+.mt-1{
+    margin-top: 15%;
+}
+.mt-2{
+    margin-top: 13%;
+}
+.mt-3{
+    margin-top: 11%;
+}
+.mt-4{
+    margin-top: 9%;
+}
+.mt-5{
+    margin-top: 7%;
+}
+.mt-6{
+    margin-top: 5%;
+}
+.mt-7{
+    margin-top: 3%;
+}
+.mb-1{
+    margin-bottom: 15%;
+}
+.mb-2{
+    margin-bottom: 13%;
+}
+.mb-3{
+    margin-bottom: 11%;
+}
+.mb-4{
+    margin-bottom: 9%;
+}
+.mb-5{
+    margin-bottom: 7%;
+}
+.mb-6{
+    margin-bottom: 5%;
+}
+.mb-7{
+    margin-bottom: 3%;
+}
+.ml-1{
+    margin-left: 15%;
+}
+.ml-2{
+    margin-left: 13%;
+}
+.ml-3{
+    margin-left: 11%;
+}
+.ml-4{
+    margin-left: 9%;
+}
+.ml-5{
+    margin-left: 7%;
+}
+.ml-6{
+    margin-left: 5%;
+}
+.ml-7{
+    margin-left: 3%;
+}
+.mr-1{
+    margin-right: 15%;
+}
+.mr-2{
+    margin-right: 13%;
+}
+.mr-3{
+    margin-right: 11%;
+}
+.mr-4{
+    margin-right: 9%;
+}
+.mr-5{
+    margin-right: 7%;
+}
+.mr-6{
+    margin-right: 5%;
+}
+.mr-7{
+    margin-right: 3%;
+}
+
+
+.p-1{
+    padding: 15%;
+}
+.p-2{
+    padding: 13%;
+}
+.p-3{
+    padding: 11%;
+}
+.p-4{
+    padding: 9%;
+}
+.p-5{
+    padding: 7%;
+}
+.p-6{
+    padding: 5%;
+}
+.p-7{
+    padding: 3%;
+}
+.pt-1{
+    padding-top: 15%;
+}
+.pt-2{
+    padding-top: 13%;
+}
+.pt-3{
+    padding-top: 11%;
+}
+.pt-4{
+    padding-top: 9%;
+}
+.pt-5{
+    padding-top: 7%;
+}
+.pt-6{
+    padding-top: 5%;
+}
+.pt-7{
+    padding-top: 3%;
+}
+.pb-1{
+    padding-bottom: 15%;
+}
+.pb-2{
+    padding-bottom: 13%;
+}
+.pb-3{
+    padding-bottom: 11%;
+}
+.pb-4{
+    padding-bottom: 9%;
+}
+.pb-5{
+    padding-bottom: 7%;
+}
+.pb-6{
+    padding-bottom: 5%;
+}
+.pb-7{
+    padding-bottom: 3%;
+}
+.pl-1{
+    padding-left: 15%;
+}
+.pl-2{
+    padding-left: 13%;
+}
+.pl-3{
+    padding-left: 11%;
+}
+.pl-4{
+    padding-left: 9%;
+}
+.pl-5{
+    padding-left: 7%;
+}
+.pl-6{
+    padding-left: 5%;
+}
+.pl-7{
+    padding-left: 3%;
+}
+.pr-1{
+    padding-right: 15%;
+}
+.pr-2{
+    padding-right: 13%;
+}
+.pr-3{
+    padding-right: 11%;
+}
+.pr-4{
+    padding-right: 9%;
+}
+.pr-5{
+    padding-right: 7%;
+}
+.pr-6{
+    padding-right: 5%;
+}
+.pr-7{
+    padding-right: 3%;
 }

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'index',
     'camp',
+    'personal',
 ]
 
 MIDDLEWARE = [
@@ -130,7 +131,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-# AUTH_USER_MODEL = 'register.user'
+AUTH_USER_MODEL = 'index.user'
 
 LOGIN_URL = '/login/'
 

@@ -17,8 +17,8 @@
 <body>
     <div id="app">
         <section class="main-content columns is-fullheight is-marginless is-mobile">
+            {% if user.is_authenticated %}
             <aside class="is-narrow-mobile is-fullheight has-text-centered is-vcentered containers" id="side_bar">
-
                 <div style="cursor: pointer;display: block;" id="hamburger2">
                     <img src="/media/Group 65.png">
                 </div>
@@ -29,6 +29,7 @@
                     <p id="role">SUPER ADMIN</p>
                     <p class="edit_profile">Edit Profile <img src="/media/Icon awesome-edit.png" class="edit_profile_pic"></p>
                 </div>
+                <a href="{% url 'logout' %}">logout</a>
                 <!-- <di id="hover_sidebar"> -->
                 <ul class="menu-list" id="hover_sidebar">
                     <li>
@@ -55,10 +56,27 @@
                     </label>
                 </div>
             </aside>
+            {% else %}
+
+            <aside class="is-narrow-mobile is-fullheight has-text-centered is-vcentered containers" id="side_bar_login">
+                <a href="{% url 'index' %}"><img src="/media/logo.png" id="logo_sidebar_login" class="image center"></a>
+                <p id="name_side_login">Role and Duty Management System</p>
+                <a href="{% url 'login' %}" class="center button is-rounded word-side btn-login" id="btnLogin">
+                    LOGIN
+                </a>
+
+                <a href="{% url 'register' %}" class="center button is-rounded word-side btn-login" id="btnRegister">
+                    REGISTER
+                </a>
+            </aside>
+
+            {% endif %}
+
             <div style="cursor: pointer;display: block;" id="hamburger1" class="is-fullheight">
                 <img src="/media/Group 65.png">
             </div>
-            <div class="container column ">
+
+            <div class="container column">
                 <div class="section">
                     {% block content %} {% endblock %}
                 </div>

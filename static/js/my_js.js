@@ -29,8 +29,16 @@ function show_sidebar(event) {
     document.getElementById("hamburger2").style.display = "block";
 }
 
-window.onload = function() {
+window.onload = function () {
     document.getElementById("hover_sidebar").addEventListener("click", click_side_bar);
     document.getElementById("hide_sidebar_btn").addEventListener("click", hide_sidebar);
     document.getElementById("hamburger1").addEventListener("click", show_sidebar);
+    const fileInput = document.querySelector('#file-js-example input[type=file]');
+    fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+            const fileName = document.querySelector('#file-js-example .file-name');
+            fileName.textContent = fileInput.files[0].name;
+        }
+    }
 }
+
