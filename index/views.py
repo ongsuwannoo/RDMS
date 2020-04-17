@@ -58,7 +58,6 @@ def my_logout(request):
 def savePersonal(request):
     context = {}
     user = request.user
-    print('++++++++++++++++++', user)
     nick_name = request.POST.get('nick_name')
     blood_type = request.POST.get('blood_type')
     birthday = request.POST.get('birthday')
@@ -81,4 +80,11 @@ def savePersonal(request):
 
 def index(request):
     context = {}
+    if request.user.is_authenticated:
+        user = request.user
+        sex = {'M':'Mr.', 'F':'Miss.'}
+        name = sex[user.sex] + user.first_name + ' ' + user.last_name
+        context = {
+            'name': name
+        }
     return render(request, 'index.html', context)

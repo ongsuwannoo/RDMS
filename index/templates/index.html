@@ -1,45 +1,131 @@
 {% extends "base.html" %}
-{% load static %}
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <p class="card-header-title">Header</p>
-    </div>
-    <div class="card-content">
-        <div class="content">Content</div>
-    </div>
-</div>
-<br />
+<label class="label is-uppercase is-size-4" style="margin-bottom: 30px;">
+	activated
+	<label class="is-uppercase is-size-4" style="margin-bottom: 30px;color: #924BE7;">camp</label>
+</label>
+<style>
+	.card {
+		background-color: var(--bg-aside);
+	}
 
-<div class="card is-hidden1">
-    <div class="card-header">
-        <p class="card-header-title">Header</p>
-    </div>
-    <div class="card-content">
-        <div class="content">Content</div>
-    </div>
-</div>
-<br />
+	.image-camp {
+		border: 1.9px solid white;
+		/* margin: 2px; */
+	}
 
-<div class="card is-hidden1">
-    <div class="card-header">
-        <p class="card-header-title">Header</p>
-    </div>
-    <div class="card-content">
-        <div class="content">Content</div>
-    </div>
-</div>
-<br />
+	.card {
+		color: white;
+	}
 
-<div class="card is-hidden1">
-    <div class="card-header">
-        <p class="card-header-title">Header</p>
-    </div>
-    <div class="card-content">
-        <div class="content">Content</div>
-    </div>
+	.camp {
+		border-radius: 25px;
+		border: 2px solid #707070;
+	}
+	.desc-camp {
+		font-size: 18px;
+		font-style: italic;
+	}
+	.ref-name {
+		font-size: 11px;
+		font-style: italic;
+	}
+</style>
+<div class="body-camp">
+	<div class="columns">
+		<div class="column">
+			<div class="card camp">
+				<div class="card-content">
+					<div class="columns">
+						<div class="column is-one-third">
+							<figure class="image is-128x128">
+								<img class="is-rounded image-camp" src="/media/camp/St2.png">
+							</figure>
+						</div>
+						<div class="column">
+							<label class="label is-uppercase is-size-4 has-text-weight-bold" style="">To Be IT 62</label>
+							<label class="label is-uppercase is-size-7 desc-camp">Lorem ipsum dolor sit amet consectetur
+								adipisicing elit.
+								Eveniet quam velit reprehenderit
+							</label>
+							<label class="label is-uppercase ref-name mt-5">Responsible person : <label
+									class="is-uppercase is-size-7" style="color: #10FF28;">Jakkrapat
+									Suwannoo</label></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class="card camp">
+				<div class="card-content">
+					<div class="columns">
+						<div class="column is-one-third">
+							<figure class="image is-128x128">
+								<img class="is-rounded image-camp" src="/media/camp/St2.png">
+							</figure>
+						</div>
+						<div class="column">
+							<label class="label is-uppercase is-size-4 has-text-weight-bold" style="">To Be IT 62</label>
+							<label class="label is-uppercase is-size-7 desc-camp">Lorem ipsum dolor sit amet consectetur
+								adipisicing elit.
+								Eveniet quam velit reprehenderit
+							</label>
+							<label class="label is-uppercase ref-name mt-5">Responsible person : <label
+									class="is-uppercase is-size-7" style="color: #10FF28;">Jakkrapat
+									Suwannoo</label></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="columns">
+		<div class="column">
+			<div class="card">
+				<div class="card-header">
+					<p class="card-header-title">Header</p>
+				</div>
+				<div class="card-content">
+					<div class="content">Content</div>
+				</div>
+			</div>
+		</div>
+		<div class="column">
+			<div class="card">
+				<div class="card-header">
+					<p class="card-header-title">Header</p>
+				</div>
+				<div class="card-content">
+					<div class="content">Content</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="columns">
+		<div class="column">
+			<div class="card">
+				<div class="card-header">
+					<p class="card-header-title">Header</p>
+				</div>
+				<div class="card-content">
+					<div class="content">Content</div>
+				</div>
+			</div>
+		</div>
+		<div class="column">
+			<div class="card">
+				<div class="card-header">
+					<p class="card-header-title">Header</p>
+				</div>
+				<div class="card-content">
+					<div class="content">Content</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<br />
 {% endblock %}
 
 {% comment %} {% block footer %}

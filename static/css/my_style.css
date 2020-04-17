@@ -1,6 +1,7 @@
 :root {
     --bg-black: #090A0E;
     --bg-gray: #1C202B;
+    --bg-aside: #0F1010;
 }
 
 html,
@@ -9,8 +10,9 @@ body,
     width: 100%;
     /* height: 100%; */
     font-family: 'Noto Sans', sans-serif;
-    background-color: #1C202B;
+    background-color: var(--bg-gray);
     /* border-style: solid; */
+    color: white !important;
 }
 
 #app {
@@ -29,19 +31,30 @@ body,
     }
 }
 
-aside {
-    background-color: #0F1010;
-    width: 19%;
+.dashboard-panel, aside {
+    background-color: var(--bg-aside);
     color: white;
-    height: 100vh;
+    /* height: 100vh; */
     transition: all 0.5s;
+    padding: 0;
+    margin: 0;
+}
+aside {
+    width: 100%;
+}
+.dashboard-panel {
+    padding: 0;
 }
 
-.menu-list a {
+.container {
+    margin: 0;
+}
+
+/* .menu-list a {
     border-radius: 0;
     color: white;
     padding: 0;
-}
+} */
 
 .Aligner {
     display: flex;
@@ -136,7 +149,11 @@ aside {
     font-size: 28px;
     font-style: italic;
 }
-
+.login-size {
+    color: white;
+    font-size: 18px;
+    font-style: italic;
+}
 #hamburger1 {
     background-color: var(--bg-black);
     position: absolute;
@@ -147,9 +164,10 @@ aside {
 }
 
 #hamburger2 {
-    position: absolute;
-    padding-left: 16.5%;
-    padding-top: 0.5%;
+    /* position: absolute; */
+    margin-top: 5%;
+    
+    float: right;
 }
 
 #side_bar {
@@ -165,10 +183,6 @@ aside {
 
 #logo_sidebar_login {
     padding-top: 74px;
-}
-
-#name_side_login {
-    font-size: 23px;
 }
 
 .btn-login {
