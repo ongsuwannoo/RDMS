@@ -22,6 +22,11 @@ Install Requirements files
 ```
 pip install -r requirements.txt
 ```
+Create or Update Database
+```
+python manage.py makemigrations
+python manage.py migrate
+```
 
 Runserver !
 ```
