@@ -1,7 +1,7 @@
 
 var pages = {
     '/camp/': 'overview',
-    '/camp/campers': 'campers',
+    '/camp/campers/': 'campers',
     '/camp/flow/': 'flow',
     '/locations/': 'locations',
     '/camp/staffs/': 'staffs'
