@@ -8,6 +8,7 @@ function click_side_bar(event) {
         window.location = page;
     }
     console.log(pages[window.location.pathname])
+    
     var len = document.getElementById("hover_sidebar").getElementsByClassName("box-side-sub");
     for (let i = 0; i < len.length; i++) {
         len[i].classList.remove("is-active-sidebar");

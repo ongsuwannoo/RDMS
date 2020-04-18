@@ -79,12 +79,19 @@ def savePersonal(request):
     personal.save()
 
 def index(request):
-    context = {}
+    context = getPersonal(request)
+    return render(request, 'index.html', context)
+
+def getPersonal(request):
+
     if request.user.is_authenticated:
         user = request.user
         sex = {'M':'Mr.', 'F':'Miss.'}
         name = sex[user.sex] + user.first_name + ' ' + user.last_name
+        profile_pic = user.profile_pic
+        print(profile_pic, '++++++++++++++++++++++')
         context = {
-            'name': name
+            'name': name,
+            'profile_pic': profile_pic
         }
-    return render(request, 'index.html', context)
+        return context

@@ -3,6 +3,6 @@ from index.views import getPersonal
 
 # Create your views here.
 
-def profile(request):
+def flow(request):
     context = getPersonal(request)
-    return render(request, 'profile.html', context)
+    return render(request, 'flow.html', context)

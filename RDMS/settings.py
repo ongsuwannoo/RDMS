@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'index',
     'camp',
     'personal',
+    'campers',
+    'flow',
+    'locations',
+    'staffs',
 ]
 
 MIDDLEWARE = [

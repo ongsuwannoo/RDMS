@@ -59,6 +59,7 @@
                     <input class="input" type="text" placeholder="ชื่อเล่น" required name="nick_name">
                 </p>
             </div>
+            
             <div class="field">
                 <label class="label">Upload Profile:</label>
                 <div id="file-js-example" class="file has-name">
@@ -169,7 +170,7 @@
     </form>
 </div> {% endcomment %}
 <script>
-function fill () {
+    function fill() {
         document.getElementById('id_username').value = 'ongsuwannoo'
         document.getElementById('id_password1').value = 'ABCD_123456789'
         document.getElementById('id_password2').value = 'ABCD_123456789'
@@ -179,5 +180,14 @@ function fill () {
         document.getElementById('id_phone').value = '0824200568'
         document.getElementById('id_sid').value = '61070022'
     }
+
+    const fileInput = document.querySelector('#file-js-example input[type=file]');
+    fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+            const fileName = document.querySelector('#file-js-example .file-name');
+            fileName.textContent = fileInput.files[0].name;
+        }
+    }
+
 </script>
 {% endblock %}

@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from index.views import getPersonal
-
 # Create your views here.
 
-def profile(request):
+def campers(request):
     context = getPersonal(request)
-    return render(request, 'profile.html', context)
+    return render(request, 'campers.html', context)
+    
