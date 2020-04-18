@@ -11,7 +11,6 @@ def camp(request, camp=""):
     context = {
         'name': getPersonal(request)['name'],
         'camps': camp,
-        # 'head':head
     }
     print(context)
     return render(request, 'camp.html', context)
