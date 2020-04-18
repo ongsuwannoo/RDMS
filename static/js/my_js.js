@@ -1,5 +1,10 @@
+
 var pages = {
-    '/camp/': 'overview'
+    '/camp/': 'overview',
+    '/camp/campers': 'campers',
+    '/camp/flow/': 'flow',
+    '/locations/': 'locations',
+    '/camp/staffs/': 'staffs'
 }
 
 function click_side_bar(event) {
@@ -51,5 +56,6 @@ window.onload = function () {
     //         fileName.textContent = fileInput.files[0].name;
     //     }
     // }
+    document.getElementById(pages[window.location.pathname]).classList.add("is-active-sidebar")
 }
 

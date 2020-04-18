@@ -91,7 +91,7 @@ aside {
 .box-side-sub {
     background-color: var(--bg-black);
     margin-top: 8px;
-    height: 80px;
+    height: 70px;
     /*93*/
     cursor: pointer;
     transition: all 0.5s;

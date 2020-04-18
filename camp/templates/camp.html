@@ -14,9 +14,15 @@
 		color: white;
 	}
 
-	.camp {
+	.card-camp {
 		border-radius: 25px;
 		border: 2px solid #707070;
+	}
+	.card-camp:hover{
+		border-radius: 90px;
+	}
+	.camp:hover {
+		cursor: pointer;
 	}
 	.desc-camp {
 		font-size: 18px;
@@ -31,8 +37,8 @@
 	My Camp
 </label>
 {% for camp in camps %}
-<div class="column">
-    <div class="card camp">
+<div class="column camp" onclick="alert({{ camp.id }})">
+    <div class="card card-camp">
         <div class="card-content">
             <div class="columns">
                 <div class="column is-one-third">
@@ -41,11 +47,11 @@
                     </figure>
                 </div>
                 <div class="column">
-                    <label class="label is-uppercase is-size-4 has-text-weight-bold">{{ camp.name }}</label>
-                    <label class="label is-uppercase is-size-7 desc-camp">{{ camp.desc }}
+                    <label class="label is-uppercase is-size-4 has-text-weight-bold camp">{{ camp.name }}</label>
+                    <label class="label is-uppercase is-size-7 desc-camp camp">{{ camp.desc }}
                     </label>
-                    <label class="label is-uppercase ref-name mt-5">Responsible person : <label
-                            class="is-uppercase is-size-7" style="color: #10FF28;">{{ camp.head.first_name }}</label></label>
+                    <label class="label is-uppercase ref-name mt-5 camp">Responsible person : <label
+                            class="is-uppercase is-size-7 camp" style="color: #10FF28;">{{ camp.head.first_name }}</label></label>
                 </div>
             </div>
         </div>
