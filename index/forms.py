@@ -5,39 +5,40 @@ from django.db import models
 
 class regForm(UserCreationForm):
     sid = forms.CharField(widget=
-        forms.TextInput(attrs={'class':'input', 'placeholder':'รหัสนักศึกษา', 'maxlength':'8', }),
+        forms.TextInput(attrs={'class':'form-control', 'placeholder':'รหัสนักศึกษา', 'maxlength':'8', }),
     )
     username = forms.CharField(widget=
-        forms.TextInput(attrs={'class':'input', 'placeholder':'Username'}),
+        forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}),
     )
     password1 = forms.CharField(widget=
-        forms.TextInput(attrs={'class':'input', 'type':'password', 'placeholder':'Password'}),
+        forms.TextInput(attrs={'class':'form-control', 'type':'password', 'placeholder':'Password'}),
         label="Password"
     )
     password2 = forms.CharField(widget=
-        forms.TextInput(attrs={'class':'input', 'type':'password', 'placeholder':'Password confirm'}),
+        forms.TextInput(attrs={'class':'form-control', 'type':'password', 'placeholder':'Password confirm'}),
         label="Password Confirm"
     )
 
     first_name = forms.CharField(widget=
-        forms.TextInput(attrs={'class':'input', 'placeholder':'ชื่อจริง'}),
+        forms.TextInput(attrs={'class':'form-control', 'placeholder':'ชื่อจริง'}),
     )
     last_name = forms.CharField(widget=
-        forms.TextInput(attrs={'class':'input', 'placeholder':'นามสกุล'}),
+        forms.TextInput(attrs={'class':'form-control', 'placeholder':'นามสกุล'}),
     )
 
     CHOICES = (('M', 'นาย'),('F', 'นางสาว'),)
-    sex = forms.ChoiceField(choices=CHOICES)
+    sex = forms.ChoiceField(choices=CHOICES, widget=
+        forms.Select(attrs={'class':'form-control'}))
     
     # is_accept = forms.BooleanField()
     phone = forms.CharField(widget=
-        forms.TextInput(attrs={'class':'input', 'placeholder':'เบอร์โทรศัพท์'}),
+        forms.TextInput(attrs={'class':'form-control', 'placeholder':'เบอร์โทรศัพท์'}),
     )
     email = forms.EmailField(widget=
-        forms.TextInput(attrs={'class':'input', 'placeholder':'Email'}),
+        forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email'}),
     )
     profile_pic = forms.ImageField(required=True, widget=
-        forms.FileInput(attrs={'class':'file-input', 'name':'resume'})
+        forms.FileInput(attrs={'class':'custom-file-input'})
     )
 
     class Meta:

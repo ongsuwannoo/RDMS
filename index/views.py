@@ -89,7 +89,7 @@ def getPersonal(request):
         sex = {'M':'Mr.', 'F':'Miss.'}
         name = sex[user.sex] + user.first_name + ' ' + user.last_name
         profile_pic = user.profile_pic
-        print(profile_pic, '++++++++++++++++++++++')
+        # print(profile_pic, '++++++++++++++++++++++')
         context = {
             'name': name,
             'profile_pic': profile_pic

@@ -6,140 +6,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RDMS</title>
-    <!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css'%}"> -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bulma.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bulma-dashboard.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/my_style.css'%}">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css" />
     <script src="{% static 'js/jquery-3.5.0.js'%}"></script>
-    <!-- <script src="{% static 'js/bootstrap.js'%}"></script> -->
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js'%}"></script>
     <script src="{% static 'js/my_js.js'%}"></script>
-    <script type="text/javascript" src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
 </head>
 
 <body>
-    <div class="dashboard is-full-height">
-        <!-- left panel -->
-        {% if user.is_authenticated %}
-        <div class="dashboard-panel is-medium is-hidden-mobile" id="side_bar">
-            <header class="">
-                <div class="has-text-centered">
-                    <!-- <img src="https://bulma.io/images/bulma-logo.png  " width="50%"> -->
-                    <img src="/media/Group 1.png" id="pic_side" class="center">
-                    {% comment %} {{ profile_pic }} {% endcomment %}
-                    <p id="full_name">{{ name }}</p>
-                    <p id="role">SUPER ADMIN</p>
-                    <p class="edit_profile">Edit Profile <img src="/media/Icon awesome-edit.png"
-                            class="edit_profile_pic"><a class="edit_profile" href="{% url 'logout' %}">logout</a></p>
-
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="slide" id="sidebar-wrapper">
+            <div class="list-group list-group-flush text-center mt-3">
+                {% if user.is_authenticated %}
+                <div class="profile">
+                    <img src="/media/Group 1.png" class="mb-3">
+                    <p class="h4 mb-1 font-weight-bold" id="profile_name">{{ name }}</p>
+                    <p class="text-warning font-weight-bold role" >SUPER ADMIN</p>
+                    <p class="role">Edit Profile <img src="/media/Icon awesome-edit.png">
+                        <a href="{% url 'logout' %}"><img src="/media/logout-16.png"></a>
+                    </p>    
                 </div>
-            </header>
+                <a href="{%url 'camp' %}" class="box-side-sub Aligner mt-3" id="overview">
+                    <em> OVERVIEW </em>
+                </a>
+                {% if active_camp %}
+                    <a href="{%url 'campers' number %}"
+                        class="list-group-item mt-2 box-side-sub Aligner" id="campers">
+                        <em> CAMPERS </em>
+                    </a>
+                    <a href="{%url 'flow' number %}"
+                        class="list-group-item mt-2 box-side-sub Aligner" id="flow">
+                        <em> FLOW </em>
+                    </a>
+                {% endif %}
+                    <a href="{%url 'locations' %}" class="mt-2 box-side-sub Aligner" id="locations">
+                        <em> LOCATIONS </em>
+                    </a>
+                {% if active_camp %}
+                    <a href="{%url 'staffs' number %}"
+                        class="list-group-item mt-2 box-side-sub Aligner" id="staffs">
+                        <em> STAFFS </em>
+                    </a>
+                {% endif %}
+                <a class="mt-2 box-side-sub Aligner" id="menu-toggle">
+                    <em> <img src="/media/Icon awesome-angle-left.png" style="margin-right: 5px;" id="icon_hide"> HIDE
+                    </em>
+                </a>
+                {% else %}
+                <div class="m-3">
+                    <a href="{% url 'index' %}"><img src="/media/logo.png" id="" class=""></a>
+                    <p class="">Role and Duty Management System</p>
+                </div>
+                <a class="mt-2 box-side-sub Aligner" data-toggle="modal"
+                    data-target="#exampleModalCenter">
+                    LOGIN
+                </a>
+                <a href="{% url 'register' %}"
+                    class="mt-2 box-side-sub Aligner">
+                    REGISTER
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
 
-            <div class="dashboard-panel-content">
-                <aside class="menu has-text-white">
-                    <ul class="menu-list" id="hover_sidebar">
-                        <li>
-                            <div href="{%url 'camp' %}" class="box-side-sub word-side Aligner" id="overview">
-                                OVERVIEW
-                            </div>
-                            <div href="{%url 'campers' %}" class="box-side-sub word-side Aligner" id="campers">
-                                CAMPERS
-                            </div>
-                            <div href="{%url 'flow' %}" class="box-side-sub word-side Aligner" id="flow">
-                                FLOW
-                            </div>
-                            <div href="{%url 'locations' %}" class="box-side-sub word-side Aligner" id="locations">
-                                LOCATIONS
-                            </div>
-                            <div href="{%url 'staffs' %}" class="box-side-sub word-side Aligner" id="staffs">
-                                STAFFS
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="m-2">
+                &nbsp;<div style="cursor: pointer;display: none; position: absolute;" id="menu-toggle2">
+                    <img src="/media/Group 65.png">
+                </div>
+            </div>
+            
+            {% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                         </li>
                     </ul>
-                    <div href="#" class="box-side-sub word-side Aligner" id="hide_sidebar_btn">
-                        <img src="/media/Icon awesome-angle-left.png" style="margin-right: 5px;" id="icon_hide"> HIDE
-                    </div>
-                </aside>
-
-                {% else %}
-                <div class="dashboard-panel is-medium is-hidden-mobile" id="side_bar_login">
-                    <header class="dashboard-panel-header">
-                        <div class="has-text-centered">
-                            <a href="{% url 'index' %}"><img src="/media/logo.png" id="logo_sidebar_login"
-                                    class="image center"></a>
-                            <p class="is-size-6">Role and Duty Management System</p>
-                        </div>
-                    </header>
-
-                    <div class="dashboard-panel-content">
-                        <aside class="has-text-centered is-vcentered containers" id="side_bar_login">
-                            <a class="center button is-rounded login-size btn-login modal-button" id="btnLogin"
-                                data-target="#modal">
-                                LOGIN
-                            </a>
-                            <a href="{% url 'register' %}" class="center button is-rounded login-size btn-login"
-                                id="btnRegister">
-                                REGISTER
-                            </a>
-                        </aside>
-                        {% endif %}
-                    </div>
                 </div>
-                <div style="cursor: pointer;display: block;" id="hamburger1" class="is-fullheight">
-                    <img src="/media/Group 65.png">
-                </div>
-                <!-- main section -->
-                <div class="dashboard-main is-scrollable">
-                    <!-- <nav class="navbar is-fixed-top is-dark">
-                        <div class="navbar-menu">
-                            <div class="navbar-end">
-                                <span class="navbar-item">
-                                    Fixed-top navbar
-                                </span>
-                            </div>
-                        </div>
-                    </nav> -->
+            </nav> {% endcomment %}
 
-                    <section class="Aligner">
-
-                        <div class="container column">
-
-                            <div class="section">
-
-                                {% block content %} {% endblock %}
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- the footer will take up all unused space at the bottom -->
-                    <!-- <footer class="footer has-background-black has-text-white">
-                        <p class="is-size-2">
-                            Footer
-                        </p>
-
-                        <p>
-                            Notice that this entire space is filled up.
-                        </p>
-                    </footer> -->
-                </div>
+            <div class="mr-5 ml-5">
+                {% block content %} {% endblock %}
             </div>
         </div>
-        {% include 'login_modal.html' %}
+        <!-- /#page-content-wrapper -->
+
     </div>
+    {% include 'login_modal.html' %}
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#menu-toggle2")[0].style.display = 'block';
+            $("#wrapper").toggleClass("toggled");
+        });
+        $("#menu-toggle2").click(function (e) {
+            e.preventDefault();
+            $("#menu-toggle2")[0].style.display = 'none';
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 </body>
 
 </html>
-<script>
-    $(".modal-button").click(function () {
-        var target = $(this).data("target");
-        $("html").addClass("is-clipped");
-        $(target).addClass("is-active");
-    });
-
-    $(".modal-close").click(function () {
-        $("html").removeClass("is-clipped");
-        $(this).parent().removeClass("is-active");
-    });
-</script>

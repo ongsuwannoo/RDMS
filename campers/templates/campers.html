@@ -1,14 +1,124 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <p class="card-header-title">ALL Campers</p>
-    </div>
-    <div class="card-content">
-        <div class="content">Content</div>
+<style>
+    .table {
+        background: transparent;
+    }
+
+    .icon {
+        height: 20px;
+    }
+
+    thead {
+        background-color: #222230;
+    }
+    .search {
+        background-color: #707070 !important;
+        color: white !important;
+    }
+    .search::placeholder {
+        color: white;
+        opacity: 0.5;
+    }
+</style>
+<div class="form-group row ml-2">
+    <div class="col-xs-3">
+        <input type="text" class="form-control  search" placeholder="Search">
     </div>
 </div>
-
+<table class="table table-dark table-hover">
+    <thead class="">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Food allergy</th>
+            <th scope="col">Congenital Disease</th>
+            <th scope="col">Group</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">xx0001</th>
+            <td>นายจักกรี แสงนำพาลง</td>
+            <td>อาหาร</td>
+            <td>โรคใส้ศึกอักเสบ</td>
+            <td><label class="text-primary">IoT</label> / <label class="text-success">Tire</label></td>
+            <td>
+                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
+                    <img src="/media/Icon awesome-edit.png" class="icon">
+                </a>
+                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
+                    <img src="/media/Icon open-document.png" class="icon"></img>
+                </a>
+                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Observe">
+                    <img src="/media/Icon ionic-md-document.png" class="icon"></img>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">xx0001</th>
+            <td>นายจักกรี แสงนำพาลง</td>
+            <td>อาหาร</td>
+            <td>โรคใส้ศึกอักเสบ</td>
+            <td><label class="text-primary">IoT</label> / <label class="text-success">Tire</label></td>
+            <td>
+                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
+                    <img src="/media/Icon awesome-edit.png" class="icon">
+                </a>
+                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
+                    <img src="/media/Icon open-document.png" class="icon"></img>
+                </a>
+                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Observe">
+                    <img src="/media/Icon ionic-md-document.png" class="icon"></img>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">xx0001</th>
+            <td>นายจักกรี แสงนำพาลง</td>
+            <td>อาหาร</td>
+            <td>โรคใส้ศึกอักเสบ</td>
+            <td><label class="text-primary">IoT</label> / <label class="text-success">Tire</label></td>
+            <td>
+                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
+                    <img src="/media/Icon awesome-edit.png" class="icon">
+                </a>
+                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
+                    <img src="/media/Icon open-document.png" class="icon"></img>
+                </a>
+                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Observe">
+                    <img src="/media/Icon ionic-md-document.png" class="icon"></img>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">xx0001</th>
+            <td>นายจักกรี แสงนำพาลง</td>
+            <td>อาหาร</td>
+            <td>โรคใส้ศึกอักเสบ</td>
+            <td><label class="text-primary">IoT</label> / <label class="text-success">Tire</label></td>
+            <td>
+                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
+                    <img src="/media/Icon awesome-edit.png" class="icon">
+                </a>
+                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
+                    <img src="/media/Icon open-document.png" class="icon"></img>
+                </a>
+                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Observe">
+                    <img src="/media/Icon ionic-md-document.png" class="icon"></img>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<script>
+    $(function () {
+        $('.material-tooltip-main').tooltip({
+            template: '<div class="tooltip md-tooltip-main"><div class="tooltip-arrow md-arrow"></div><div class="tooltip-inner md-inner-main"></div></div>'
+        });
+    })
+</script>
 {% endblock %}
 
 {% comment %} {% block footer %}

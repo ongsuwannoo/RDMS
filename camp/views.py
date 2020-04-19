@@ -4,15 +4,24 @@ from .models import *
 from django.shortcuts import redirect, render
 # Create your views here.
 
-def camp(request, camp=""):
-    user = request.user
-    camp = Camp.objects.filter(head=user)
-    # head = user.objects.get(pk=camp.head)
-    context = {
-        'name': getPersonal(request)['name'],
-        'camps': camp,
-    }
-    print(context)
+def camp(request, number=""):
+    context = {}
+    context['number'] = number
+    context['name'] = getPersonal(request)['name']
+    if number:
+        camp = Camp.objects.get(pk=number)
+        context['active_camp'] = True
+        context['camp'] = camp
+    else:
+        user = request.user
+        camp = Camp.objects.filter(head=user)
+        context['camps'] = camp
+        context['active_camp'] = False
+        
+    return render(request, 'camp.html', context)
+
+def campers(request, number):
+    context = {}
     return render(request, 'camp.html', context)
 
 def create_camp(request):
