@@ -76,9 +76,19 @@ body {
     background-position: 0 0;
     color: white;
 }
-
+.reg-login{
+    background-color: var(--bg-gray);
+    border-radius: 50px !important;
+    width: 240px;
+    height: 65px;
+    margin-left: auto;
+    margin-right: auto;
+}
 .slide {
     background-color: var(--bg-aside);
+}
+.slide-login{
+    background-color: var(--bg-black);
 }
 
 .Aligner {
@@ -87,7 +97,18 @@ body {
     justify-content: center;
 }
 
-.active {
+.Aligner-item {
+    max-width: 50%;
+}
+
+.Aligner-item--top {
+    align-self: flex-start;
+}
+
+.Aligner-item--bottom {
+    align-self: flex-end;
+}
+.list-group-item.active {
     background-color: var(--bg-purple);
     border-color: var(--bg-purple);
 }

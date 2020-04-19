@@ -18,9 +18,9 @@
 <body>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
+    {% if user.is_authenticated %}
         <div class="slide" id="sidebar-wrapper">
-            <div class="list-group list-group-flush text-center mt-3">
-                {% if user.is_authenticated %}
+            <div class="list-group list-group-flush text-center mt-3" id="sidebar">
                 <div class="profile">
                     <img src="/media/Group 1.png" class="mb-3">
                     <p class="h4 mb-1 font-weight-bold" id="profile_name">{{ name }}</p>
@@ -29,10 +29,14 @@
                         <a href="{% url 'logout' %}"><img src="/media/logout-16.png"></a>
                     </p>    
                 </div>
-                <a href="{%url 'camp' %}" class="box-side-sub Aligner mt-3" id="overview">
-                    <em> OVERVIEW </em>
-                </a>
+                <a href="{%url 'camp' %}" class="list-group-item box-side-sub Aligner mt-3" id="overview">
+                        <em> OVERVIEW </em>
+                    </a>
                 {% if active_camp %}
+                    <a href="{%url 'camp' number %}" class="list-group-item box-side-sub Aligner mt-3" id="camp">
+                        <em> CAMP </em>
+                    </a>
+                
                     <a href="{%url 'campers' number %}"
                         class="list-group-item mt-2 box-side-sub Aligner" id="campers">
                         <em> CAMPERS </em>
@@ -42,7 +46,7 @@
                         <em> FLOW </em>
                     </a>
                 {% endif %}
-                    <a href="{%url 'locations' %}" class="mt-2 box-side-sub Aligner" id="locations">
+                    <a href="{%url 'locations' %}" class="list-group-item mt-2 box-side-sub Aligner" id="locations">
                         <em> LOCATIONS </em>
                     </a>
                 {% if active_camp %}
@@ -55,22 +59,27 @@
                     <em> <img src="/media/Icon awesome-angle-left.png" style="margin-right: 5px;" id="icon_hide"> HIDE
                     </em>
                 </a>
+            </div>
+        </div>
                 {% else %}
+        <div class="slide-login" id="sidebar-wrapper">
+            <div class="list-group list-group-flush text-center mt-3" id="sidebar">
                 <div class="m-3">
                     <a href="{% url 'index' %}"><img src="/media/logo.png" id="" class=""></a>
                     <p class="">Role and Duty Management System</p>
                 </div>
-                <a class="mt-2 box-side-sub Aligner" data-toggle="modal"
+                <a class="list-group-item mt-2 box-side-sub Aligner reg-login font-italic" data-toggle="modal"
                     data-target="#exampleModalCenter">
                     LOGIN
                 </a>
                 <a href="{% url 'register' %}"
-                    class="mt-2 box-side-sub Aligner">
+                    class="list-group-item mt-2 box-side-sub Aligner reg-login mt-4 font-italic">
                     REGISTER
                 </a>
-                {% endif %}
             </div>
         </div>
+    {% endif %}
+            
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->

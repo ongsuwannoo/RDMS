@@ -1,34 +1,85 @@
 {% extends "base.html" %}
-{% load static %}
+
 {% block content %}
-<label class="label is-uppercase has-text-centered is-size-4" style="margin-bottom: 30px;">login</label>
+<style>
+    .modal {
+        color: black;
+        background-color: var(--bg-gray);
+    }
+
+    .modal-content {
+        border-radius: 30px;
+        border: 1px solid #924BE7;
+        background-color: rgba(146, 75, 231, 0.05);
+        color: white;
+    }
+
+    .input-box {
+        background-color: rgba(146, 75, 231, 0);
+        border: 1px solid #924BE7;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+        /* border-bottom: 5; */
+        color: white;
+
+    }
+
+    .input-box:focus {
+        background-color: rgba(146, 75, 231, 0);
+        color: white;
+    }
+
+    .username {
+        margin: 0;
+        padding-top: 10px;
+    }
+
+    .btn-login {
+        border: 1px solid #5D3794;
+        background-color: #7654A7;
+        color: white;
+        border-radius: 11px;
+        width: 130px;
+    }
+
+    .btn-login:hover {
+        background-color: var(--bg-purple);
+        color: white;
+    }
+    .modal-dialog {
+        height: 80vh;
+    }
+</style>
 <form method="POST" action="{% url 'login' %}">
-{% csrf_token %}
-    <div class="login-form">
-        <div class="field">
-            <label class="label">Username:</label>
-            <p class="control is-expanded">
-                <input class="input input-login" type="text" placeholder="Username" required name="username" value="{{username}}">
-            </p>
-        </div>
-        <div class="field">
-            <label class="label">Password:</label>
-            <p class="control is-expanded">
-                <input class="input input-login" type="password" placeholder="Password" required name="password">
-                {% if error %}
-                    <p class="help is-danger is-size-6">{{ error }}</p>
-                {% else %}
-                    <p class="help is-danger is-size-6">&nbsp;</p>
-                {% endif %}
-            </p>
-        </div>
-        
-        <div class="field is-grouped is-grouped-centered is-pulled-right">
-            <p class="control">
-                <button type="submit" class="button is-success">
-                    LOGIN
-                </button>
-            </p>
+    {% csrf_token %}
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="/media/logo.png" class="mt-5">
+                <p>Role and Duty Management System</p>
+                <div class="row pt-4">
+                    <div class="col-sm-3 font-italic align-text-bottom username">Username:</div>
+                    <div class="col"><input type="text" class="form-control input-box" id="username" name="username"
+                            value="{{username}}"></div>
+                </div>
+                <div class="row align-items-center mt-3">
+                    <div class="col-sm-3 font-italic align-text-bottom username">Password:</div>
+                    <div class="col"><input type="password" class="form-control input-box" id="password" name="password"
+                            value="{{password}}">
+                        {% if error %}
+                            <p style="color: red">{{ error }}</p>
+                        {% else %}
+                            <p style="color: red">&nbsp;</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-login mt-5">LOG IN</button>
+                <p style="font-size: 10px;color: #686868;" class="mt-3">Doesn't have account yet ? <label
+                        style="color: #5D3794;">Register</label></p>
+            </div>
+            <input type="hidden" name="next" value="{{ request.path }}">
         </div>
     </div>
 </form>
