@@ -1,8 +1,139 @@
 {% extends "base.html" %} {% load static %} {% block content %}
-<p class="h2 text-uppercase font-weight-bold text-center" style="margin-bottom: 30px;">
-    register form
-</p>
 <button type="button" class="btn btn-success" onclick="fill()">Fill</button>
+<style>
+    .modal {
+        color: black;
+        background-color: var(--bg-gray);
+    }
+
+    .modal-content {
+        border-radius: 30px;
+        border: 1px solid #924BE7;
+        background-color: rgba(146, 75, 231, 0.05);
+        color: white;
+    }
+
+    .input-box {
+        background-color: rgba(146, 75, 231, 0);
+        border: 1px solid #924BE7;
+        color: white;
+        padding-top: 10% !important;
+        padding-left: 5% !important;
+    }
+
+    .input-box:focus {
+        background-color: rgba(146, 75, 231, 0);
+        color: white;
+    }
+
+    .username {
+        margin: 0;
+        padding-top: 10px;
+    }
+
+    .btn-login {
+        border: 1px solid #5D3794;
+        background-color: #7654A7;
+        color: white;
+        border-radius: 11px;
+        width: 130px;
+    }
+
+    .btn-login:hover {
+        background-color: var(--bg-purple);
+        color: white;
+    }
+
+    .modal-dialog {
+        height: 40vh;
+        max-width: 900px;
+    }
+
+    .col {
+        padding-left: 0;
+    }
+
+    .col-md-auto {
+        padding-right: 0;
+    }
+
+</style>
+{% comment %} <form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center p-5">
+                <p>REGISTER FORM</p>
+                <table class="Aligner">
+                    <tr>
+                        <th class="align-bottom">
+                            <div class="col-md-auto text-left">
+                                Username :
+                            </div>
+                        </th>
+                        <th>
+                            <div class="col Aligner ml-1">
+                                <input type="text" class="form-control input-box">
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="align-bottom">
+                            <div class="col-md-auto text-left">
+                                Password :
+                            </div>
+                            
+                        </th>
+                        <th>
+                            <div class="col ml-1">
+                                <input type="text" class="form-control input-box">
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="align-bottom">
+                            <div class="col-md-auto text-left">
+                                Password Confirm :
+                            </div>
+                            
+                        </th>
+                        <th>
+                            <div class="col ml-1">
+                                <input type="text" class="form-control input-box">
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+                <!-- <div class="row">
+                    <div class="col-md-auto Aligner">
+                        Username :
+                    </div>
+                    <div class="col Aligner">
+                        <input type="text" class="form-control input-box">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-auto Aligner">
+                        Password :
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control input-box">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-auto Aligner">
+                        Password Confirm :
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control input-box">
+                    </div>
+                </div> -->
+            </div>
+            <input type="hidden" name="next" value="{{ request.path }}">
+        </div>
+    </div>
+</form> {% endcomment %}
+
 
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
@@ -11,21 +142,21 @@
             <label for="inputEmail4">Username:</label>
             {{ form.username }}
             {% for error in form.username.errors %}
-                <p style="color: red">{{ error }}</p>
+            <p style="color: red">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="form-group col">
             <label for="inputPassword4">Password:</label>
             {{ form.password1 }}
             {% for error in form.password1.errors %}
-                <p style="color: red">{{ error }}</p>
+            <p style="color: red">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="form-group col">
             <label for="inputPassword4">Password confirm:</label>
             {{ form.password2 }}
             {% for error in form.password2.errors %}
-                <p style="color: red">{{ error }}</p>
+            <p style="color: red">{{ error }}</p>
             {% endfor %}
         </div>
     </div>
@@ -35,28 +166,28 @@
             <label for="inputEmail4">Student ID:</label>
             {{ form.sid }}
             {% for error in form.sid.errors %}
-                <p style="color: red">{{ error }}</p>
+            <p style="color: red">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="form-group col-md-2">
             <label for="inputEmail4">Sex:</label>
             {{ form.sex }}
             {% for error in form.sex.errors %}
-                <p style="color: red">{{ error }}</p>
+            <p style="color: red">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="form-group col">
             <label for="inputPassword4">First name</label>
             {{ form.first_name }}
             {% for error in form.first_name.errors %}
-                <p style="color: red">{{ error }}</p>
+            <p style="color: red">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="form-group col">
             <label for="inputPassword4">Last name</label>
             {{ form.last_name }}
             {% for error in form.last_name.errors %}
-                <p style="color: red">{{ error }}</p>
+            <p style="color: red">{{ error }}</p>
             {% endfor %}
         </div>
     </div>
@@ -69,14 +200,14 @@
             <label for="inputEmail4">Phone:</label>
             {{ form.phone }}
             {% for error in form.phone.errors %}
-                <p style="color: red">{{ error }}</p>
+            <p style="color: red">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="form-group col">
             <label for="inputPassword4">Email:</label>
             {{ form.email }}
             {% for error in form.email.errors %}
-                <p style="color: red">{{ error }}</p>
+            <p style="color: red">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="col form-row">
