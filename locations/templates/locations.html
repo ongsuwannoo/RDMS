@@ -1,12 +1,56 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <p class="card-header-title">Locations</p>
-    </div>
-    <div class="card-content">
-        <div class="content">Content</div>
-    </div>
+<style>
+	.card {
+		background-color: var(--bg-aside);
+	}
+	.card-camp {
+		background-color: var(--bg-aside);
+		{% comment %} border-radius: 25px; {% endcomment %}
+		border: 2px solid #707070;
+		/* height: 194px; */
+		/* width: 100%; */
+		/* max-width: 60rem; */
+		cursor: pointer;
+	}
+
+	.pic_camp {
+		border: 1.9px solid white;
+		height: 150px;
+        width: 225px;
+		object-fit: cover;
+
+	}
+
+	.card-body-camp {
+		padding: 0;
+	}
+
+	.head {
+		font-size: 12px;
+	}
+</style>
+
+<div class="card mr-5 ml-5 card-camp" onclick="window.location={{ camp.id }}">
+	<div class="row no-gutters">
+		<div class="col-md-3">
+			<img src="../media/common.jpg" alt=""
+				class="pic_camp m-3  mx-auto d-block img-responsive">
+		</div>
+		<div class="col-md-7">
+			<div class="card-body m-3 card-body-camp">
+				<h5 class="card-title font-weight-bold h3">Location : Commom Room</h5>
+				<em>
+					<p class="card-text">Description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et{{ camp.desc }}</p>
+					<p class="text-uppercase head font-weight-bold"> Time :
+						<a class="text-uppercase" style="color: #10FF28;">
+                            09:00 - 12:00
+						</a>
+					</p>
+				</em>
+			</div>
+		</div>
+	</div>
 </div>
 
 {% endblock %}
