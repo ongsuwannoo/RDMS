@@ -6,24 +6,37 @@
         background-color: var(--bg-gray);
     }
 
-    .modal-content {
+    .modal-content-reg {
         border-radius: 30px;
         border: 1px solid #924BE7;
         background-color: rgba(146, 75, 231, 0.05);
         color: white;
+        margin-top: auto;
     }
 
-    .input-box {
+    .input-box-reg {
         background-color: rgba(146, 75, 231, 0);
         border: 1px solid #924BE7;
         color: white;
-        padding-top: 10% !important;
+        /* padding-top: 10% !important; */
         padding-left: 5% !important;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+        /* color: orchid; */
+        font-size: 25px;
+        height: 25px;
     }
 
-    .input-box:focus {
+    .input-box-reg:focus {
         background-color: rgba(146, 75, 231, 0);
         color: white;
+        /* color: orchid; */
+    }
+
+    input[type=password] {
+        font-size: 17px;
     }
 
     .username {
@@ -31,20 +44,26 @@
         padding-top: 10px;
     }
 
-    .btn-login {
+    .btn-next {
         border: 1px solid #5D3794;
         background-color: #7654A7;
         color: white;
-        border-radius: 11px;
+        border-radius: 25px;
         width: 130px;
+        font-size: 30px;
+        font-weight: bolder;
+    }
+    .btn-reg {
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
-    .btn-login:hover {
+    .btn-next:hover {
         background-color: var(--bg-purple);
         color: white;
     }
 
-    .modal-dialog {
+    .modal-reg {
         height: 40vh;
         max-width: 900px;
     }
@@ -57,103 +76,419 @@
         padding-right: 0;
     }
 
+    .phase1 {
+        font-family: 'THSarabunNewRegular';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 25px !important;
+    }
+
+    .date {
+        padding-top: 0;
+        height: 30px;
+    }
+
+    .select {
+        background-color: rgba(93, 55, 148, 0.5);
+        border: 1px solid #924BE7;
+        color: white;
+        /* padding-top: 10% !important; */
+        padding-left: 5% !important;
+        /* color: orchid; */
+        font-size: 25px;
+
+        padding-top: 0;
+        height: 33px;
+        /* -webkit-appearance: none; */
+    }
+
+    .select:focus {
+        background-color: #5D3794;
+        color: white;
+    }
+
+    select option {
+        background: var(--bg-purple);
+        font-size: 15px;
+        font-family: 'THSarabunNewRegular';
+        font-weight: normal;
+        font-style: normal;
+        border-radius: 10px;
+    }
+
+    .pic_camp {
+        border: 1.9px solid white;
+        height: 150px;
+        object-fit: cover;
+    }
+    .btn-back {
+        background-color: #A78E54;
+    }
+    .btn-back:hover{
+        background-color: rgb(228, 171, 38);
+    }
+    
+    #btn_next{
+        margin: auto;
+    }
 </style>
-{% comment %} <form method="POST" action="{% url 'login' %}">
+<form method="POST" action="{% url 'register' %}" enctype="multipart/form-data" class="phase1">
     {% csrf_token %}
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-reg modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-reg">
             <div class="modal-body text-center p-5">
                 <p>REGISTER FORM</p>
-                <table class="Aligner">
-                    <tr>
-                        <th class="align-bottom">
+                <table class="Aligner" style="display: grid;" id="step1">
+                    <tr height="50">
+                        <th class="">
                             <div class="col-md-auto text-left">
                                 Username :
                             </div>
                         </th>
                         <th>
-                            <div class="col Aligner ml-1">
-                                <input type="text" class="form-control input-box">
+                            <div class="col Aligner ml-1" data-toggle="username" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.username.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                                {{ form.username }}
                             </div>
                         </th>
                     </tr>
-                    <tr>
-                        <th class="align-bottom">
+                    <tr height="50">
+                        <th class="">
                             <div class="col-md-auto text-left">
                                 Password :
                             </div>
-                            
                         </th>
                         <th>
-                            <div class="col ml-1">
-                                <input type="text" class="form-control input-box">
+                            <div class="col ml-1" data-toggle="password1" data-html="true" data-placement="right"
+                                title="
+                            {% for error in form.password1.errors %}
+                            <div class='text-danger'>
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                                {{ form.password1 }}
                             </div>
                         </th>
                     </tr>
-                    <tr>
-                        <th class="align-bottom">
+                    <tr height="50">
+                        <th class="">
                             <div class="col-md-auto text-left">
                                 Password Confirm :
                             </div>
-                            
                         </th>
                         <th>
-                            <div class="col ml-1">
-                                <input type="text" class="form-control input-box">
+                            <div class="col ml-1" data-toggle="password2" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.password2.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                                {{ form.password2 }}
+                            </div>
+                        </th>
+                    </tr>
+                    <tr height="50">
+                        <th class="">
+                            <div class="col-md-auto text-left">
+                                Email :
+                            </div>
+                        </th>
+                        <th>
+                            <div class="col ml-1" data-toggle="email" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.email.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                                {{ form.email }}
                             </div>
                         </th>
                     </tr>
                 </table>
-                <!-- <div class="row">
-                    <div class="col-md-auto Aligner">
-                        Username :
+
+                <div class="" style="display: none;" id="step2">
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <div class="">
+                                ชื่อ :
+                            </div>
+                        </div>
+                        <div class="col-sm-3" data-toggle="first_name" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.first_name.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                            <div class="">
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                นามสกุล :
+                            </div>
+                        </div>
+                        <div class="col-sm-3" data-toggle="last_name" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.last_name.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                            <div class="">
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="">
+                                รหัสนักศึกษา :
+                            </div>
+                        </div>
+                        <div class="col-sm" data-toggle="sid" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.sid.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                            <div class="">
+                                {{ form.sid }}
+                            </div>
+                        </div>
                     </div>
-                    <div class="col Aligner">
-                        <input type="text" class="form-control input-box">
+                    <div class="row mt-3 mt-3">
+                        <div class="col-md-auto">
+                            <div class="">
+                                ชื่อเล่น :
+                            </div>
+                        </div>
+                        <div class="col-3" data-toggle="nick_name" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.nick_name.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                            <div class="">
+                                <input type="text" class="form-control input-box-reg" required name="nick_name">
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                เพศ :
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm" data-toggle="sex" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.sex.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                            <div class="">
+                                {{ form.sex }}
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                ศาสนา :
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm" data-toggle="religion" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.religion.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                            <div class="">
+                                <select id="inputState" class="form-control select" name="religion">
+                                    <option value="buddha">พุทธ</option>
+                                    <option value="christ">คริสต์</option>
+                                    <option value="islamic">อิสลาม</option>
+                                    <option value="other">อื่นๆ/ไม่ระบุ</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-auto">
+                            <div class="">
+                                วันเกิด :
+                            </div>
+                        </div>
+                        <div class="col-sm-3" data-toggle="birthday" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.birthday.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                            <div class="">
+                                <input type="date" class="form-control input-box-reg date" required name="birthday">
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                กรุ๊ปเลือด :
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm" data-toggle="blood_type" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.blood_type.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                            <div class="">
+                                <select id="inputState" class="form-control select" name="blood_type">
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="AB">AB</option>
+                                    <option value="O">O</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                ไซส์เสื้อที่ใส่ :
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm" data-toggle="shirt_size" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.shirt_size.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                            <div class="">
+                                <select id="inputState" class="form-control select" name="shirt_size">
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-auto">
+                            <div class="">
+                                เบอร์โทรศัพท์ :
+                            </div>
+                        </div>
+                        <div class="col-sm-3" data-toggle="phone" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.phone.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                            <div class="">
+                                {{ form.phone }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-auto">
+                            <div class="">
+                                อาหารที่แพ้ :
+                            </div>
+                        </div>
+                        <div class="col-sm" data-toggle="food_allergy" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.food_allergy.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                            <div class="">
+                                <input type="text" class="form-control input-box-reg" name="food_allergy">
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                โรคประจำตัว :
+                            </div>
+                        </div>
+                        <div class="col-sm" data-toggle="congenital_disease" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.congenital_disease.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </di>">
+                            <div class="">
+                                <input type="text" class="form-control input-box-reg" name="congenital_disease">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-sm-4">
+                            <img src="../media/Group 65.png"
+                                class="pic_camp m-3 rounded-circle mx-auto d-block img-responsive" id="img_profile">
+                            <p class="font-weight-bold">รูปโปรไฟล์ (รูปจริง)</p>
+                            <div class="input-group">
+                                <span class="custom-file" data-toggle="profile_pic" data-html="true" data-placement="right"
+                                title="
+                            <div class='text-danger'>
+                            {% for error in form.profile_pic.errors %}
+                                {{error}}<br/>
+                            {% endfor %}
+                            </div>">
+                                    <!-- <input type="file" class="custom-file-input" id="id_profile_pic"
+                                        aria-describedby="inputGroupFileAddon01"> -->
+                                    {{ form.profile_pic }}
+                                    <label class="custom-file-label text-left" for="id_profile_pic">Choose file</label>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row mt-4">
-                    <div class="col-md-auto Aligner">
-                        Password :
+                <a onclick="nextStep()" class="btn btn-next btn-reg mt-5" id="btn_next">NEXT</a>
+                <div class="row">
+                    <div class="col-md-auto">
+                        <a class="btn btn-next btn-reg mt-5 btn-back" onclick="backStep()" style="display: none;" id="btn_back">BAKC</a>
                     </div>
-                    <div class="col">
-                        <input type="text" class="form-control input-box">
+                    <div class="col"></div>
+                    <div class="col-md-auto">
+                        <button class="btn btn-next btn-reg mt-5" type="submit" style="display: none;" id="btn_submit">SUBMIT</button>
                     </div>
                 </div>
-                <div class="row mt-4">
-                    <div class="col-md-auto Aligner">
-                        Password Confirm :
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control input-box">
-                    </div>
-                </div> -->
             </div>
             <input type="hidden" name="next" value="{{ request.path }}">
         </div>
     </div>
-</form> {% endcomment %}
-
-
-<form method="POST" enctype="multipart/form-data">
+</form>
+{% comment %}
+<form method="POST" enctype="multipart/form-data" style="margin-top: 500px;">
     {% csrf_token %}
     <div class="form-row">
         <div class="form-group col">
-            <label for="inputEmail4">Username:</label>
+            <label for="inputEmail4" style="color: red">Username:</label>
             {{ form.username }}
             {% for error in form.username.errors %}
             <p style="color: red">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="form-group col">
-            <label for="inputPassword4">Password:</label>
+            <label for="inputPassword4" style="color: red">Password:</label>
             {{ form.password1 }}
             {% for error in form.password1.errors %}
             <p style="color: red">{{ error }}</p>
             {% endfor %}
         </div>
         <div class="form-group col">
-            <label for="inputPassword4">Password confirm:</label>
+            <label for="inputPassword4" style="color: red">Password confirm:</label>
             {{ form.password2 }}
             {% for error in form.password2.errors %}
             <p style="color: red">{{ error }}</p>
@@ -204,7 +539,7 @@
             {% endfor %}
         </div>
         <div class="form-group col">
-            <label for="inputPassword4">Email:</label>
+            <label for="inputPassword4" style="color: red">Email:</label>
             {{ form.email }}
             {% for error in form.email.errors %}
             <p style="color: red">{{ error }}</p>
@@ -271,7 +606,7 @@
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Sign in</button>
-</form>
+</form> {% endcomment %}
 <script>
     function fill() {
         document.getElementById('id_username').value = 'ongsuwannoo'
@@ -282,6 +617,9 @@
         document.getElementById('id_email').value = 'admin@admin.com'
         document.getElementById('id_phone').value = '0824200568'
         document.getElementById('id_sid').value = '61070022'
+        document.getElementsByName('nick_name')[0].value = 'ทดสอบ'
+        document.getElementsByName('congenital_disease')[0].value = '-'
+        document.getElementsByName('food_allergy')[0].value = '-'
     }
 
     $(".custom-file-input").on("change", function () {
@@ -294,6 +632,76 @@
         console.log($(this).val());
     });
 
+    $(document).ready(function () {
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img_profile').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#id_profile_pic").change(function () {
+            readURL(this);
+        });
+    });
+
+    function nextStep() {
+        document.getElementById('step1').style.display = 'none';
+        document.getElementById('step2').style.display = 'grid';
+        document.getElementById('btn_next').style.display = 'none';
+        document.getElementById('btn_submit').style.display = 'block';
+        document.getElementById('btn_back').style.display = 'block';
+        $("[data-toggle='username']").tooltip('hide')
+        $("[data-toggle='password1']").tooltip('hide')
+        $("[data-toggle='password2']").tooltip('hide')
+        $("[data-toggle='email']").tooltip('hide')
+
+        $("[data-toggle='first_name']").tooltip('show')
+        $("[data-toggle='last_name']").tooltip('show')
+        $("[data-toggle='sid']").tooltip('show')
+        $("[data-toggle='nick_name']").tooltip('show')
+        $("[data-toggle='sex']").tooltip('show')
+        $("[data-toggle='religion']").tooltip('show')
+        $("[data-toggle='birthday']").tooltip('show')
+        $("[data-toggle='blood_type']").tooltip('show')
+        $("[data-toggle='shirt_size']").tooltip('show')
+        $("[data-toggle='phone']").tooltip('show')
+        $("[data-toggle='food_allergy']").tooltip('show')
+        $("[data-toggle='congenital_disease']").tooltip('show')
+    }
+
+    function backStep(){
+        document.getElementById('step1').style.display = 'grid';
+        document.getElementById('step2').style.display = 'none';
+        document.getElementById('btn_next').style.display = 'block';
+        document.getElementById('btn_submit').style.display = 'none';
+        document.getElementById('btn_back').style.display = 'none';
+        $("[data-toggle='username']").tooltip('show')
+        $("[data-toggle='password1']").tooltip('show')
+        $("[data-toggle='password2']").tooltip('show')
+        $("[data-toggle='email']").tooltip('show')
+
+        $("[data-toggle='first_name']").tooltip('hide')
+        $("[data-toggle='last_name']").tooltip('hide')
+        $("[data-toggle='sid']").tooltip('hide')
+        $("[data-toggle='nick_name']").tooltip('hide')
+        $("[data-toggle='sex']").tooltip('hide')
+        $("[data-toggle='religion']").tooltip('hide')
+        $("[data-toggle='birthday']").tooltip('hide')
+        $("[data-toggle='blood_type']").tooltip('hide')
+        $("[data-toggle='shirt_size']").tooltip('hide')
+        $("[data-toggle='phone']").tooltip('hide')
+        $("[data-toggle='food_allergy']").tooltip('hide')
+        $("[data-toggle='congenital_disease']").tooltip('hide')
+    }
+    {% for field in form %}
+        {% if field.errors %}
+            $("[data-toggle='{{ field.name }}']").tooltip({ placement: 'right', trigger: 'manual' }).tooltip('show');
+            $("[data-toggle='{{ field.name }}']").on('click', function () { $(this).tooltip('destroy'); });
+        {% endif %}
+    {% endfor %}
 
 </script>
 {% endblock %}

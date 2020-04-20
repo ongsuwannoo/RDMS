@@ -13,6 +13,7 @@ def register(request):
     if request.method == 'POST':
         form = regForm(request.POST, request.FILES)
         context['form'] = form
+        print(form)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -24,7 +25,6 @@ def register(request):
     else:
         form = regForm()
         context['form'] = form
-
     return render(request, 'register.html', context)
 
 def my_login(request):

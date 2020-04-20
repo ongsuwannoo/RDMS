@@ -36,8 +36,12 @@
         width: 130px;
     }
     .btn-login:hover {
-        background-color: var(--bg-purple);
+        background-color: #7654A7;
         color: white;
+    }
+    .form-control:focus{
+        border-bottom: 1.5px solid rgb(194, 150, 255);
+        box-shadow: none;
     }
 </style>
 <form method="POST" action="{% url 'login' %}">
@@ -46,7 +50,7 @@
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-body text-center">
+                <div class="modal-body text-center mr-5 ml-5">
                     <img src="/media/logo.png" class="mt-5">
                     <p>Role and Duty Management System</p>
                     <div class="row pt-4">

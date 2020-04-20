@@ -13,11 +13,12 @@ body {
         font-family: 'THSarabunNew';
         unicode-range: U+0E00–U+0E7F;
     }
-    font-family: 'Noto Sans';
+    font-family: 'THSarabunPSK';
+    font-family: 'Noto Sans', sans-serif;
 }
 #sidebar-wrapper {
     min-height: 100vh;
-    margin-left: -17rem;
+    margin-left: -19rem;
     -webkit-transition: margin .25s ease-out;
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
@@ -30,7 +31,7 @@ body {
 }
 
 #sidebar-wrapper .list-group {
-    width: 17rem;
+    width: 19rem;
 }
 
 #page-content-wrapper {
@@ -50,7 +51,7 @@ body {
         width: 100%;
     }
     #wrapper.toggled #sidebar-wrapper {
-        margin-left: -17rem;
+        margin-left: -19rem;
     }
 }
 
