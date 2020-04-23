@@ -15,10 +15,15 @@ $(function () {
 })
 
 function hamburger(x) {
-    if (x.matches)
+    if (x.matches) {
         document.getElementById('menu-toggle2').style.display = 'block';
-    else
+        $("#main-content").addClass("toggled");
+    }
+    else {
         document.getElementById('menu-toggle2').style.display = 'none';
+        $("#main-content").removeClass("toggled");
+    }
+        
 }
 
 window.onload = function () {

@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/my_style.css'%}">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/thsarabun-new" type="text/css"/>
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/thsarabun-new" type="text/css" />
     <script src="{% static 'js/jquery-3.5.0.js'%}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js'%}"></script>
     <script src="{% static 'js/my_js.js'%}"></script>
@@ -19,42 +19,39 @@
 <body>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
-    {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
         <div class="slide" id="sidebar-wrapper">
             <div class="list-group list-group-flush text-center mt-3" id="sidebar">
                 <div class="profile">
                     <img src="/media/Group 1.png" class="mb-3">
                     <p class="h4 mb-1 font-weight-bold" id="profile_name">{{ name }}</p>
-                    <p class="text-warning font-weight-bold role" >SUPER ADMIN</p>
+                    <p class="text-warning font-weight-bold role">SUPER ADMIN</p>
                     <p class="role">Edit Profile <img src="/media/Icon awesome-edit.png">
                         <a href="{% url 'logout' %}"><img src="/media/logout-16.png"></a>
-                    </p>    
+                    </p>
                 </div>
                 <a href="{%url 'camp' %}" class="list-group-item box-side-sub Aligner mt-3" id="overview">
-                        <em> OVERVIEW </em>
-                    </a>
+                    <em> OVERVIEW </em>
+                </a>
                 {% if active_camp %}
-                    <a href="{%url 'camp' id_camp %}" class="list-group-item box-side-sub Aligner mt-3" id="camp">
-                        <em> CAMP </em>
-                    </a>
-                
-                    <a href="{%url 'campers' id_camp %}"
-                        class="list-group-item mt-2 box-side-sub Aligner" id="campers">
-                        <em> CAMPERS </em>
-                    </a>
-                    <a href="{%url 'flow' id_camp %}"
-                        class="list-group-item mt-2 box-side-sub Aligner" id="flow">
-                        <em> FLOW </em>
-                    </a>
+                <a href="{%url 'camp' id_camp %}" class="list-group-item box-side-sub Aligner mt-3" id="camp">
+                    <em> CAMP </em>
+                </a>
+
+                <a href="{%url 'campers' id_camp %}" class="list-group-item mt-2 box-side-sub Aligner" id="campers">
+                    <em> CAMPERS </em>
+                </a>
+                <a href="{%url 'flow' id_camp %}" class="list-group-item mt-2 box-side-sub Aligner" id="flow">
+                    <em> FLOW </em>
+                </a>
                 {% endif %}
-                    <a href="{%url 'locations' %}" class="list-group-item mt-2 box-side-sub Aligner" id="locations">
-                        <em> LOCATIONS </em>
-                    </a>
+                <a href="{%url 'locations' %}" class="list-group-item mt-2 box-side-sub Aligner" id="locations">
+                    <em> LOCATIONS </em>
+                </a>
                 {% if active_camp %}
-                    <a href="{%url 'staffs' id_camp %}"
-                        class="list-group-item mt-2 box-side-sub Aligner" id="staffs">
-                        <em> STAFFS </em>
-                    </a>
+                <a href="{%url 'staffs' id_camp %}" class="list-group-item mt-2 box-side-sub Aligner" id="staffs">
+                    <em> STAFFS </em>
+                </a>
                 {% endif %}
                 <a class="mt-2 box-side-sub Aligner" id="menu-toggle">
                     <em> <img src="/media/Icon awesome-angle-left.png" style="margin-right: 5px;" id="icon_hide"> HIDE
@@ -62,7 +59,7 @@
                 </a>
             </div>
         </div>
-                {% else %}
+        {% else %}
         <div class="slide-login" id="sidebar-wrapper">
             <div class="list-group list-group-flush text-center mt-3" id="sidebar">
                 <div class="m-3">
@@ -79,8 +76,8 @@
                 </a>
             </div>
         </div>
-    {% endif %}
-            
+        {% endif %}
+
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
@@ -90,7 +87,7 @@
                     <img src="/media/Group 66.png">
                 </div>
             </div>
-            
+
             {% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
 
@@ -124,9 +121,12 @@
                 </div>
             </nav> {% endcomment %}
 
-            <div class="mr-5 ml-5">
-                {% block content %} {% endblock %}
+            <div id="main-content">
+                <div class="mr-5 ml-5">
+                    {% block content %} {% endblock %}
+                </div>
             </div>
+
         </div>
         <!-- /#page-content-wrapper -->
 
@@ -139,11 +139,13 @@
             e.preventDefault();
             $("#menu-toggle2")[0].style.display = 'block';
             $("#wrapper").toggleClass("toggled");
+            $("#main-content").toggleClass("toggled");
         });
         $("#menu-toggle2").click(function (e) {
             e.preventDefault();
             $("#menu-toggle2")[0].style.display = 'none';
             $("#wrapper").toggleClass("toggled");
+            $("#main-content").toggleClass("toggled");
         });
     </script>
 </body>

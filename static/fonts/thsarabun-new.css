@@ -1,0 +1,64 @@
+@font-face {
+    font-family: 'THSarabunNewBold';
+        src: url('THSarabunNewBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'THSarabunNewBoldItalic';
+        src: url('THSarabunNewBoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'THSarabunNewItalic';
+        src: url('THSarabunNewItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+      }
+
+/* @font-face {
+    font-family: 'THSarabunNewRegular';
+        src: url('THSarabunNewRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+      } */
+
+ /* The following rules are deprecated. */ 
+
+@font-face {
+    font-family: 'TH Sarabun New';
+        src: url('THSarabunNewBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+      }
+
+
+
+@font-face {
+    font-family: 'TH Sarabun New';
+        src: url('THSarabunNewBoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+      }
+
+
+
+@font-face {
+    font-family: 'TH Sarabun New';
+        src: url('THSarabunNewItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+      }
+
+
+/* 
+@font-face {
+    font-family: 'TH Sarabun New';
+        src: url('THSarabunNewRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+      } */
+
