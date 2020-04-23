@@ -9,7 +9,6 @@ body {
     overflow-x: hidden;
     background-color: var(--bg-gray);
     color: white !important;
-    font-family: 'Noto Sans', sans-serif;
 }
 #sidebar-wrapper {
     min-height: 100vh;
@@ -65,7 +64,7 @@ body {
     background-image: linear-gradient(to left, transparent, transparent 50%, var(--bg-purple) 50%, var(--bg-purple));
     background-position: 100% 0;
     background-size: 200% 100%;
-    transition: all .25s ease-in;
+    /* transition: all .25s ease-in; */
 }
 
 .box-side-sub:hover {
