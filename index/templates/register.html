@@ -494,12 +494,8 @@
 
     $(".custom-file-input").on("change", function () {
         var fileName = $(this).val().split("\\").pop();
+        console.log(fileName)
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-    });
-
-
-    $("#id_username").change(function () {
-        console.log($(this).val());
     });
 
     $(document).ready(function () {
@@ -507,6 +503,7 @@
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
+                    
                     $('#img_profile').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(input.files[0]);
