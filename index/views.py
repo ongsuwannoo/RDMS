@@ -5,22 +5,24 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from personal.models import *
+from index.models import user
 
 # Create your views here.
 
 def register(request):
     context = {}
+    context['nextStep'] = ['username', 'password1', 'password2', 'email']
     if request.method == 'POST':
         form = regForm(request.POST, request.FILES)
         context['form'] = form
-        print(form)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
+            user.personal_id = savePersonal(request)
+            user.save()
             login(request, user)
-            savePersonal(request)
             return redirect('index')
     else:
         form = regForm()
@@ -57,7 +59,6 @@ def my_logout(request):
 
 def savePersonal(request):
     context = {}
-    user = request.user
     nick_name = request.POST.get('nick_name')
     blood_type = request.POST.get('blood_type')
     birthday = request.POST.get('birthday')
@@ -67,7 +68,6 @@ def savePersonal(request):
     shirt_size = request.POST.get('shirt_size')
 
     personal = Personal(
-        user = user,
         nick_name = nick_name,
         blood_type = blood_type,
         birthday = birthday,
@@ -77,6 +77,7 @@ def savePersonal(request):
         shirt_size = shirt_size
     )
     personal.save()
+    return personal
 
 def index(request):
     context = getPersonal(request)

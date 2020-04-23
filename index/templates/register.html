@@ -1,143 +1,14 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
 <button type="button" class="btn btn-success" onclick="fill()">Fill</button>
-<style>
-    .modal {
-        color: black;
-        background-color: var(--bg-gray);
-    }
-
-    .modal-content-reg {
-        border-radius: 30px;
-        border: 1px solid #924BE7;
-        background-color: rgba(146, 75, 231, 0.05);
-        color: white;
-        margin-top: auto;
-    }
-
-    .input-box-reg {
-        background-color: rgba(146, 75, 231, 0);
-        border: 1px solid #924BE7;
-        color: white;
-        /* padding-top: 10% !important; */
-        padding-left: 5% !important;
-        border-top: 0;
-        border-left: 0;
-        border-right: 0;
-        border-radius: 0;
-        /* color: orchid; */
-        font-size: 25px;
-        height: 25px;
-    }
-
-    .input-box-reg:focus {
-        background-color: rgba(146, 75, 231, 0);
-        color: white;
-        /* color: orchid; */
-    }
-
-    input[type=password] {
-        font-size: 17px;
-    }
-
-    .username {
-        margin: 0;
-        padding-top: 10px;
-    }
-
-    .btn-next {
-        border: 1px solid #5D3794;
-        background-color: #7654A7;
-        color: white;
-        border-radius: 25px;
-        width: 130px;
-        font-size: 30px;
-        font-weight: bolder;
-    }
-    .btn-reg {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-
-    .btn-next:hover {
-        background-color: var(--bg-purple);
-        color: white;
-    }
-
-    .modal-reg {
-        height: 40vh;
-        max-width: 900px;
-    }
-
-    .col {
-        padding-left: 0;
-    }
-
-    .col-md-auto {
-        padding-right: 0;
-    }
-
-    .phase1 {
-        font-family: 'THSarabunNewRegular';
-        font-weight: normal;
-        font-style: normal;
-        font-size: 25px !important;
-    }
-
-    .date {
-        padding-top: 0;
-        height: 30px;
-    }
-
-    .select {
-        background-color: rgba(93, 55, 148, 0.5);
-        border: 1px solid #924BE7;
-        color: white;
-        /* padding-top: 10% !important; */
-        padding-left: 5% !important;
-        /* color: orchid; */
-        font-size: 25px;
-
-        padding-top: 0;
-        height: 33px;
-        /* -webkit-appearance: none; */
-    }
-
-    .select:focus {
-        background-color: #5D3794;
-        color: white;
-    }
-
-    select option {
-        background: var(--bg-purple);
-        font-size: 15px;
-        font-family: 'THSarabunNewRegular';
-        font-weight: normal;
-        font-style: normal;
-        border-radius: 10px;
-    }
-
-    .pic_camp {
-        border: 1.9px solid white;
-        height: 150px;
-        object-fit: cover;
-    }
-    .btn-back {
-        background-color: #A78E54;
-    }
-    .btn-back:hover{
-        background-color: rgb(228, 171, 38);
-    }
-    
-    #btn_next{
-        margin: auto;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
 <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data" class="phase1">
     {% csrf_token %}
     <div class="modal-dialog modal-reg modal-dialog-centered" role="document">
         <div class="modal-content modal-content-reg">
             <div class="modal-body text-center p-5">
-                <p>REGISTER FORM</p>
+                <p style="font-weight: bold;font-size: larger; color:var(--bg-purple);">REGISTER FORM</p>
                 <table class="Aligner" style="display: grid;" id="step1">
                     <tr height="50">
                         <th class="">
@@ -465,7 +336,6 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="next" value="{{ request.path }}">
         </div>
     </div>
 </form>
@@ -653,23 +523,16 @@
         document.getElementById('btn_next').style.display = 'none';
         document.getElementById('btn_submit').style.display = 'block';
         document.getElementById('btn_back').style.display = 'block';
-        $("[data-toggle='username']").tooltip('hide')
-        $("[data-toggle='password1']").tooltip('hide')
-        $("[data-toggle='password2']").tooltip('hide')
-        $("[data-toggle='email']").tooltip('hide')
 
-        $("[data-toggle='first_name']").tooltip('show')
-        $("[data-toggle='last_name']").tooltip('show')
-        $("[data-toggle='sid']").tooltip('show')
-        $("[data-toggle='nick_name']").tooltip('show')
-        $("[data-toggle='sex']").tooltip('show')
-        $("[data-toggle='religion']").tooltip('show')
-        $("[data-toggle='birthday']").tooltip('show')
-        $("[data-toggle='blood_type']").tooltip('show')
-        $("[data-toggle='shirt_size']").tooltip('show')
-        $("[data-toggle='phone']").tooltip('show')
-        $("[data-toggle='food_allergy']").tooltip('show')
-        $("[data-toggle='congenital_disease']").tooltip('show')
+        {% for field in form %}
+            {% if field.errors %}
+                {% if field.name in nextStep %}
+                    $("[data-toggle='{{ field.name }}']").tooltip('hide')
+                {% else %}
+                    $("[data-toggle='{{ field.name }}']").tooltip('show')
+                {% endif %}
+            {% endif %}
+        {% endfor %}
     }
 
     function backStep(){
@@ -678,24 +541,17 @@
         document.getElementById('btn_next').style.display = 'block';
         document.getElementById('btn_submit').style.display = 'none';
         document.getElementById('btn_back').style.display = 'none';
-        $("[data-toggle='username']").tooltip('show')
-        $("[data-toggle='password1']").tooltip('show')
-        $("[data-toggle='password2']").tooltip('show')
-        $("[data-toggle='email']").tooltip('show')
-
-        $("[data-toggle='first_name']").tooltip('hide')
-        $("[data-toggle='last_name']").tooltip('hide')
-        $("[data-toggle='sid']").tooltip('hide')
-        $("[data-toggle='nick_name']").tooltip('hide')
-        $("[data-toggle='sex']").tooltip('hide')
-        $("[data-toggle='religion']").tooltip('hide')
-        $("[data-toggle='birthday']").tooltip('hide')
-        $("[data-toggle='blood_type']").tooltip('hide')
-        $("[data-toggle='shirt_size']").tooltip('hide')
-        $("[data-toggle='phone']").tooltip('hide')
-        $("[data-toggle='food_allergy']").tooltip('hide')
-        $("[data-toggle='congenital_disease']").tooltip('hide')
+        {% for field in form %}
+            {% if field.errors %}
+                {% if field.name in nextStep %}
+                    $("[data-toggle='{{ field.name }}']").tooltip('show')
+                {% else %}
+                    $("[data-toggle='{{ field.name }}']").tooltip('hide')
+                {% endif %}
+            {% endif %}
+        {% endfor %}
     }
+
     {% for field in form %}
         {% if field.errors %}
             $("[data-toggle='{{ field.name }}']").tooltip({ placement: 'right', trigger: 'manual' }).tooltip('show');

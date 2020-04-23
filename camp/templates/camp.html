@@ -4,6 +4,7 @@
 	.card {
 		background-color: var(--bg-aside);
 	}
+
 	.card-camp {
 		background-color: var(--bg-aside);
 		border-radius: 25px;
@@ -18,7 +19,11 @@
 		border: 1.9px solid white;
 		height: 150px;
 		object-fit: cover;
+	}
 
+	.pic_camp2 {
+		height: 150px;
+		object-fit: cover;
 	}
 
 	.card-body-camp {
@@ -28,6 +33,28 @@
 	.head {
 		font-size: 12px;
 	}
+
+	.table {
+		background: transparent;
+	}
+
+	.icon {
+		height: 20px;
+	}
+
+	thead {
+		background-color: #222230;
+	}
+
+	.my-custom-scrollbar {
+		position: relative;
+		height: 200px;
+		overflow: auto;
+	}
+
+	.table-wrapper-scroll-y {
+		display: block;
+	}
 </style>
 {% if not active_camp %}
 <label class="h2 text-uppercase font-weight-bold" style="margin-bottom: 30px;">
@@ -35,7 +62,7 @@
 </label>
 
 {% for camp in camps %}
-<div class="card mr-5 ml-5 card-camp" onclick="window.location={{ camp.id }}">
+<div class="card mr-5 ml-5 card-camp mt-3" onclick="window.location={{ camp.id }}">
 	<div class="row no-gutters">
 		<div class="col-md-3">
 			<img src="../media/{{ camp.logo }}" alt=""
@@ -62,6 +89,32 @@
 <label class="h2 text-uppercase font-weight-bold" style="margin-bottom: 30px;">
 	Camp : <label class="text-success">{{ camp.name }}</label>
 </label>
+<div class="row mb-4" style="font-family: 'THSarabunNewRegular'; font-size: 27px;">
+	<div class="col-4">
+		<img src="../../media/{{ camp.logo }}" class="pic_camp2 m-3 mx-auto d-block img-responsive">
+	</div>
+	<div class="col">
+		<div class="col">
+			ชื่อ : {{ camp.name }}
+		</div>
+		<div class="col">
+			รายละเอียด : {{ camp.desc }}
+		</div>
+		<div class="col">
+			ประธานค่าย : {{ camp.head.sex }} {{ camp.head.first_name }} {{ camp.head.last_name }}
+		</div>
+	</div>
+	<div class="col">
+		<div class="col">
+			<div class="col">
+				วันเปิดค่าย : {{ camp.start_date }}
+			</div>
+			<div class="col">
+				วันปิดค่าย : {{ camp.end_date }}
+			</div>
+		</div>
+	</div>
+</div>
 <div class="row">
 	<div class="col">
 		<div class="card">
@@ -101,7 +154,102 @@
 			<div class="card-body text-center">
 				<h5 class="card-title"><label class="h2 text-primary">300</label> คน</h5>
 			</div>
-			
+		</div>
+	</div>
+</div>
+<div class="row mt-3">
+	<div class="col-sm-6">
+		<div class="card">
+			<div class="card-header">
+				ฝ่าย / MC ทั้งหมด
+				<a type="button" class="btn btn-outline-success ml-2"
+					href="{%url 'create_department_mc' id_camp %}">เพิ่มฝ่าย / MC</a>
+			</div>
+			<div class="card-body text-center table-wrapper-scroll-y my-custom-scrollbar">
+				<table class="table table-dark table-hover">
+					<thead class="">
+						<tr>
+							<th scope="col">ชื่อ</th>
+							<th scope="col">จำนวน</th>
+							<th scope="col">#</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">วิชาการ</th>
+							<td>50</td>
+							<td>
+								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+									title="Edit">
+									<img src="/media/Icon awesome-edit.png" class="icon">
+								</a>
+								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+									title="View">
+									<img src="/media/Icon open-document.png" class="icon"></img>
+								</a>
+								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+									title="Observe">
+									<img src="/media/Icon ionic-md-document.png" class="icon"></img>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">วิชาการ</th>
+							<td>50</td>
+							<td>
+								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+									title="Edit">
+									<img src="/media/Icon awesome-edit.png" class="icon">
+								</a>
+								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+									title="View">
+									<img src="/media/Icon open-document.png" class="icon"></img>
+								</a>
+								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+									title="Observe">
+									<img src="/media/Icon ionic-md-document.png" class="icon"></img>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">วิชาการ</th>
+							<td>50</td>
+							<td>
+								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+									title="Edit">
+									<img src="/media/Icon awesome-edit.png" class="icon">
+								</a>
+								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+									title="View">
+									<img src="/media/Icon open-document.png" class="icon"></img>
+								</a>
+								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+									title="Observe">
+									<img src="/media/Icon ionic-md-document.png" class="icon"></img>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">วิชาการ</th>
+							<td>50</td>
+							<td>
+								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+									title="Edit">
+									<img src="/media/Icon awesome-edit.png" class="icon">
+								</a>
+								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+									title="View">
+									<img src="/media/Icon open-document.png" class="icon"></img>
+								</a>
+								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+									title="Observe">
+									<img src="/media/Icon ionic-md-document.png" class="icon"></img>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>

@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/my_style.css'%}">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/thsarabun-new" type="text/css"/> 
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/thsarabun-new" type="text/css"/>
     <script src="{% static 'js/jquery-3.5.0.js'%}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js'%}"></script>
     <script src="{% static 'js/my_js.js'%}"></script>
@@ -34,15 +34,15 @@
                         <em> OVERVIEW </em>
                     </a>
                 {% if active_camp %}
-                    <a href="{%url 'camp' number %}" class="list-group-item box-side-sub Aligner mt-3" id="camp">
+                    <a href="{%url 'camp' id_camp %}" class="list-group-item box-side-sub Aligner mt-3" id="camp">
                         <em> CAMP </em>
                     </a>
                 
-                    <a href="{%url 'campers' number %}"
+                    <a href="{%url 'campers' id_camp %}"
                         class="list-group-item mt-2 box-side-sub Aligner" id="campers">
                         <em> CAMPERS </em>
                     </a>
-                    <a href="{%url 'flow' number %}"
+                    <a href="{%url 'flow' id_camp %}"
                         class="list-group-item mt-2 box-side-sub Aligner" id="flow">
                         <em> FLOW </em>
                     </a>
@@ -51,7 +51,7 @@
                         <em> LOCATIONS </em>
                     </a>
                 {% if active_camp %}
-                    <a href="{%url 'staffs' number %}"
+                    <a href="{%url 'staffs' id_camp %}"
                         class="list-group-item mt-2 box-side-sub Aligner" id="staffs">
                         <em> STAFFS </em>
                     </a>
@@ -70,7 +70,7 @@
                     <p class="">Role and Duty Management System</p>
                 </div>
                 <a class="list-group-item mt-2 box-side-sub Aligner reg-login font-italic" data-toggle="modal"
-                    data-target="#exampleModalCenter">
+                    data-target="#login_modal">
                     LOGIN
                 </a>
                 <a href="{% url 'register' %}"
@@ -87,7 +87,7 @@
         <div id="page-content-wrapper">
             <div class="m-2">
                 &nbsp;<div style="cursor: pointer;display: none; position: absolute;" id="menu-toggle2">
-                    <img src="/media/Group 65.png">
+                    <img src="/media/Group 66.png">
                 </div>
             </div>
             

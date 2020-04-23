@@ -9,11 +9,6 @@ body {
     overflow-x: hidden;
     background-color: var(--bg-gray);
     color: white !important;
-    @font-face {
-        font-family: 'THSarabunNew';
-        unicode-range: U+0E00–U+0E7F;
-    }
-    font-family: 'THSarabunPSK';
     font-family: 'Noto Sans', sans-serif;
 }
 #sidebar-wrapper {

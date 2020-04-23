@@ -1,6 +1,103 @@
+
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
-<label class="label is-uppercase has-text-centered is-size-4" style="margin-bottom: 30px;">create camp</label>
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
+
+<form method="POST" enctype="multipart/form-data" class="phase1">
+    {% csrf_token %}
+    <div class="modal-dialog modal-reg modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-reg">
+            <div class="modal-body text-center p-5">
+                <p >กรอกรายละเอียดค่าย</p>
+                <table class="Aligner" style="display: grid;" id="step1">
+                    <tr height="50">
+                        <th class="">
+                            <div class="col-md-auto text-left">
+                                Name :
+                            </div>
+                        </th>
+                        <th>
+                            <div class="col Aligner ml-1">
+                            <input class="form-control input-box-reg" type="text" placeholder="Name" required name="name">
+                            </div>
+                        </th>
+                    </tr>
+                    <tr height="50">
+                        <th class="">
+                            <div class="col-md-auto text-left">
+                                Description :
+                            </div>
+                        </th>
+                        <th>
+                            <div class="col ml-1">
+                            <textarea class="form-control input-box-reg" placeholder="Description" required name="desc"></textarea>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr height="50">
+                        <th class="">
+                            <div class="col-md-auto text-left">
+                                Start date :
+                            </div>
+                        </th>
+                        <th>
+                            <div class="col ml-1">
+                                <input type="date" class="form-control input-box-reg date" placeholder="start_date" required name="start_date">
+                            </div>
+                        </th>
+                    </tr>
+                    <tr height="50">
+                        <th class="">
+                            <div class="col-md-auto text-left">
+                                End date : :
+                            </div>
+                        </th>
+                        <th>
+                            <div class="col ml-1">
+                                <input type="date" class="form-control input-box-reg date" placeholder="start_date" required name="end_date">
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+                <div class="row justify-content-md-center">
+                    <div class="col-sm-4">
+                        <img src="../../media/Group 65.png"
+                            class="pic_camp m-3 rounded-circle mx-auto d-block img-responsive" id="img_profile">
+                        <p class="font-weight-bold">Logo ค่าย</p>
+                        <div class="input-group">
+                            <span class="custom-file">
+                                <input type="file" class="custom-file-input" id="logo_pic" name="logo"
+                                    aria-describedby="inputGroupFileAddon01">
+                                <label class="custom-file-label text-left" for="logo_pic">Choose file</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-next btn-reg mt-5" type="submit" id="btn_submit">สร้างค่าย</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img_profile').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#logo_pic").change(function () {
+            readURL(this);
+        });
+    });
+</script>
+{% endblock %}
+
+{% comment %} <label class="label is-uppercase has-text-centered is-size-4" style="margin-bottom: 30px;">create camp</label>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="mt-7 ml-5 mr-5">
@@ -68,11 +165,6 @@
             fileName.textContent = fileInput.files[0].name;
         }
     }
-</script>
+</script> {% endcomment %}
 
 
-{% endblock %}
-
-{% comment %} {% block footer %}
-Footer of Login page!!!
-{% endblock %} {% endcomment %}

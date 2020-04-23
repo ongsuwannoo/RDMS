@@ -4,12 +4,14 @@ from .models import *
 from django.shortcuts import redirect, render
 # Create your views here.
 
-def camp(request, number=""):
+def camp(request, id_camp=""):
     context = {}
-    context['number'] = number
+    context['id_camp'] = id_camp
     context['name'] = getPersonal(request)['name']
-    if number:
-        camp = Camp.objects.get(pk=number)
+    sex = {'M':'Mr.', 'F':'Miss.'}
+    if id_camp:
+        camp = Camp.objects.get(pk=id_camp)
+        camp.head.sex = sex[camp.head.sex]
         context['active_camp'] = True
         context['camp'] = camp
     else:
@@ -18,10 +20,6 @@ def camp(request, number=""):
         context['camps'] = camp
         context['active_camp'] = False
         
-    return render(request, 'camp.html', context)
-
-def campers(request, number):
-    context = {}
     return render(request, 'camp.html', context)
 
 def create_camp(request):
@@ -44,3 +42,12 @@ def create_camp(request):
         camp.save()
         return redirect('camp')
     return render(request, 'create_camp.html', context)
+
+def create_department_mc(request, id_camp):
+    context = {}
+    print('++++++++++++++++++++++++++++++++++++++++++++++', id_camp)
+    context['id_camp'] = id_camp
+    context['name'] = getPersonal(request)['name']
+    if id_camp:
+        context['active_camp'] = True
+    return render(request, 'create_department_mc.html', context)
