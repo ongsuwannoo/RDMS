@@ -31,17 +31,19 @@
 	}
 </style>
 
-<div class="card mr-5 ml-5 card-camp" onclick="window.location={{ camp.id }}">
+
+{% for location in locations %}
+<div class="card mr-5 ml-5 card-camp" onclick="window.location={{ location.id }}">
 	<div class="row no-gutters">
 		<div class="col-md-3">
-			<img src="../media/common.jpg" alt=""
+			<img src="../media/{{ location.logo }}" alt=""
 				class="pic_camp m-3  mx-auto d-block img-responsive">
 		</div>
 		<div class="col-md-7">
 			<div class="card-body m-3 card-body-camp">
-				<h5 class="card-title font-weight-bold h3">Location : Commom Room</h5>
+				<h5 class="card-title font-weight-bold h3">Location : {{ location.name }}</h5>
 				<em>
-					<p class="card-text">Description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et{{ camp.desc }}</p>
+					<p class="card-text">Description: {{ location.desc }}</p>
 					<p class="text-uppercase head font-weight-bold"> Time :
 						<a class="text-uppercase" style="color: #10FF28;">
                             09:00 - 12:00
@@ -52,7 +54,9 @@
 		</div>
 	</div>
 </div>
-
+<br>
+{% endfor %}
+<a type="button" class="btn btn-success mt-5" href="{% url 'create_location' %}">Add Location</a>
 {% endblock %}
 
 {% comment %} {% block footer %}
