@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from personal.models import *
 from index.models import user
+from camp.models import Camp
 
 # Create your views here.
 
@@ -39,8 +40,7 @@ def my_login(request):
         if user:
             login(request, user)
             next_url = request.POST.get('next')
-            print(next_url)
-            if next_url:
+            if next_url and next_url != '/login/':
                 return redirect(next_url)
             else:
                 return redirect('index')
@@ -80,7 +80,9 @@ def savePersonal(request):
     return personal
 
 def index(request):
-    context = getPersonal(request)
+    context = {}
+    camp = Camp.objects.all()
+    context['camps'] = reversed(camp)
     return render(request, 'index.html', context)
 
 def getPersonal(request):
@@ -90,7 +92,6 @@ def getPersonal(request):
         sex = {'M':'Mr.', 'F':'Miss.'}
         name = sex[user.sex] + user.first_name + ' ' + user.last_name
         profile_pic = user.profile_pic
-        # print(profile_pic, '++++++++++++++++++++++')
         context = {
             'name': name,
             'profile_pic': profile_pic

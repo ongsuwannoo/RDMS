@@ -1,9 +1,8 @@
 from django.db import models
-from index.views import user
 
 # Create your models here.
 class Camp(models.Model):
-    head = models.ForeignKey(user, on_delete=models.CASCADE)
+    head = models.ForeignKey(to='index.user', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     desc = models.TextField()
     start_date = models.DateField()

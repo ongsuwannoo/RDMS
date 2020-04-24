@@ -8,6 +8,7 @@ def camp(request, id_camp=""):
     context = {}
     context['id_camp'] = id_camp
     context['name'] = getPersonal(request)['name']
+    
     sex = {'M':'Mr.', 'F':'Miss.'}
     if id_camp:
         camp = Camp.objects.get(pk=id_camp)
@@ -30,7 +31,7 @@ def create_camp(request):
         desc = request.POST.get('desc')
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
-        logo = request.FILES.get('logo')
+        logo = request.FILES.get('logo_pic')
         camp = Camp(
             head = user,
             name = name,
@@ -45,7 +46,6 @@ def create_camp(request):
 
 def create_department_mc(request, id_camp):
     context = {}
-    print('++++++++++++++++++++++++++++++++++++++++++++++', id_camp)
     context['id_camp'] = id_camp
     context['name'] = getPersonal(request)['name']
     if id_camp:
