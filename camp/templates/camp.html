@@ -180,78 +180,45 @@
 						</tr>
 					</thead>
 					<tbody>
+					{% for department in departments %}
 						<tr>
-							<th scope="row">วิชาการ</th>
-							<td>50</td>
+							<th scope="row">ฝ่าย{{department.name}}</th>
+							<td>0</td>
+							<td>
+								<span data-toggle="modal" data-target="#modal_edit" onclick="modal_edit({{ department.id }})" style="cursor:pointer;">
+									<a class="material-tooltip-main"data-toggle="tooltip" data-placement="top"
+									title="Edit">
+										<img src="/media/Icon awesome-edit.png" class="icon">
+									</a>
+									<input type="hidden" name="next" value="{{ department.desc }}">
+								</span>
+									
+								<span data-toggle="modal" data-target="#modal_view" onclick="modal_view({{ department.id }})" style="cursor:pointer;">
+									<a class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
+										title="View">
+										<img src="/media/Icon open-document.png" class="icon"></img>
+									</a>
+								</span>
+									
+							</td>
+						</tr>
+					{% endfor %}
+					{% for MC in MCs %}
+						<tr>
+							<th scope="row">MC-{{department.name}}</th>
+							<td>0</td>
 							<td>
 								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
-									title="Edit">
+									title="Edit" department-id="{{department.id}}">
 									<img src="/media/Icon awesome-edit.png" class="icon">
 								</a>
 								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
-									title="View">
+									title="View" department-id="{{department.id}}">
 									<img src="/media/Icon open-document.png" class="icon"></img>
-								</a>
-								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
-									title="Observe">
-									<img src="/media/Icon ionic-md-document.png" class="icon"></img>
 								</a>
 							</td>
 						</tr>
-						<tr>
-							<th scope="row">วิชาการ</th>
-							<td>50</td>
-							<td>
-								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
-									title="Edit">
-									<img src="/media/Icon awesome-edit.png" class="icon">
-								</a>
-								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
-									title="View">
-									<img src="/media/Icon open-document.png" class="icon"></img>
-								</a>
-								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
-									title="Observe">
-									<img src="/media/Icon ionic-md-document.png" class="icon"></img>
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">วิชาการ</th>
-							<td>50</td>
-							<td>
-								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
-									title="Edit">
-									<img src="/media/Icon awesome-edit.png" class="icon">
-								</a>
-								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
-									title="View">
-									<img src="/media/Icon open-document.png" class="icon"></img>
-								</a>
-								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
-									title="Observe">
-									<img src="/media/Icon ionic-md-document.png" class="icon"></img>
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">วิชาการ</th>
-							<td>50</td>
-							<td>
-								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
-									title="Edit">
-									<img src="/media/Icon awesome-edit.png" class="icon">
-								</a>
-								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
-									title="View">
-									<img src="/media/Icon open-document.png" class="icon"></img>
-								</a>
-								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
-									title="Observe">
-									<img src="/media/Icon ionic-md-document.png" class="icon"></img>
-								</a>
-							</td>
-						</tr>
+					{% endfor %}
 					</tbody>
 				</table>
 			</div>
@@ -259,6 +226,7 @@
 	</div>
 </div>
 {% include 'create_department_mc.html' %}
+{% include 'department_modal.html' %}
 {% endif %}
 {% endblock %}
 

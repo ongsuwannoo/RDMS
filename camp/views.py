@@ -2,6 +2,7 @@ from django.shortcuts import render
 from index.views import getPersonal
 from .models import *
 from django.shortcuts import redirect, render
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 # from .serializers import *
@@ -16,6 +17,7 @@ from django.shortcuts import redirect, render
 # Create your views here.
 
 def camp(request, id_camp=""):
+    print('views.camp')
     context = {}
     context['id_camp'] = id_camp
     context['name'] = getPersonal(request)['name']
@@ -23,9 +25,13 @@ def camp(request, id_camp=""):
     sex = {'M':'Mr.', 'F':'Miss.'}
     if id_camp:
         camp = Camp.objects.get(pk=id_camp)
+        departments = Department.objects.filter(camp_id=id_camp)
+        MCs = MC.objects.filter(camp_id=id_camp)
         camp.head.sex = sex[camp.head.sex]
         context['active_camp'] = True
         context['camp'] = camp
+        context['departments'] = departments
+        context['MCs'] = MCs
     else:
         user = request.user
         camp = Camp.objects.filter(head=user)
@@ -56,6 +62,7 @@ def create_camp(request):
     return render(request, 'create_camp.html', context)
 
 def create_department_mc(request, id_camp):
+    print('create_department_mc')
     context = {}
     context['id_camp'] = id_camp
     context['name'] = getPersonal(request)['name']
@@ -63,9 +70,36 @@ def create_department_mc(request, id_camp):
         context['active_camp'] = True
 
     if request.method == 'POST':
-        pass
-    
-    return render(request, 'create_department_mc.html', context)
+        camp = Camp.objects.get(pk=id_camp)
+        choose =  request.POST.get('choose')
+        if choose == 'department':
+            name = request.POST.get('name_department')
+            typeOfDepartment = request.POST.get('typeOfDepartment')
+            desc = request.POST.get('desc_department')
+
+            department = Department(
+                camp = camp,
+                name = name,
+                typeOfDepartment = typeOfDepartment,
+                desc = desc
+            )
+            department.save()
+
+        elif choose == 'MC':
+            name = request.POST.get('name_mc')
+            typeOfMC = request.POST.get('typeOfMC')
+            desc = request.POST.get('desc_mc')
+
+            mc = MC(
+                camp = camp,
+                name = name,
+                typeOfMC = typeOfMC,
+                desc = desc
+            )
+            mc.save()
+
+        return HttpResponseRedirect('../../../camp/%d/'%id_camp)
+    return render(request, 'camp.html', context)
 
 # @csrf_exempt
 def create_department_mc_api(request):
