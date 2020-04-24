@@ -2,6 +2,17 @@ from django.shortcuts import render
 from index.views import getPersonal
 from .models import *
 from django.shortcuts import redirect, render
+
+
+# from .serializers import *
+
+# from django.shortcuts import render
+# from django.views.decorators.csrf import csrf_exempt
+
+# from rest_framework import status
+# from rest_framework.decorators import api_view
+# from rest_framework.response import Response
+
 # Create your views here.
 
 def camp(request, id_camp=""):
@@ -50,4 +61,21 @@ def create_department_mc(request, id_camp):
     context['name'] = getPersonal(request)['name']
     if id_camp:
         context['active_camp'] = True
+
+    if request.method == 'POST':
+        pass
+    
+    return render(request, 'create_department_mc.html', context)
+
+# @csrf_exempt
+def create_department_mc_api(request):
+    context = {}
+    # context['id_camp'] = id_camp
+    # context['name'] = getPersonal(request)['name']
+    # if id_camp:
+    #     context['active_camp'] = True
+
+    # if request.method == 'POST':
+    #     pass
+    
     return render(request, 'create_department_mc.html', context)

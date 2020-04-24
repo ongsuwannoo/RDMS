@@ -17,5 +17,7 @@ urlpatterns = [
     path('create_camp/', views.create_camp, name='create_camp'),
 
     path('<int:id_camp>/create_department_mc/', views.create_department_mc, name='create_department_mc'),
+
+    path('api/', views.create_department_mc_api, name='create_department_mc_api'),
     
 ]
