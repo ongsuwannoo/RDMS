@@ -9,5 +9,6 @@ class Camper(models.Model):
     school = models.CharField(max_length=255)
     parent_phone = models.CharField(max_length=10)
     parent_name = models.CharField(max_length=255)
-    group = models.CharField(max_length=255)
+    profile_pic = models.ImageField(upload_to='camperPic/')
+    group = models.CharField(max_length=255, null=True)
     

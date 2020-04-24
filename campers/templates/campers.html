@@ -25,7 +25,10 @@
 </style>
 <div class="form-group row ml-2">
     <div class="col-xs-3">
-        <input type="text" class="form-control  search" placeholder="Search">
+        <input type="text" class="form-control  search" placeholder="Search" onkeyup="searchCamper()" id="searchBox">
+    </div>
+    <div class="col">
+        <a type="button" class="btn btn-primary" href="{% url 'create_camper' id_camp %}">Add Camper</a>
     </div>
 </div>
 <table class="table table-dark table-hover">
@@ -40,11 +43,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">xx0001</th>
-            <td>นายจักกรี แสงนำพาลง</td>
-            <td>อาหาร</td>
-            <td>โรคใส้ศึกอักเสบ</td>
+        <tr id="table-row">
+            <th scope="row">61070071</th>
+            <td>นายจักกล แสงนำพาลง</td>
+            <td>ใจ</td>
+            <td>ตาเป็นผัวยาย</td>
             <td><label class="text-primary">IoT</label> / <label class="text-success">Tire</label></td>
             <td>
                 <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
@@ -58,11 +61,11 @@
                 </a>
             </td>
         </tr>
-        <tr>
-            <th scope="row">xx0001</th>
-            <td>นายจักกรี แสงนำพาลง</td>
-            <td>อาหาร</td>
-            <td>โรคใส้ศึกอักเสบ</td>
+        <tr id="table-row">
+            <th scope="row">61070074</th>
+            <td>นายนิว สุดหล่อ</td>
+            <td>-</td>
+            <td>-</td>
             <td><label class="text-primary">IoT</label> / <label class="text-success">Tire</label></td>
             <td>
                 <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
@@ -76,12 +79,12 @@
                 </a>
             </td>
         </tr>
-        <tr>
-            <th scope="row">xx0001</th>
-            <td>นายจักกรี แสงนำพาลง</td>
-            <td>อาหาร</td>
-            <td>โรคใส้ศึกอักเสบ</td>
-            <td><label class="text-primary">IoT</label> / <label class="text-success">Tire</label></td>
+        <tr id="table-row">
+            <th scope="row">61070090</th>
+            <td>นางสาวนิว สุดสวย</td>
+            <td>-</td>
+            <td>-</td>
+            <td><label class="text-danger">Network</label> / <label class="text-success">Tire</label></td>
             <td>
                 <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
                     <img src="/media/Icon awesome-edit.png" class="icon">
@@ -94,11 +97,11 @@
                 </a>
             </td>
         </tr>
-        <tr>
-            <th scope="row">xx0001</th>
-            <td>นายจักกรี แสงนำพาลง</td>
-            <td>อาหาร</td>
-            <td>โรคใส้ศึกอักเสบ</td>
+        <tr id="table-row">
+            <th scope="row">61070099</th>
+            <td>นายเครื่องเพชร เข็ดพลอย</td>
+            <td>-</td>
+            <td>-</td>
             <td><label class="text-primary">IoT</label> / <label class="text-success">Tire</label></td>
             <td>
                 <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
@@ -120,6 +123,9 @@
             template: '<div class="tooltip md-tooltip-main"><div class="tooltip-arrow md-arrow"></div><div class="tooltip-inner md-inner-main"></div></div>'
         });
     })
+
+    
+        
 </script>
 {% endblock %}
 
