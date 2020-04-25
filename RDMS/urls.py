@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from camp.views import get_department_api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +25,7 @@ urlpatterns = [
     path('camp/', include('camp.urls')),
     path('locations/', include('locations.urls')),
     path('profile/', include('personal.urls')),
+    path('api/getDepartment/<int:id_department>', get_department_api, name='create_department_mc_api'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -5,14 +5,14 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 
 
-# from .serializers import *
+from .serializers import *
 
-# from django.shortcuts import render
-# from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
-# from rest_framework import status
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -101,15 +101,12 @@ def create_department_mc(request, id_camp):
         return HttpResponseRedirect('../../../camp/%d/'%id_camp)
     return render(request, 'camp.html', context)
 
-# @csrf_exempt
-def create_department_mc_api(request):
+@csrf_exempt
+@api_view(['GET', 'POST'])
+def get_department_api(request, id_department):
     context = {}
-    # context['id_camp'] = id_camp
-    # context['name'] = getPersonal(request)['name']
-    # if id_camp:
-    #     context['active_camp'] = True
-
-    # if request.method == 'POST':
-    #     pass
-    
+    if request.method == 'GET':
+        department = Department.objects.get(pk=id_department)
+        serializer = DepartmentSerializer(department)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     return render(request, 'create_department_mc.html', context)
