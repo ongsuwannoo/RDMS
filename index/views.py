@@ -59,22 +59,44 @@ def my_logout(request):
 
 def savePersonal(request):
     context = {}
+    sid = request.POST.get('sid')
+
+    first_name = request.POST.get('first_name')
+    last_name = request.POST.get('last_name')
     nick_name = request.POST.get('nick_name')
+    
+    sex = request.POST.get('sex')
+    phone = request.POST.get('phone')
+    email = request.POST.get('email')
+
     blood_type = request.POST.get('blood_type')
     birthday = request.POST.get('birthday')
     religion = request.POST.get('religion')
     food_allergy = request.POST.get('food_allergy')
     congenital_disease = request.POST.get('congenital_disease')
     shirt_size = request.POST.get('shirt_size')
+    
+    profile_pic = request.FILES.get('profile_pic')
 
     personal = Personal(
+        sid = sid,
+
+        first_name = first_name,
+        last_name = last_name,
         nick_name = nick_name,
+        
+        sex = sex,
+        phone = phone,
+        email = email,
+
         blood_type = blood_type,
         birthday = birthday,
         religion = religion,
         food_allergy = food_allergy,
         congenital_disease = congenital_disease,
-        shirt_size = shirt_size
+        shirt_size = shirt_size,
+        
+        profile_pic = profile_pic
     )
     personal.save()
     return personal
@@ -89,11 +111,11 @@ def getPersonal(request):
 
     if request.user.is_authenticated:
         user = request.user
+        context = {}
+        personal = Personal.objects.get(pk=user.id)
         sex = {'M':'Mr.', 'F':'Miss.'}
-        name = sex[user.sex] + user.first_name + ' ' + user.last_name
-        profile_pic = user.profile_pic
-        context = {
-            'name': name,
-            'profile_pic': profile_pic
-        }
+        name = sex[personal.sex] + personal.first_name + ' ' + personal.last_name
+        context['name'] = name
+        context['personal'] = personal
+        
         return context

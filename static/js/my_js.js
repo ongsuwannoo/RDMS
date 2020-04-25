@@ -23,12 +23,12 @@ function hamburger(x) {
         document.getElementById('menu-toggle2').style.display = 'none';
         $("#main-content").removeClass("toggled");
     }
-        
+
 }
 
 window.onload = function () {
     for (let key in pages) {
-        if (window.location.pathname.includes(key)){
+        if (window.location.pathname.includes(key)) {
             if (isNaN(parseInt(window.location.pathname.split("/")[2])) && key != '/locations/')
                 document.getElementById("overview").classList.add("active");
             else
@@ -41,4 +41,43 @@ window.onload = function () {
     hamburger(x)
     x.addListener(hamburger)
 }
+// const axios = require('axios');
+var items = []
 
+function getDepartment(id) {
+    axios.get('/api/getDepartment/' + id)
+        .then(function (response) {
+            // handle success
+            data = response.data
+            console.log(data);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+            document.getElementById('name_modal_department').innerHTML = 'ฝ่าย' + data.name;
+            document.getElementById('desc_modal_department').innerHTML = data.desc;
+            // document.getElementById('head_modal_department')
+        });
+}
+
+function getAllStaffs(id_camp) {
+    axios.get('/api/getAllStaffs/' + id_camp)
+        .then(function (response) {
+            // handle success
+            data = response.data
+            console.log(data);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+            document.getElementById('name_modal_department').innerHTML = 'ฝ่าย' + data.name;
+            document.getElementById('desc_modal_department').innerHTML = data.desc;
+            // document.getElementById('head_modal_department')
+        });
+}

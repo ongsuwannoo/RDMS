@@ -24,7 +24,7 @@
         <div class="slide" id="sidebar-wrapper">
             <div class="list-group list-group-flush text-center mt-3" id="sidebar">
                 <div class="profile">
-                    <img src="{{ request.META.HTTP_NAME }}/media/{{ user.profile_pic }}" class="mb-3 img_profile reg-login">
+                    <img src="{{ request.META.HTTP_NAME }}/media/{{ personal.profile_pic }}" class="mb-3 img_profile reg-login">
                     <p class="h4 mb-1 font-weight-bold" id="profile_name">{{ name }}</p>
                     <p class="text-warning font-weight-bold role">SUPER ADMIN</p>
                     <p class="role">Edit Profile <img src="/media/Icon awesome-edit.png">
@@ -45,11 +45,9 @@
                 <a href="{%url 'flow' id_camp %}" class="list-group-item mt-2 box-side-sub Aligner" id="flow">
                     <em> FLOW </em>
                 </a>
-                {% endif %}
-                <a href="{%url 'locations' %}" class="list-group-item mt-2 box-side-sub Aligner" id="locations">
+                <a href="{%url 'locations' id_camp %}" class="list-group-item mt-2 box-side-sub Aligner" id="locations">
                     <em> LOCATIONS </em>
                 </a>
-                {% if active_camp %}
                 <a href="{%url 'staffs' id_camp %}" class="list-group-item mt-2 box-side-sub Aligner" id="staffs">
                     <em> STAFFS </em>
                 </a>

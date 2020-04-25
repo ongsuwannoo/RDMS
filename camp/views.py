@@ -17,17 +17,15 @@ from rest_framework.response import Response
 # Create your views here.
 
 def camp(request, id_camp=""):
-    print('views.camp')
-    context = {}
+    context = getPersonal(request)
     context['id_camp'] = id_camp
-    context['name'] = getPersonal(request)['name']
-    
     sex = {'M':'Mr.', 'F':'Miss.'}
     if id_camp:
         camp = Camp.objects.get(pk=id_camp)
         departments = Department.objects.filter(camp_id=id_camp)
         MCs = MC.objects.filter(camp_id=id_camp)
-        camp.head.sex = sex[camp.head.sex]
+
+        camp.head.sex = sex[camp.head.personal.sex]
         context['active_camp'] = True
         context['camp'] = camp
         context['departments'] = departments
@@ -63,15 +61,16 @@ def create_camp(request):
 
 def create_department_mc(request, id_camp):
     print('create_department_mc')
-    context = {}
+    context = getPersonal(request)
     context['id_camp'] = id_camp
-    context['name'] = getPersonal(request)['name']
     if id_camp:
         context['active_camp'] = True
 
     if request.method == 'POST':
         camp = Camp.objects.get(pk=id_camp)
         choose =  request.POST.get('choose')
+
+        
         if choose == 'department':
             name = request.POST.get('name_department')
             typeOfDepartment = request.POST.get('typeOfDepartment')

@@ -18,14 +18,15 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from camp.views import get_department_api
+# from staffs.views import getAllStaffs
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('index.urls')),
     path('camp/', include('camp.urls')),
-    path('locations/', include('locations.urls')),
     path('profile/', include('personal.urls')),
     path('api/getDepartment/<int:id_department>', get_department_api, name='create_department_mc_api'),
+    # path('api/getDepartment/<int:id_camp>', get_staffs_api, name='get_staffs_api'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

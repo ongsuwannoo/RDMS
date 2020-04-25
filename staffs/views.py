@@ -1,12 +1,52 @@
-from django.shortcuts import render
-from index.views import getPersonal
+from django.shortcuts import render, redirect
+from index.views import getPersonal, savePersonal
+from .forms import *
+from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
 
 def staffs(request, id_camp):
-    context = {}
+    context = getPersonal(request)
     context['id_camp'] = id_camp
-    context['name'] = getPersonal(request)['name']
+    
     if id_camp:
         context['active_camp'] = True
     return render(request, 'staffs.html', context)
+
+def create_staff(request, id_camp):
+    context = getPersonal(request)
+    context['id_camp'] = id_camp
+    if id_camp:
+        context['active_camp'] = True
+
+    if request.method == 'POST':
+        post = request.POST
+        camp = Camp.objects.get(pk=id_camp)
+        personal = savePersonal(request)
+
+        position = post.get('position')
+        group = post.get('group')
+        
+        staff = Staff(
+            camp = camp,
+            personal = personal,
+            position = position,
+            group = group,
+        )
+        staff.save()
+        return HttpResponseRedirect('../../../../camp/%d/staffs/'%id_camp)
+    else:
+        form = StaffForm()
+        context['form'] = form
+    return render(request, 'create_staff.html', context)
+
+
+# @csrf_exempt
+# @api_view(['GET', 'POST'])
+# def get_staffs_api(request, id_camp):
+#     context = {}
+#     if request.method == 'GET':
+#         staffs = Staffs.objects.get(camp_id=id_camp)
+#         serializer = DepartmentSerializer(department)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+#     return render(request, 'create_department_mc.html', context)
