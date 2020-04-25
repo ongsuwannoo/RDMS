@@ -27,9 +27,9 @@ class DepartmentSerializer(serializers.Serializer):
         """
         Update and return an existing `ToDoItem` instance, given the validated data.
         """
-        # instance.camp = validated_data['camp']
-        # instance.name = validated_data['name']
-        # instance.typeOfDepartment = validated_data['typeOfDepartment']
-        # instance.desc = validated_data['desc']
-        # instance.save()
+        instance.camp = validated_data['camp']
+        instance.name = validated_data['name']
+        instance.typeOfDepartment = validated_data['typeOfDepartment']
+        instance.desc = validated_data['desc']
+        instance.save()
         return instance
