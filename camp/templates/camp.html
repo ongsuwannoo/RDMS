@@ -2,7 +2,8 @@
 {% block content %}
 <style>
 	.card {
-		background-color: var(--bg-aside);
+		background-color: rgba(0,0,0,0.1);
+		border: 2px solid #707070;
 	}
 
 	.card-camp {
@@ -59,6 +60,7 @@
 	.exampleModalCenter {
 		background-color: black;
 	}
+	
 </style>
 {% if not active_camp %}
 <label class="h2 text-uppercase font-weight-bold" style="margin-bottom: 30px;">
@@ -120,6 +122,7 @@
 	</div>
 </div>
 <div class="row">
+	<!-- Card จำนวน Campers ที่รับ -->
 	<div class="col">
 		<div class="card">
 			<div class="card-header">
@@ -130,6 +133,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- Card จำนวน Campers ที่สมัคร -->
 	<div class="col">
 		<div class="card">
 			<div class="card-header">
@@ -140,6 +144,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- Card จำนวน Campers ที่สละสิทธิ์ -->
 	<div class="col">
 		<div class="card">
 			<div class="card-header">
@@ -150,6 +155,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- Card จำนวน Staffs -->
 	<div class="col">
 		<div class="card">
 			<div class="card-header">
@@ -162,6 +168,7 @@
 	</div>
 </div>
 <div class="row mt-3">
+	<!--Card ฝ่าย / MC ทั้งหมด -->
 	<div class="col-sm-6">
 		<div class="card">
 			<div class="card-header">
@@ -222,7 +229,71 @@
 			</div>
 		</div>
 	</div>
+	<!-- Chart Card -->
+	<div class="col-sm-6  ">
+		<div class="card " >
+			<div class="card-body text-center table-wrapper-scroll-y my-custom-scrollbar " >
+				<canvas id="pieChart"></canvas>
+			</div>
+		</div>
+	</div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<!-- Chart Function -->
+<script>
+	//pie
+    var ctxP = document.getElementById("pieChart").getContext('2d');
+	var colorHex = ["#28a745", "#ffc107", "#dc3545", "#007bff"];
+    var myPieChart = new Chart(ctxP, {
+      type: 'pie',
+      data: {
+        labels: ["จำนวน Campers ที่รับ", "จำนวน Campers ที่สมัคร", "จำนวน Campers ที่สละสิทธิ์", "จำนวน Staffs"],
+        datasets: [{
+          data: [120, 1200, 70, 300],
+		  borderColor: colorHex,
+		  backgroundColor: ["rgba(40, 167, 69,0.3)", "rgba(255, 193, 7,0.3)", "rgba(220, 53, 69,0.3)", "rgba(0, 123, 255,0.3)"],
+          hoverBackgroundColor: ["#37bf56", "#ffd042", "#f74d5d", "#2b91ff"]
+        }]
+      },
+      options: {
+        responsive: true,
+		legend: {
+            position: 'right'
+         },
+		 layout: {
+            padding: {
+                left: 0,
+                right: 0,
+                top: 20,
+                bottom: 10
+            }
+        },
+		plugins: {
+			datalabels: {
+				color: colorHex,
+				anchor: 'end',
+				align: 'start',
+				offset: -10,
+				borderWidth: 2,
+				borderColor: colorHex,
+				borderRadius: 25,
+				backgroundColor: '#191d27',
+				font: {
+				weight: 'bold',
+				size: '10'
+				},
+				formatter: (value) => {
+				return value + ' คน';
+				}
+     		 }
+   		 }
+      }
+    });
+	Chart.defaults.global.defaultFontColor = "#fff";
+</script>
+
 {% include 'create_department_mc.html' %}
 {% include 'department_modal.html' %}
 {% endif %}
