@@ -4,5 +4,5 @@ env/
 __pycache__/
 profiles/
 logo/
-camp/
 migrations/
+media/camp/
