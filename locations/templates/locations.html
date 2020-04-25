@@ -36,7 +36,7 @@
 <div class="card mr-5 ml-5 card-camp" onclick="window.location={{ location.id }}">
 	<div class="row no-gutters">
 		<div class="col-md-3">
-			<img src="../media/{{ location.logo }}" alt=""
+			<img src="{{ request.META.HTTP_NAME }}/media/{{ location.logo }}" alt=""
 				class="pic_camp m-3  mx-auto d-block img-responsive">
 		</div>
 		<div class="col-md-7">

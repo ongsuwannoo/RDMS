@@ -41,5 +41,5 @@ def create_location (request, id_camp):
             logo = logo
         )
         location.save()
-        return redirect('locations')
+        # return redirect('locations')
     return render(request, 'create_location.html', context)
