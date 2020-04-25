@@ -3,6 +3,10 @@
 <style>
     .table {
         background: transparent;
+        font-family: 'THSarabunNewRegular';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 20px !important;
     }
 
     .icon {
@@ -31,10 +35,10 @@
         <a type="button" class="btn btn-primary" href="{% url 'create_staff' id_camp %}">Add staff</a>
     </div>
 </div>
-<table class="table table-dark table-hover">
+<table class="table table-dark table-hover table-fixed">
     <thead class="">
         <tr>
-            <th scope="col">SID</th>
+            <th scope="col" style="width: 5%;">SID</th>
             <th scope="col">Full Name</th>
             <th scope="col">Nickname</th>
             <th scope="col">Department</th>
