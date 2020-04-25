@@ -43,7 +43,6 @@ window.onload = function () {
 }
 // const axios = require('axios');
 var items = []
-
 function getDepartment(id) {
     axios.get('/api/getDepartment/' + id)
         .then(function (response) {
@@ -63,8 +62,8 @@ function getDepartment(id) {
         });
 }
 
-function getAllStaffs(id_camp) {
-    axios.get('/api/getAllStaffs/' + id_camp)
+function getStaffsDetail(id_staff) {
+    axios.get('/api/getStaffsDetail/' + id_staff)
         .then(function (response) {
             // handle success
             data = response.data
@@ -76,8 +75,19 @@ function getAllStaffs(id_camp) {
         })
         .then(function () {
             // always executed
-            document.getElementById('name_modal_department').innerHTML = 'ฝ่าย' + data.name;
-            document.getElementById('desc_modal_department').innerHTML = data.desc;
-            // document.getElementById('head_modal_department')
+            var lis = ['staff_name', 'staff_nickname', 'staff_sex', 'staff_sid', 'staff_religion', 'staff_disease', 'staff_foodallergy',
+                'staff_sirstsize', 'staff_birthday', 'staff_department', 'staff_position', 'staff_MC', 'staff_phone', 'staff_email'];
+            for (let key in data.personal) {
+                try {
+                    document.getElementById('staff_'+key).innerHTML = data.personal[key];
+                }catch(err) {}
+            }
+            for (let key in data) {
+                console.log(key, data[key]);
+                try {
+                    document.getElementById('staff_'+key).innerHTML = data.personal[key];
+                }catch(err) {}
+            }
+            document.getElementById('modal_pic').src = '/media/' + data.personal.profile_pic;
         });
 }

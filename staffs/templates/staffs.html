@@ -6,7 +6,10 @@
         font-family: 'THSarabunNewRegular';
         font-weight: normal;
         font-style: normal;
-        font-size: 20px !important;
+        font-size: 23px !important;
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 100%;
     }
 
     .icon {
@@ -37,45 +40,47 @@
 </div>
 <table class="table table-dark table-hover table-fixed">
     <thead class="">
-        <tr>
-            <th scope="col" style="width: 5%;">SID</th>
-            <th scope="col">Full Name</th>
-            <th scope="col">Nickname</th>
-            <th scope="col">Department</th>
-            <th scope="col">Food allergy</th>
-            <th scope="col">Congenital Disease</th>
-            <th scope="col">Shirt size</th>
+        <tr class="text-center">
+            <th scope="col" style="width: 7%;">รหัสนศ.</th>
+            <th scope="col" style="width: 22%;">ชื่อ</th>
+            <th scope="col" style="width: 8%;">ชื่อเล่น</th>
+            <th scope="col" style="width: 9%;">ฝ่าย</th>
+            <th scope="col" style="width: 9%;">อาหารที่แพ้</th>
+            <th scope="col" style="width: 13%;">โรค/อาการแพ้</th>
+            <th scope="col" style="width: 10%;">Shirt size</th>
             <th scope="col">PS.</th>
-            <th scope="col"></th>
+            <th scope="col" style="width: 8%"></th>
         </tr>
     </thead>
     <tbody>
-        <tr id="table-row">
-            <th scope="row">61070123</th>
-            <td>นายจักกล แสงนำพาลง</td>
-            <td>มัส</td>
-            <td>สันทนาการ</td>
-            <td>กระเทียม</td>
-            <td>ไข้ที่ชน</td>
-            <td>L</td>
-            <td>ระกและหวงตลอดกาล</td>
+        {% for staff in staffs %}
+        <tr id="table-row" class="text-center">
+            <th scope="row">{{staff.personal.sid}}</th>
+            <td>{{staff.personal.first_name}} {{staff.personal.last_name}}</td>
+            <td>{{staff.personal.nick_name}}</td>
+            <td>{{staff.position}} {{staff.group}}</td>
+            <td>{{staff.personal.food_allergy}}</td>
+            <td>{{staff.personal.congenital_disease}}</td>
+            <td>{{staff.personal.shirt_size}}</td>
+            <td>{{staff.personal.postscript}}</td>
             <td>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
-                    <img src="/media/Icon awesome-edit.png" class="icon">
-                </a>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
-                    <img src="/media/Icon open-document.png" class="icon"></img>
-                </a>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Observe">
-                    <img src="/media/Icon ionic-md-document.png" class="icon"></img>
-                </a>
+                <span data-toggle="modal" data-target="#modal_edit" onclick="modal_edit({{ staff.id }})"
+                    style="cursor:pointer;">
+                    <a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
+                        <img src="/media/Icon awesome-edit.png" class="icon">
+                    </a>
+                    <!-- <input type="hidden" name="next" value="{{ department.desc }}"> -->
+                </span>
+                <span data-toggle="modal" data-target="#modal_view" onclick="getStaffsDetail({{ staff.id }})"
+                    style="cursor:pointer;">
+                    <a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
+                        <img src="/media/Icon open-document.png" class="icon"></img>
+                    </a>
+                </span>
             </td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>
-
+{% include 'staff_modal.html' %}
 {% endblock %}
-
-{% comment %} {% block footer %}
-Footer of Login page!!!
-{% endblock %} {% endcomment %}

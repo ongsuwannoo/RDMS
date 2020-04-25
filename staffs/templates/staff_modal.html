@@ -1,0 +1,152 @@
+<style>
+	.card-body-modal {
+		padding: 0;
+	}
+
+	.head {
+		font-size: 12px;
+	}
+
+	.modal-content-reg-camp {
+		border-radius: 30px;
+		border: 1px solid #924BE7;
+		background-color: rgba(146, 75, 231, 0.1);
+		color: white;
+	}
+
+	.modal-background {
+		background-color: rgba(0, 0, 0, 0.8) !important;
+	}
+
+	.pic_camp {
+		max-width: 100%;
+		height: auto;
+	}
+
+	.modal-dialog-staff {
+		max-width: 1000px;
+		background-color: var(--bg-aside);
+		border-radius: 30px;
+	}
+
+	.card-staff {
+		background-color: transparent;
+		color: white;
+		font-family: 'THSarabunNewRegular';
+		font-weight: normal;
+		font-style: normal;
+		font-size: 24px !important;
+	}
+</style>
+<div class="modal fade modal-background" id="modal_view" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-staff" role="document">
+		<div class="modal-content modal-content-reg-camp">
+			<div class="modal-header">
+				<h5 class="modal-title" id="name_modal_department"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="card card-staff">
+					<div class="card-body">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="container">
+										<div class="row">
+											<div class="col">
+												<p><label class="font-weight-bold text-muted">ชื่อ :</label> 
+													<label id="staff_first_name"></label>
+													<label> </label>
+													<label id="staff_last_name"></label>
+												</p>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												<p><label class="font-weight-bold text-muted">ชื่อเล่น : </label>
+													<label id='staff_nick_name'>sss</label></p>
+											</div>
+											<div class="col">
+												<p><label class="font-weight-bold text-muted">เพศ : </label>
+													<label id="staff_sex"></label></p>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												<p><label class="font-weight-bold text-muted">รหัสนักศึกษา :</label>
+													<label id="staff_sid"></label>
+												</p>
+											</div>
+											<div class="col">
+												<p><label class="font-weight-bold text-muted">ศาสนา : </label>
+													<label id="staff_religion"></label>
+												</p>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												<p><label class="font-weight-bold text-muted">โรคประจำตัว : </label>
+													<label id="staff_congenital_disease">xxxxxxx</label>
+												</p>
+											</div>
+											<div class="col">
+												<p><label class="font-weight-bold text-muted">อาหารที่แพ้ : </label>
+													<label id="staff_food_allergy"></label>
+												</p>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												<p><label class="font-weight-bold text-muted">ไซส์เสื้อ : </label>
+													<label id="staff_shirt_size"></label>
+												</p>
+											</div>
+											<div class="col">
+												<p><label class="font-weight-bold text-muted">กรุ๊ปเลือด : </label>
+													<label id="staff_blood_type"></label>
+												</p>
+											</div>
+											<div class="col">
+												<p><label class="font-weight-bold text-muted">วันเกิด : </label>
+													<label id="staff_birthday"></label></p>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												<p><label class="font-weight-bold text-muted">ฝ่าย : </label>
+													<label id="staff_department"></label>
+												</p>
+												<p><label class="font-weight-bold text-muted">ตำแหน่ง : </label>
+													<label id="staff_position"></label>
+												</p>
+												<p><label class="font-weight-bold text-muted">MC : </label>
+													<label id="staff_MC"></label>
+												</p>
+											</div>
+										</div>
+										<div class="col">
+
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<div class="text-right">
+										<img src="{{ request.META.HTTP_NAME }}" class="pic_camp" id="modal_pic">
+									</div>
+									
+									<p class="card-text"><label class="font-weight-bold text-muted">เบอร์โทร : </label>
+										<label id="staff_phone"></label></p>
+									<p class="card-text"><label class="font-weight-bold text-muted">Email : </label>
+										<label id="staff_email"></label></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

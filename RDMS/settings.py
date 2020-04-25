@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'flow',
     'locations',
     'staffs',
+    'import_export'
 ]
 
 MIDDLEWARE = [
