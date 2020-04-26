@@ -34,8 +34,11 @@
     <div class="col-xs-3">
         <input type="text" class="form-control  search" placeholder="Search" id="searchBox">
     </div>
-    <div class="col">
+    <div class="col-sm-auto">
         <a type="button" class="btn btn-primary" href="{% url 'create_staff' id_camp %}">Add staff</a>
+    </div>
+    <div class="col-sm">
+        <a type="button" class="btn btn-secondary" href="{% url 'import_staff' id_camp %}">import file</a>
     </div>
 </div>
 <table class="table table-dark table-hover table-fixed">
@@ -58,7 +61,7 @@
             <th scope="row">{{staff.personal.sid}}</th>
             <td>{{staff.personal.first_name}} {{staff.personal.last_name}}</td>
             <td>{{staff.personal.nick_name}}</td>
-            <td>{{staff.position}} {{staff.group}}</td>
+            <td>{{staff.department.name}}</td>
             <td>{{staff.personal.food_allergy}}</td>
             <td>{{staff.personal.congenital_disease}}</td>
             <td>{{staff.personal.shirt_size}}</td>

@@ -77,16 +77,21 @@ function getStaffsDetail(id_staff) {
             // always executed
             var lis = ['staff_name', 'staff_nickname', 'staff_sex', 'staff_sid', 'staff_religion', 'staff_disease', 'staff_foodallergy',
                 'staff_sirstsize', 'staff_birthday', 'staff_department', 'staff_position', 'staff_MC', 'staff_phone', 'staff_email'];
-            for (let key in data.personal) {
-                try {
-                    document.getElementById('staff_'+key).innerHTML = data.personal[key];
-                }catch(err) {}
-            }
-            for (let key in data) {
+            for (let key in data) { // ข้อมูลที่เหลือ (camp, personal, **position, group**, depart)
                 console.log(key, data[key]);
                 try {
-                    document.getElementById('staff_'+key).innerHTML = data.personal[key];
-                }catch(err) {}
+                    if (key == 'personal'){
+                        for (let key in data.personal) { // ข้อมูลเฉพาะใน personal ส่วนใหญ่
+                            try {
+                                document.getElementById('staff_' + key).innerHTML = data.personal[key];
+                            } catch (err) { }
+                        }
+                    }
+                    if (key == 'department')
+                        document.getElementById('staff_' + key).innerHTML = data.department['name'];
+                    else
+                        document.getElementById('staff_' + key).innerHTML = '-';
+                } catch (err) { }
             }
             document.getElementById('modal_pic').src = '/media/' + data.personal.profile_pic;
         });

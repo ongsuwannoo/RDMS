@@ -69,7 +69,6 @@ def create_department_mc(request, id_camp):
     if request.method == 'POST':
         camp = Camp.objects.get(pk=id_camp)
         choose =  request.POST.get('choose')
-
         
         if choose == 'department':
             name = request.POST.get('name_department')

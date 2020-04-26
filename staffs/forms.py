@@ -78,6 +78,7 @@ class StaffForm(forms.ModelForm):
         fields = (
             'email',
             'position',
+            'department',
             'group',
             'profile_pic'
         )

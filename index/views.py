@@ -59,24 +59,37 @@ def my_logout(request):
 
 def savePersonal(request):
     context = {}
-    sid = request.POST.get('sid')
+    post_data = request
 
-    first_name = request.POST.get('first_name')
-    last_name = request.POST.get('last_name')
-    nick_name = request.POST.get('nick_name')
+    # แปลงจาก queryset เป็น dict
+    if type(post_data) != dict:
+        print('type data != dict')
+        post_data = dict(request.POST)
+        post_data.update(request.FILES)
     
-    sex = request.POST.get('sex')
-    phone = request.POST.get('phone')
-    email = request.POST.get('email')
+    # เช็คว่า value เป็น List ไหม แล้วแปลงเป็น String
+    for i in post_data:
+        if type(post_data[i]) == list:
+            post_data[i] = post_data[i][0]
 
-    blood_type = request.POST.get('blood_type')
-    birthday = request.POST.get('birthday')
-    religion = request.POST.get('religion')
-    food_allergy = request.POST.get('food_allergy')
-    congenital_disease = request.POST.get('congenital_disease')
-    shirt_size = request.POST.get('shirt_size')
+    sid = post_data.get('sid')
+
+    first_name = post_data.get('first_name')
+    last_name = post_data.get('last_name')
+    nick_name = post_data.get('nick_name')
     
-    profile_pic = request.FILES.get('profile_pic')
+    sex = post_data.get('sex')
+    phone = post_data.get('phone')
+    email = post_data.get('email')
+
+    blood_type = post_data.get('blood_type')
+    birthday = post_data.get('birthday')
+    religion = post_data.get('religion')
+    food_allergy = post_data.get('food_allergy')
+    congenital_disease = post_data.get('congenital_disease')
+    shirt_size = post_data.get('shirt_size')
+    
+    profile_pic = post_data.get('profile_pic')
 
     personal = Personal(
         sid = sid,
@@ -98,6 +111,7 @@ def savePersonal(request):
         
         profile_pic = profile_pic
     )
+    print('save personal success!')
     personal.save()
     return personal
 

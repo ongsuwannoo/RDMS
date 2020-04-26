@@ -15,14 +15,14 @@ class Personal(models.Model):
     nick_name = models.CharField(max_length=255)
     
     sex = models.CharField(choices=SEX, max_length=1)
-    phone = models.CharField(max_length=10)
-    email = models.CharField(max_length=255)
+    phone = models.CharField(max_length=10, null=True)
+    email = models.CharField(max_length=255, null=True)
 
-    blood_type = models.CharField(max_length=2)
-    birthday = models.DateField()
-    religion = models.CharField(max_length=255)
-    food_allergy = models.CharField(max_length=255)
-    congenital_disease = models.CharField(max_length=255)
-    shirt_size = models.CharField(max_length=1)
+    blood_type = models.CharField(max_length=2, null=True)
+    birthday = models.DateField(null=True)
+    religion = models.CharField(max_length=255, null=True)
+    food_allergy = models.CharField(max_length=255, default='-')
+    congenital_disease = models.CharField(max_length=255, default='-')
+    shirt_size = models.CharField(max_length=5)
     
     profile_pic = models.ImageField(upload_to='profiles/')

@@ -2,13 +2,18 @@ from rest_framework import serializers
 
 from .models import Staff
 from personal.models import Personal
-from camp.models import Camp, MC
+from camp.models import Camp, MC, Department
 
 # class MCSerializer(serializers.ModelSerializer):
     
 #     name = serializers.CharField()
 #     typeOfMC = serializers.CharField()
 #     desc = serializers.CharField()
+
+class DepartmentSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    typeOfDepartment = serializers.CharField()
+    desc = serializers.CharField()
 
 class CampSerializer(serializers.Serializer):
     head = serializers.CharField()
@@ -41,5 +46,11 @@ class StaffSerializer(serializers.Serializer):
     personal = PersonalSerializer()
     position = serializers.CharField()
     group = serializers.CharField()
-    department = serializers.CharField()
+    department = DepartmentSerializer()
     postscript = serializers.CharField()
+
+    def create(self, validated_data):
+        """
+        Create and return a new `ToDoItem` instance, given the validated data.
+        """
+        return Staff.objects.create(**validated_data)
