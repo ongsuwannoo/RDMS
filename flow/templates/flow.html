@@ -52,7 +52,7 @@
                 <td>ภาระกิจส่วนตัว + ถึงคณะ</td>
             </tr>
             <tr id="table-row">
-                <td class="text-center">4:30 - 5:00</td>
+                <td class="text-center">5:00 - 6:00</td>
                 <td class="text-center">สถานที่ตื่น</td>
                 <td class="text-center">4:30</td>
                 <td>สถานที่แสตนด์บาย</td>
@@ -69,30 +69,63 @@
                 <td class="text-center">คณะ</td>
                 <td>ภาระกิจส่วนตัว + ถึงคณะ</td>
             </tr>
+            <tr id="table-row">
+                <td class="text-center">7:00 - 8:00</td>
+                <td class="text-center">สถานที่ตื่น</td>
+                <td class="text-center">4:30</td>
+                <td>สถานที่แสตนด์บาย</td>
+                <td class="text-center">สถานที่</td>
+                <td class="text-center">คณะ</td>
+                <td>ภาระกิจส่วนตัว + ถึงคณะ</td>
+            </tr>
+            <tr id="table-row">
+                <td class="text-center">9:00 - 10:00</td>
+                <td class="text-center">สถานที่ตื่น</td>
+                <td class="text-center">4:30</td>
+                <td>สถานที่แสตนด์บาย</td>
+                <td class="text-center">สถานที่</td>
+                <td class="text-center">คณะ</td>
+                <td>ภาระกิจส่วนตัว + ถึงคณะ</td>
+            </tr>
         </tbody>
     </table>
 </div>
 <script>
     $(document).ready(function () {
-        var first, last;
+        var first = '', last;
         var check = 0;
-        var row = 0;
-        var col = document.getElementById('tbl').rows[0].cells.length - 1;
-        console.log(col)
-        $('table > tbody > tr').each(function(index, tr) { 
-            last = tr.children[0];
-            if (!first)
-                first = last;
-            if (first.innerHTML == last.innerHTML && index != 0){
-                last.remove();
-                row++;
-            }
-            else {
-                first = last;
-                first.setAttribute('rowspan', row);
-                var first;
-            }
-        })
+        var row = 1;
+        var lenghth_col = document.getElementById('tbl').rows[0].cells.length - 1;
+        var lenghth_row = document.getElementById('tbl').rows.length - 2
+        console.log(lenghth_col, lenghth_row)
+        for (let i = 0; i < lenghth_row; i++) {
+            var first = '', last;
+            var check = 0;
+            var row = 1;
+            $('table > tbody > tr').each(function(index, tr) { 
+                last = tr.children[i];
+                console.log(first.innerHTML, last.innerHTML)
+                if (first == ''){
+                    first = last;
+                }
+                
+                else if (first.innerHTML == last.innerHTML) {
+                    last.remove();
+                    row++;
+                }
+
+                else {
+                    console.log(first, index)
+                    first.setAttribute('rowspan', row);
+                    first = last;
+                    row = 1
+                }
+
+                if (index == lenghth_row){
+                    first.setAttribute('rowspan', row);
+                }
+            })
+        }
     });
 </script>
 
