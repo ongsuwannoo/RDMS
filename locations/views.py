@@ -4,21 +4,27 @@ from .models import *
 from index.views import getPersonal
 
 # Create your views here.
+def locations(request, id_camp, id_location=""):
+    context = getPersonal(request)
+    context['id_camp'] = id_camp
+    if id_camp:
+        context['active_camp'] = True
 
-def locations(request,id_location=""):
-    context = {}
     context['id_location'] = id_location
     if id_location:
         location = Location.objects.get(pk=id_location)
         context['locations'] = location
-        # context['active_camp'] = True
+        
     else:
         location = Location.objects.all()
         context['locations'] = location
     return render(request, 'locations.html', context)
 
-def create_location (request):
+def create_location (request, id_camp):
     context = getPersonal(request)
+    context['id_camp'] = id_camp
+    if id_camp:
+        context['active_camp'] = True
     if request.method == 'POST':
         # user = request.user
         name = request.POST.get('name')
@@ -35,5 +41,5 @@ def create_location (request):
             logo = logo
         )
         location.save()
-        return redirect('locations')
+        # return redirect('locations')
     return render(request, 'create_location.html', context)

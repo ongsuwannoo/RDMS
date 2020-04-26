@@ -29,14 +29,30 @@
 	.head {
 		font-size: 12px;
 	}
+	.search {
+        background-color: #707070 !important;
+        color: white !important;
+    }
+
+    .search::placeholder {
+        color: white;
+        opacity: 0.5;
+    }
 </style>
-
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="form-group row ml-2 mr-5 ml-5 ">
+    <div class="col-xs-3">
+        <input type="text" class="form-control  search" placeholder="Search" onkeyup="searchCamper()" id="searchBox">
+    </div>
+    <div class="col">
+		<a type="button" class="btn btn-success " href="{% url 'create_location' id_camp %}">Add Location</a>
+    </div>
+</div>
 {% for location in locations %}
 <div class="card mr-5 ml-5 card-camp" onclick="window.location={{ location.id }}">
 	<div class="row no-gutters">
 		<div class="col-md-3">
-			<img src="../media/{{ location.logo }}" alt=""
+			<img src="{{ request.META.HTTP_NAME }}/media/{{ location.logo }}" alt=""
 				class="pic_camp m-3  mx-auto d-block img-responsive">
 		</div>
 		<div class="col-md-7">
@@ -56,7 +72,7 @@
 </div>
 <br>
 {% endfor %}
-<a type="button" class="btn btn-success mt-5" href="{% url 'create_location' %}">Add Location</a>
+
 {% endblock %}
 
 {% comment %} {% block footer %}

@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
+<button type="button" class="btn btn-success" onclick="fill()">Fill</button>
+<form method="POST" action="{% url 'create_staff' id_camp %}" enctype="multipart/form-data" class="phase1">
+    {% csrf_token %}
+    <div class="modal-dialog modal-reg modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-reg">
+            <div class="modal-body text-center p-5">
+                <p style="font-weight: bold;font-size: larger; color:var(--bg-purple);">STAFF REGISTER FORM</p>
+                <div class="" style="display: grid;" id="step2">
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <div class="">
+                                ชื่อ :
+                            </div>
+                        </div>
+                        <div class="col-sm-3" data-toggle="first_name" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.first_name.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                นามสกุล :
+                            </div>
+                        </div>
+                        <div class="col-sm-3" data-toggle="last_name" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.last_name.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="">
+                                รหัสนักศึกษา :
+                            </div>
+                        </div>
+                        <div class="col-sm" data-toggle="sid" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.sid.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.sid }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3 mt-3">
+                        <div class="col-md-auto">
+                            <div class="">
+                                ชื่อเล่น :
+                            </div>
+                        </div>
+                        <div class="col-3" data-toggle="nick_name" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.nick_name.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                <input type="text" class="form-control input-box-reg" required name="nick_name">
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                เพศ :
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm" data-toggle="sex" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.sex.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.sex }}
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                ศาสนา :
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm" data-toggle="religion" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.religion.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.religion }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-auto">
+                            <div class="">
+                                วันเกิด :
+                            </div>
+                        </div>
+                        <div class="col-sm-3" data-toggle="birthday" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.birthday.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.birthday }}
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                กรุ๊ปเลือด :
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm" data-toggle="blood_type" data-html="true" data-placement="right"
+                            title="
+                                <div class='text-danger'>
+                                {% for error in form.blood_type.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.blood_type }}
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                ไซส์เสื้อที่ใส่ :
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm" data-toggle="shirt_size" data-html="true" data-placement="right"
+                            title="
+                                <div class='text-danger'>
+                                {% for error in form.shirt_size.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.shirt_size }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-auto">
+                            <div class="">
+                                เบอร์โทรศัพท์ :
+                            </div>
+                        </div>
+                        <div class="col-sm-3" data-toggle="phone" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.phone.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.phone }}
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                Email :
+                            </div>
+                        </div>
+                        <div class="col-sm-3" data-toggle="phone" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.phone.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.email }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-auto">
+                            <div class="">
+                                อาหารที่แพ้ :
+                            </div>
+                        </div>
+                        <div class="col-sm" data-toggle="food_allergy" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.food_allergy.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.food_allergy }}
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                โรคประจำตัว :
+                            </div>
+                        </div>
+                        <div class="col-sm" data-toggle="congenital_disease" data-html="true" data-placement="right"
+                            title="
+                                <div class='text-danger'>
+                                {% for error in form.congenital_disease.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.congenital_disease }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                    <div class="col-md-auto">
+                            <div class="">
+                                ฝ่าย / MC :
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm">
+                            <div class="">
+                                <select name="department" class="form-control select">
+                                    <option value="0">ยังไม่เลือก</option>
+                                    {% for department in departments %}
+                                        <option value="{{ department.id }}">{{ department.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                ตำแหน่ง :
+                            </div>
+                        </div>
+                        <div class="col-sm" data-toggle="food_allergy" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.position.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.position }}
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                กลุ่ม :
+                            </div>
+                        </div>
+                        <div class="col-sm" data-toggle="congenital_disease" data-html="true" data-placement="right"
+                            title="
+                                <div class='text-danger'>
+                                {% for error in form.group.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.group }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-sm-4">
+                            <img src="{{ request.META.HTTP_NAME }}/media/Group 65.png"
+                                class="pic_camp m-3 rounded-circle mx-auto d-block img-responsive" id="img_profile">
+                            <p class="font-weight-bold">รูปโปรไฟล์ (รูปจริง)</p>
+                            <div class="input-group">
+                                <span class="custom-file" data-toggle="profile_pic" data-html="true"
+                                    data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.profile_pic.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                                    <!-- <input type="file" class="custom-file-input" id="id_profile_pic"
+                                            aria-describedby="inputGroupFileAddon01"> -->
+                                    {{ form.profile_pic }}
+                                    <label class="custom-file-label text-left" for="id_profile_pic">Choose file</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-next btn-reg mt-5" type="submit" id="btn_submit">SUBMIT</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        console.log(fileName)
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+
+    $(document).ready(function () {
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    
+                    $('#img_profile').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#id_profile_pic").change(function () {
+            readURL(this);
+        });
+    });
+    function fill() {
+        // document.getElementById('id_username').value = 'ongsuwannoo'
+        // document.getElementById('id_password1').value = 'ABCD_123456789'
+        // document.getElementById('id_password2').value = 'ABCD_123456789'
+        document.getElementById('id_first_name').value = 'First'
+        document.getElementById('id_last_name').value = 'Last'
+        document.getElementById('id_email').value = 'admin@admin.com'
+        document.getElementById('id_phone').value = '0824200568'
+        document.getElementById('id_sid').value = '61070022'
+        document.getElementsByName('nick_name')[0].value = 'ทดสอบ'
+        document.getElementsByName('congenital_disease')[0].value = '-'
+        document.getElementsByName('food_allergy')[0].value = '-'
+    }
+</script>
+{% endblock %}

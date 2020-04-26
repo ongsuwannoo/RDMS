@@ -8,9 +8,11 @@
     <title>RDMS</title>
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/my_style.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome-free/css/all.min.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/thsarabun-new" type="text/css" />
+
     <script src="{% static 'js/jquery-3.5.0.js'%}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js'%}"></script>
     <script src="{% static 'js/my_js.js'%}"></script>
@@ -24,7 +26,7 @@
         <div class="slide" id="sidebar-wrapper">
             <div class="list-group list-group-flush text-center mt-3" id="sidebar">
                 <div class="profile">
-                    <img src="{{ request.META.HTTP_NAME }}/media/{{ user.profile_pic }}" class="mb-3 img_profile reg-login">
+                    <img src="{{ request.META.HTTP_NAME }}/media/{{ personal.profile_pic }}" class="mb-3 img_profile reg-login">
                     <p class="h4 mb-1 font-weight-bold" id="profile_name">{{ name }}</p>
                     <p class="text-warning font-weight-bold role">SUPER ADMIN</p>
                     <p class="role">Edit Profile <img src="/media/Icon awesome-edit.png">
@@ -45,11 +47,9 @@
                 <a href="{%url 'flow' id_camp %}" class="list-group-item mt-2 box-side-sub Aligner" id="flow">
                     <em> FLOW </em>
                 </a>
-                {% endif %}
-                <a href="{%url 'locations' %}" class="list-group-item mt-2 box-side-sub Aligner" id="locations">
+                <a href="{%url 'locations' id_camp %}" class="list-group-item mt-2 box-side-sub Aligner" id="locations">
                     <em> LOCATIONS </em>
                 </a>
-                {% if active_camp %}
                 <a href="{%url 'staffs' id_camp %}" class="list-group-item mt-2 box-side-sub Aligner" id="staffs">
                     <em> STAFFS </em>
                 </a>

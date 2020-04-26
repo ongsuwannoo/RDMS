@@ -17,6 +17,7 @@ class Department(models.Model):
 
 class MC(models.Model):
     camp = models.ForeignKey(Camp, on_delete=models.CASCADE)
+    staff = models.ForeignKey(to='staffs.Staff', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=255)
     typeOfMC = models.CharField(max_length=255)
     desc = models.TextField()

@@ -5,4 +5,7 @@ from index.views import getPersonal
 
 def profile(request):
     context = getPersonal(request)
+    context['id_camp'] = id_camp
+    if id_camp:
+        context['active_camp'] = True
     return render(request, 'profile.html', context)

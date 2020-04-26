@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<div>
+    <!--| means OR operator-->
+    <strong>{{message|safe}}</strong>
+</div>
+{% endfor %}
+{% else %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row justify-content-md-center">
+        <div class="col-sm-4 text-center">
+            <p style="font-weight: bold;font-size: 30px;">Import Staff</p>
+            <i class="fas fa-file-import fa-10x"></i>
+            <img class="pic_camp m-3 rounded-circle mx-auto d-block img-responsive" id="img_profile">
+            <p class="font-weight-bold">Only accepts CSV files</p>
+            <div class="input-group">
+                <span class="custom-file" data-toggle="profile_pic" data-html="true" data-placement="right" title="
+                {% for error in form.profile_pic.errors %}                
+                    <div class='text-danger'>
+                    {error}}<br/>
+                    </div>
+                    {% endfor %}">
+                    <input type="file" class="custom-file-input" id="file1" name="file"
+                        aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label text-left" for="id_profile_pic">Choose file</label>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center mt-3">
+        <div class="col">
+            <button type="submit" class="btn btn-success">Upload</button>
+        </div>
+    </div>
+</form>
+<script>
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        console.log(fileName)
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+{% endif %}
+{% endblock %}

@@ -1,16 +1,89 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <p class="card-header-title">ALL STAFF</p>
+<style>
+    .table {
+        background: transparent;
+        font-family: 'THSarabunNewRegular';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 23px !important;
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .icon {
+        height: 20px;
+    }
+
+    thead {
+        background-color: #222230;
+    }
+
+    .search {
+        background-color: #707070 !important;
+        color: white !important;
+    }
+
+    .search::placeholder {
+        color: white;
+        opacity: 0.5;
+    }
+</style>
+<div class="form-group row ml-2">
+    <div class="col-xs-3">
+        <input type="text" class="form-control  search" placeholder="Search" id="searchBox">
     </div>
-    <div class="card-content">
-        <div class="content">Content</div>
+    <div class="col-sm-auto">
+        <a type="button" class="btn btn-primary" href="{% url 'create_staff' id_camp %}">Add staff</a>
+    </div>
+    <div class="col-sm">
+        <a type="button" class="btn btn-secondary" href="{% url 'import_staff' id_camp %}">import file</a>
     </div>
 </div>
-
+<table class="table table-dark table-hover table-fixed">
+    <thead class="">
+        <tr class="text-center">
+            <th scope="col" style="width: 7%;">รหัสนศ.</th>
+            <th scope="col" style="width: 22%;">ชื่อ</th>
+            <th scope="col" style="width: 8%;">ชื่อเล่น</th>
+            <th scope="col" style="width: 9%;">ฝ่าย</th>
+            <th scope="col" style="width: 9%;">อาหารที่แพ้</th>
+            <th scope="col" style="width: 13%;">โรค/อาการแพ้</th>
+            <th scope="col" style="width: 10%;">Shirt size</th>
+            <th scope="col">PS.</th>
+            <th scope="col" style="width: 8%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for staff in staffs %}
+        <tr id="table-row" class="text-center">
+            <th scope="row">{{staff.personal.sid}}</th>
+            <td>{{staff.personal.first_name}} {{staff.personal.last_name}}</td>
+            <td>{{staff.personal.nick_name}}</td>
+            <td>{{staff.department.name}}</td>
+            <td>{{staff.personal.food_allergy}}</td>
+            <td>{{staff.personal.congenital_disease}}</td>
+            <td>{{staff.personal.shirt_size}}</td>
+            <td>{{staff.personal.postscript}}</td>
+            <td>
+                <span data-toggle="modal" data-target="#modal_edit" onclick="modal_edit({{ staff.id }})"
+                    style="cursor:pointer;">
+                    <a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
+                        <img src="/media/Icon awesome-edit.png" class="icon">
+                    </a>
+                    <!-- <input type="hidden" name="next" value="{{ department.desc }}"> -->
+                </span>
+                <span data-toggle="modal" data-target="#modal_view" onclick="getStaffsDetail({{ staff.id }})"
+                    style="cursor:pointer;">
+                    <a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
+                        <img src="/media/Icon open-document.png" class="icon"></img>
+                    </a>
+                </span>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% include 'staff_modal.html' %}
 {% endblock %}
-
-{% comment %} {% block footer %}
-Footer of Login page!!!
-{% endblock %} {% endcomment %}
