@@ -83,6 +83,9 @@ function getStaffsDetail(id_staff) {
                     if (key == 'personal'){
                         for (let key in data.personal) { // ข้อมูลเฉพาะใน personal ส่วนใหญ่
                             try {
+                                if (key == 'profile_pic' && data.personal[key] == '') {
+                                    data.personal[key] = 'profile.png'
+                                }
                                 document.getElementById('staff_' + key).innerHTML = data.personal[key];
                             } catch (err) { }
                         }

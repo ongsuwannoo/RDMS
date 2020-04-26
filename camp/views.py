@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from index.views import getPersonal
 from .models import *
+from staffs.models import Staff
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -24,12 +25,15 @@ def camp(request, id_camp=""):
         camp = Camp.objects.get(pk=id_camp)
         departments = Department.objects.filter(camp_id=id_camp)
         MCs = MC.objects.filter(camp_id=id_camp)
+        count_total_staff = Staff.objects.select_related('camp').count
 
         camp.head.sex = sex[camp.head.personal.sex]
         context['active_camp'] = True
         context['camp'] = camp
         context['departments'] = departments
+        print(context['departments'])
         context['MCs'] = MCs
+        context['count_total_staff'] = count_total_staff
     else:
         user = request.user
         camp = Camp.objects.filter(head=user)
@@ -84,9 +88,9 @@ def create_department_mc(request, id_camp):
             department.save()
 
         elif choose == 'MC':
-            name = request.POST.get('name_mc')
+            name = request.POST.get('name_MC')
             typeOfMC = request.POST.get('typeOfMC')
-            desc = request.POST.get('desc_mc')
+            desc = request.POST.get('desc_MC')
 
             mc = MC(
                 camp = camp,

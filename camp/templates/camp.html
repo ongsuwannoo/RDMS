@@ -162,7 +162,7 @@
 				จำนวน Staffs
 			</div>
 			<div class="card-body text-center">
-				<h5 class="card-title"><label class="h2 text-primary">300</label> คน</h5>
+				<h5 class="card-title"><label class="h2 text-primary">{{ count_total_staff }}</label> คน</h5>
 			</div>
 		</div>
 	</div>
@@ -190,7 +190,7 @@
 					{% for department in departments %}
 						<tr>
 							<th scope="row">ฝ่าย{{department.name}}</th>
-							<td>0</td>
+							<td>{{department.count}}</td>
 							<td>
 								<span data-toggle="modal" data-target="#modal_edit" onclick="modal_edit({{ department.id }})" style="cursor:pointer;">
 									<a class="material-tooltip-main"data-toggle="tooltip" data-placement="top"
@@ -210,7 +210,7 @@
 					{% endfor %}
 					{% for MC in MCs %}
 						<tr>
-							<th scope="row">MC-{{department.name}}</th>
+							<th scope="row">MC-{{MC.name}}</th>
 							<td>0</td>
 							<td>
 								<a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top"
@@ -251,7 +251,7 @@
       data: {
         labels: ["จำนวน Campers ที่รับ", "จำนวน Campers ที่สมัคร", "จำนวน Campers ที่สละสิทธิ์", "จำนวน Staffs"],
         datasets: [{
-          data: [120, 1200, 70, 300],
+          data: [120, 1200, 70, {{ count_total_staff }}],
 		  borderColor: colorHex,
 		  backgroundColor: ["rgba(40, 167, 69,0.3)", "rgba(255, 193, 7,0.3)", "rgba(220, 53, 69,0.3)", "rgba(0, 123, 255,0.3)"],
           hoverBackgroundColor: ["#37bf56", "#ffd042", "#f74d5d", "#2b91ff"]
