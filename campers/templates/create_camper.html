@@ -2,230 +2,158 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
-<div class="" style="display: '';" id="step2">
-    <div class="row">
-        <div class="col-md-auto">
-            <div class="">
-                ชื่อ :
+<form method="POST" action="{% url 'campers' id_camp %}">
+    {% csrf_token %}
+    <div class="" style="display: '';" >
+        <div class="row">
+            <div class="col-md-auto">
+                <div class="">
+                    ชื่อ :
+                </div>
+            </div>
+            <div class="col-sm-3" data-toggle="first_name" data-html="true" data-placement="right">
+                <div class="">
+                    <input type="text" class="form-control input-box-reg" id="fname" name="fname">
+                </div>
+            </div>
+            <div class="col-md-auto">
+                <div class="">
+                    นามสกุล :
+                </div>
+            </div>
+            <div class="col-sm-3" data-toggle="last_name" data-html="true" data-placement="right">
+                <div class="">
+                    <input type="text" class="form-control input-box-reg" id="lname" name="lname">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="">
+                    รหัส :
+                </div>
+            </div>
+            <div class="col-sm" data-toggle="sid" data-html="true" data-placement="right">
+                <div class="">
+                    <input type="num" class="form-control input-box-reg" id="personalId" name="personalId">
+                </div>
             </div>
         </div>
-        <div class="col-sm-3" data-toggle="first_name" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.first_name.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-            <div class="">
-                <input type="text" class="form-control input-box-reg">
+        <div class="row mt-3 mt-3">
+            <div class="col-md-auto">
+                <div class="">
+                    ชื่อเล่น :
+                </div>
+            </div>
+            <div class="col-3" data-toggle="nick_name" data-html="true" data-placement="right">
+                <div class="">
+                    <input type="text" class="form-control input-box-reg" name="nick_name">
+                </div>
+            </div>
+            <div class="col-md-auto">
+                <div class="">
+                    เพศ :
+                </div>
+            </div>
+            <div class="col-5 col-sm" data-toggle="sex" data-html="true" data-placement="right">
+                <div class="">
+                    <input type="text" class="form-control input-box-reg" id="sex" name="sex">
+                </div>
+            </div>
+            <div class="col-md-auto">
+                <div class="">
+                    ศาสนา :
+                </div>
+            </div>
+            <div class="col-5 col-sm" data-toggle="religion" data-html="true" data-placement="right">
+                <div class="">
+                    <select id="inputState" class="form-control select" name="religion">
+                        <option value="buddha">พุทธ</option>
+                        <option value="christ">คริสต์</option>
+                        <option value="islamic">อิสลาม</option>
+                        <option value="other">อื่นๆ/ไม่ระบุ</option>
+                    </select>
+                </div>
             </div>
         </div>
-        <div class="col-md-auto">
-            <div class="">
-                นามสกุล :
+        <div class="row mt-3">
+            <div class="col-md-auto">
+                <div class="">
+                    วันเกิด :
+                </div>
+            </div>
+            <div class="col-sm-3" data-toggle="birthday" data-html="true" data-placement="right">
+                <div class="">
+                    <input type="date" class="form-control input-box-reg date" name="birthday" >
+                </div>
+            </div>
+            <div class="col-md-auto">
+                <div class="">
+                    กรุ๊ปเลือด :
+                </div>
+            </div>
+            <div class="col-5 col-sm" data-toggle="blood_type" data-html="true" data-placement="right">
+                <div class="">
+                    <select id="inputState" class="form-control select" name="blood_type">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="AB">AB</option>
+                        <option value="O">O</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-auto">
+                <div class="">
+                    ไซส์เสื้อที่ใส่ :
+                </div>
+            </div>
+            <div class="col-5 col-sm" data-toggle="shirt_size" data-html="true" data-placement="right">
+                <div class="">
+                    <select id="inputState" class="form-control select" name="shirt_size">
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                </div>
             </div>
         </div>
-        <div class="col-sm-3" data-toggle="last_name" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.last_name.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-            <div class="">
-                <input type="text" class="form-control input-box-reg">
+        <div class="row mt-3">
+            <div class="col-md-auto">
+                <div class="">
+                    เบอร์โทรศัพท์ :
+                </div>
+            </div>
+            <div class="col-sm-3" data-toggle="phone" data-html="true" data-placement="right">
+                <div class="">
+                    <input type="text" class="form-control input-box-reg" name="tel">
+                </div>
             </div>
         </div>
-        <div class="col-sm-2">
-            <div class="">
-                รหัสนักศึกษา :
+        <div class="row mt-3">
+            <div class="col-md-auto">
+                <div class="">
+                    อาหารที่แพ้ :
+                </div>
             </div>
-        </div>
-        <div class="col-sm" data-toggle="sid" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.sid.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-            <div class="">
-                <input type="num" class="form-control input-box-reg">
+            <div class="col-sm" data-toggle="food_allergy" data-html="true" data-placement="right">
+                <div class="">
+                    <input type="text" class="form-control input-box-reg" name="food_allergy">
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="row mt-3 mt-3">
-        <div class="col-md-auto">
-            <div class="">
-                ชื่อเล่น :
+            <div class="col-md-auto">
+                <div class="">
+                    โรคประจำตัว :
+                </div>
             </div>
-        </div>
-        <div class="col-3" data-toggle="nick_name" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.nick_name.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-            <div class="">
-                <input type="text" class="form-control input-box-reg" required name="nick_name">
-            </div>
-        </div>
-        <div class="col-md-auto">
-            <div class="">
-                เพศ :
-            </div>
-        </div>
-        <div class="col-5 col-sm" data-toggle="sex" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.sex.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-            <div class="">
-                <input type="text" class="form-control input-box-reg">            </div>
-        </div>
-        <div class="col-md-auto">
-            <div class="">
-                ศาสนา :
-            </div>
-        </div>
-        <div class="col-5 col-sm" data-toggle="religion" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.religion.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-            <div class="">
-                <select id="inputState" class="form-control select" name="religion">
-                    <option value="buddha">พุทธ</option>
-                    <option value="christ">คริสต์</option>
-                    <option value="islamic">อิสลาม</option>
-                    <option value="other">อื่นๆ/ไม่ระบุ</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-md-auto">
-            <div class="">
-                วันเกิด :
-            </div>
-        </div>
-        <div class="col-sm-3" data-toggle="birthday" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.birthday.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-            <div class="">
-                <input type="date" class="form-control input-box-reg date" required name="birthday">
-            </div>
-        </div>
-        <div class="col-md-auto">
-            <div class="">
-                กรุ๊ปเลือด :
-            </div>
-        </div>
-        <div class="col-5 col-sm" data-toggle="blood_type" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.blood_type.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-            <div class="">
-                <select id="inputState" class="form-control select" name="blood_type">
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="AB">AB</option>
-                    <option value="O">O</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-auto">
-            <div class="">
-                ไซส์เสื้อที่ใส่ :
-            </div>
-        </div>
-        <div class="col-5 col-sm" data-toggle="shirt_size" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.shirt_size.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-            <div class="">
-                <select id="inputState" class="form-control select" name="shirt_size">
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                </select>
+            <div class="col-sm" data-toggle="congenital_disease" data-html="true" data-placement="right">
+                <div class="">
+                    <input type="text" class="form-control input-box-reg" name="congenital_disease">
+                </div>
             </div>
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="col-md-auto">
-            <div class="">
-                เบอร์โทรศัพท์ :
-            </div>
-        </div>
-        <div class="col-sm-3" data-toggle="phone" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.phone.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-            <div class="">
-                <input type="text" class="form-control input-box-reg">
-            </div>
-        </div>
+    <div class="col text-right">
+        <button type="submit" class="btn btn-reg btn-next mt-4">Add</button>
     </div>
-    <div class="row mt-3">
-        <div class="col-md-auto">
-            <div class="">
-                อาหารที่แพ้ :
-            </div>
-        </div>
-        <div class="col-sm" data-toggle="food_allergy" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.food_allergy.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-            <div class="">
-                <input type="text" class="form-control input-box-reg" name="food_allergy">
-            </div>
-        </div>
-        <div class="col-md-auto">
-            <div class="">
-                โรคประจำตัว :
-            </div>
-        </div>
-        <div class="col-sm" data-toggle="congenital_disease" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.congenital_disease.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-            <div class="">
-                <input type="text" class="form-control input-box-reg" name="congenital_disease">
-            </div>
-        </div>
-    </div>
-    <div class="row justify-content-md-center">
-        <div class="col-sm-4">
-            <img src="../media/Group 65.png" class="pic_camp m-3 rounded-circle mx-auto d-block img-responsive"
-                id="img_profile">
-            <p class="font-weight-bold">รูปโปรไฟล์ (รูปจริง)</p>
-            <div class="input-group">
-                <span class="custom-file" data-toggle="profile_pic" data-html="true" data-placement="right" title="
-                            <div class='text-danger'>
-                            {% for error in form.profile_pic.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
-                   <input type="file" class="custom-file-input" id="id_profile_pic"
-                                        aria-describedby="inputGroupFileAddon01">
-                    <label class="custom-file-label text-left" for="id_profile_pic">Choose file</label>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
+</form>
 {% endblock %}
