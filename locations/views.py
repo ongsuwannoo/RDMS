@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from .models import *
 from index.views import getPersonal
@@ -42,4 +42,5 @@ def create_location (request, id_camp):
         )
         location.save()
         # return redirect('locations')
+        return HttpResponseRedirect('../../../%d/locations'%id_camp)
     return render(request, 'create_location.html', context)

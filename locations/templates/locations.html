@@ -4,7 +4,7 @@
 	.card {
 		background-color: var(--bg-aside);
 	}
-	.card-camp {
+	.card-loca {
 		background-color: var(--bg-aside);
 		{% comment %} border-radius: 25px; {% endcomment %}
 		border: 2px solid #707070;
@@ -14,7 +14,7 @@
 		cursor: pointer;
 	}
 
-	.pic_camp {
+	.pic_loca {
 		border: 1.9px solid white;
 		height: 150px;
         width: 225px;
@@ -22,7 +22,7 @@
 
 	}
 
-	.card-body-camp {
+	.card-body-loca {
 		padding: 0;
 	}
 
@@ -39,7 +39,10 @@
         opacity: 0.5;
     }
 </style>
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- ช่อง Search ปุ่ม Create Location -->
 <div class="form-group row ml-2 mr-5 ml-5 ">
     <div class="col-xs-3">
         <input type="text" class="form-control  search" placeholder="Search" onkeyup="searchCamper()" id="searchBox">
@@ -48,15 +51,17 @@
 		<a type="button" class="btn btn-success " href="{% url 'create_location' id_camp %}">Add Location</a>
     </div>
 </div>
+
+<!-- Card แสดง Location -->
 {% for location in locations %}
-<div class="card mr-5 ml-5 card-camp" onclick="window.location={{ location.id }}">
+<div class="card mr-5 ml-5 card-loca" onclick="window.location={{ location.id }}">
 	<div class="row no-gutters">
 		<div class="col-md-3">
 			<img src="{{ request.META.HTTP_NAME }}/media/{{ location.logo }}" alt=""
-				class="pic_camp m-3  mx-auto d-block img-responsive">
+				class="pic_loca m-3  mx-auto d-block img-responsive">
 		</div>
 		<div class="col-md-7">
-			<div class="card-body m-3 card-body-camp">
+			<div class="card-body m-3 card-body-loca">
 				<h5 class="card-title font-weight-bold h3">Location : {{ location.name }}</h5>
 				<em>
 					<p class="card-text">Description: {{ location.desc }}</p>
