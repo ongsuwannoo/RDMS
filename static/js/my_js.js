@@ -40,9 +40,12 @@ window.onload = function () {
     var x = window.matchMedia("(max-width: 768px)")
     hamburger(x)
     x.addListener(hamburger)
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHerderName = 'X-CSRFTOKEN'
 }
-// const axios = require('axios');
-var items = []
+
+
+
 function getDepartment(id) {
     axios.get('/api/getDepartment/' + id)
         .then(function (response) {
@@ -80,7 +83,7 @@ function getStaffsDetail(id_staff) {
             for (let key in data) { // ข้อมูลที่เหลือ (camp, personal, **position, group**, depart)
                 console.log(key, data[key]);
                 try {
-                    if (key == 'personal'){
+                    if (key == 'personal') {
                         for (let key in data.personal) { // ข้อมูลเฉพาะใน personal ส่วนใหญ่
                             try {
                                 if (key == 'profile_pic' && data.personal[key] == '') {
@@ -98,4 +101,42 @@ function getStaffsDetail(id_staff) {
             }
             document.getElementById('modal_pic').src = '/media/' + data.personal.profile_pic;
         });
+}
+
+function getFlow(id_camp) {
+    axios.get('/api/flow_api/' + id_camp)
+        .then(function (response) {
+            // handle success
+            data = response.data
+            console.log(data);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+
+        });
+}
+
+function addFlow() {
+    axios
+    .post('/api/addFlow/', {
+      email : "test@gmail.com",
+      username : 'test'
+    })
+    .then(response => (this.info = response.data))
+
+
+    // axios.post('/api/addFlow/', {
+    //     text: 'test'
+
+    // })
+    //     .then(function (response) {
+    //         console.log(response);
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //     });
 }

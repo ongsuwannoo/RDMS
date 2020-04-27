@@ -90,12 +90,17 @@
 	</div>
 </div>
 {% endfor %}
-<a type="button" class="btn btn-outline-success mt-5" href="{% url 'create_camp' %}">Add Camp</a>
+<div class="row">
+	<div class="col">
+		<a type="button" class="btn btn-outline-success" href="{% url 'create_camp' %}">Add Camp</a>
+	</div>
+</div>
+
 {% else %}
 <label class="h2 text-uppercase font-weight-bold" style="margin-bottom: 30px;">
 	Camp : <label class="text-success">{{ camp.name }}</label>
 </label>
-<div class="row mb-4" style="font-family: 'THSarabunNewRegular'; font-size: 27px;">
+<div class="row mb-4">
 	<div class="col-4">
 		<img src="../../media/{{ camp.logo }}" class="pic_camp2 m-3 mx-auto d-block img-responsive">
 	</div>

@@ -20,7 +20,7 @@ from django.contrib import messages
 def staffs(request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp
-    context['staffs'] = reversed(Staff.objects.select_related('personal'))
+    context['staffs'] = reversed(Staff.objects.select_related('personal').filter(camp_id=id_camp))
 
     if id_camp:
         context['active_camp'] = True
@@ -102,7 +102,7 @@ def import_staff(request, id_camp):
         )
 
         if department:
-            staff.department = department
+            staff.department = department[0]
 
         staff.save()
     return HttpResponseRedirect('../../../../camp/%d/staffs/'%id_camp)

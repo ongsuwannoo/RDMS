@@ -117,7 +117,9 @@ def savePersonal(request):
 
 def index(request):
     context = {}
+    # context = getPersonal(request)
     camp = Camp.objects.all()
+    print(camp)
     context['camps'] = reversed(camp)
     return render(request, 'index.html', context)
 

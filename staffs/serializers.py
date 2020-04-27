@@ -46,7 +46,7 @@ class StaffSerializer(serializers.Serializer):
     position = serializers.CharField()
     group = serializers.CharField()
     department = DepartmentSerializer()
-    department = MCSerializer()
+    mc = MCSerializer()
     postscript = serializers.CharField()
 
     def create(self, validated_data):

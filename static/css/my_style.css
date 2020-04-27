@@ -9,6 +9,7 @@ body {
     overflow-x: hidden;
     background-color: var(--bg-gray);
     color: white !important;
+    font-family: 'Kanit', sans-serif;
 }
 #main-content {
     /* min-height: 100vh; */
@@ -60,7 +61,6 @@ body {
     #wrapper.toggled #sidebar-wrapper {
         margin-left: -19rem;
     }
-    
 }
 .neon {
     color: #fff;
