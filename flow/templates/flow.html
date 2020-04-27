@@ -17,6 +17,11 @@
     thead {
         background-color: #222230;
     }
+    #submit{
+        background: transparent;
+        border: 0;
+        color: white;
+    }
 </style>
 <div class="table-responsive-xl">
     <button class="btn btn-outline-light mb-3" id="merge">Merge</button> (beta)
@@ -112,13 +117,13 @@
             {% csrf_token %}
             <thead class="text-center">
                 <tr id="table-row">
-                    <th scope="col" style="width: 9%;"><input type="text" class="form-control"></th>
-                    <th scope="col" style="width: 15%;"><input type="text" class="form-control"></th>
-                    <th scope="col" style="width: 7%;"><input type="text" class="form-control"></th>
-                    <th scope="col" style="width: 25%"><input type="text" class="form-control"></th>
-                    <th scope="col" style="width: 7%;"><input type="text" class="form-control"></th>
-                    <th scope="col" style="width: 7%;"><input type="text" class="form-control"></th>
-                    <th scope="col" style="width: 15%;"><input type="text" class="form-control"></th>
+                    <th scope="col" style="width: 9%;"><input type="text" class="form-control" name="time"></th>
+                    <th scope="col" style="width: 15%;"><input type="text" class="form-control" name="activity"></th>
+                    <th scope="col" style="width: 7%;"><input type="text" class="form-control" name="sub_time"></th>
+                    <th scope="col" style="width: 25%"><input type="text" class="form-control" name="desc"></th>
+                    <th scope="col" style="width: 7%;"><input type="text" class="form-control" name="department"></th>
+                    <th scope="col" style="width: 7%;"><input type="text" class="form-control" name="location"></th>
+                    <th scope="col" style="width: 15%;"><input type="text" class="form-control" name="note"></th>
                     <th scope="col" style="width: 5%; ">
                         <span data-toggle="modal" data-target="#modal_view">
                             <button class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add" id="submit">
