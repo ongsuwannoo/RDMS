@@ -4,11 +4,10 @@ from .models import Staff
 from personal.models import Personal
 from camp.models import Camp, MC, Department
 
-# class MCSerializer(serializers.ModelSerializer):
-    
-#     name = serializers.CharField()
-#     typeOfMC = serializers.CharField()
-#     desc = serializers.CharField()
+class MCSerializer(serializers.ModelSerializer):
+    name = serializers.CharField()
+    typeOfMC = serializers.CharField()
+    desc = serializers.CharField()
 
 class DepartmentSerializer(serializers.Serializer):
     name = serializers.CharField()
@@ -47,6 +46,7 @@ class StaffSerializer(serializers.Serializer):
     position = serializers.CharField()
     group = serializers.CharField()
     department = DepartmentSerializer()
+    department = MCSerializer()
     postscript = serializers.CharField()
 
     def create(self, validated_data):
