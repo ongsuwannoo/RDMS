@@ -8,4 +8,7 @@ def flow(request, id_camp):
     context['id_camp'] = id_camp
     if id_camp:
         context['active_camp'] = True
+    
+    if request.method == 'POST':
+        print('OK')
     return render(request, 'flow.html', context)
