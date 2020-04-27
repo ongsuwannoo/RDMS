@@ -26,12 +26,11 @@ def camp(request, id_camp=""):
         departments = reversed(Department.objects.filter(camp_id=id_camp))
         MCs = reversed(MC.objects.filter(camp_id=id_camp))
         count_total_staff = Staff.objects.select_related('camp').filter(camp_id=id_camp).count
-
+        
         camp.head.sex = sex[camp.head.personal.sex]
         context['active_camp'] = True
         context['camp'] = camp
         context['departments'] = departments
-        print(context['departments'])
         context['MCs'] = MCs
         context['count_total_staff'] = count_total_staff
     else:

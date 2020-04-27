@@ -50,6 +50,7 @@ input[type=password] {
     font-size: 30px;
     font-weight: bolder;
 }
+
 .btn-reg {
     padding-top: 0;
     padding-bottom: 0;
@@ -92,7 +93,7 @@ input[type=password] {
     /* padding-top: 10% !important; */
     padding-left: 5% !important;
     /* color: orchid; */
-    font-size: 25px;
+    /* font-size: 25px; */
 
     padding-top: 0;
     height: 33px;
@@ -106,10 +107,10 @@ input[type=password] {
 
 select option {
     background: var(--bg-purple);
-    font-size: 15px;
+    /* font-size: 15px;
     font-family: 'THSarabunNewRegular';
     font-weight: normal;
-    font-style: normal;
+    font-style: normal; */
     border-radius: 10px;
 }
 

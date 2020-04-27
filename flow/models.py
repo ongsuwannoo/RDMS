@@ -11,5 +11,5 @@ class Flow(models.Model):
     camp = models.ForeignKey(to='camp.Camp', on_delete=models.CASCADE)
     department = models.ForeignKey(to='camp.Department', on_delete=models.CASCADE, null=True)
     mc = models.ForeignKey(to='camp.MC', on_delete=models.CASCADE, null=True)
-    location = models.ForeignKey(to='locations.Location', on_delete=models.CASCADE)
+    location = models.ForeignKey(to='locations.Location', on_delete=models.CASCADE, null=True)
     note = models.CharField(max_length=255, null=True)

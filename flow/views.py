@@ -24,14 +24,12 @@ def flow(request, id_camp):
 
     if request.method == 'POST':
         post = request.POST
-        time = post.get('time').split(' - ')
-        t1 = int((time[0]).split(':')[0])
-        t2 = int((time[0]).split(':')[1])
+        t1 = int((post.get('time_start')).split(':')[0])
+        t2 = int((post.get('time_start')).split(':')[1])
         time_start = datetime.time(t1, t2)
-        t1 = int((time[1]).split(':')[0])
-        t2 = int((time[1]).split(':')[1])
+        t1 = int((post.get('time_end')).split(':')[0])
+        t2 = int((post.get('time_end')).split(':')[1])
         time_end = datetime.time(t1, t2)
-
         activity = post.get('activity')
         sub_time = post.get('sub_time')
         desc = post.get('desc')
@@ -39,10 +37,10 @@ def flow(request, id_camp):
         mc = post.get('department')
         location = post.get('location')
         note = post.get('note')
-
-        department = Department.objects.get(pk=department)
-        # mc = MC.objects.get(pk=mc)
-        location = Location.objects.get(pk=location)
+        
+        department = Department.objects.filter(pk=department)
+        mc = MC.objects.filter(pk=mc)
+        location = Location.objects.filter(pk=location)
         camp = Camp.objects.get(pk=id_camp)
 
         flow = Flow(
@@ -51,37 +49,39 @@ def flow(request, id_camp):
             activity = activity,
             sub_time = sub_time,
             desc = desc,
-            department = department,
-            # mc = mc,
-            location = location,
             camp = camp,
             note = note
         )
+
+        if location:
+            flow.location = location[0]
+
+        if department:
+            flow.department = department[0]
+
+        elif mc:
+            flow.mc = mc[0]
+        
         flow.save()
     else:
-        context['location'] = Location.objects.all()
-        context['department'] = Department.objects.filter(camp_id=id_camp)
+        context['locations'] = Location.objects.all()
+        context['departments'] = Department.objects.filter(camp_id=id_camp)
         context['mc'] = MC.objects.filter(camp_id=id_camp)
 
     return render(request, 'flow.html', context)
 
+
 @csrf_exempt
 @api_view(['GET'])
 def flow_api(request, id_camp):
+    """
+    API FLOW
+    id_camp = ค่าคงที่ของ camp ระบุ camp
+    method GET = ดึงค่าตารางไปเปิดในหน้า flow.html โดยใช้ id_camp
+    """
     if request.method == 'GET':
         flow = Flow.objects.filter(camp_id=id_camp)
         serializer = FlowSerializer(flow, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-# @csrf_exempt
-# @api_view(['POST'])
-def addFlow(request):
-    if request.method == 'POST':
-        serializer = FlowSerializer(data=request.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        

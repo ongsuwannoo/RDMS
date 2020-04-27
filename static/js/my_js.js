@@ -40,11 +40,7 @@ window.onload = function () {
     var x = window.matchMedia("(max-width: 768px)")
     hamburger(x)
     x.addListener(hamburger)
-    axios.defaults.xsrfCookieName = 'csrftoken'
-    axios.defaults.xsrfHerderName = 'X-CSRFTOKEN'
 }
-
-
 
 function getDepartment(id) {
     axios.get('/api/getDepartment/' + id)
@@ -104,6 +100,7 @@ function getStaffsDetail(id_staff) {
 }
 
 function getFlow(id_camp) {
+    console.log('getFlow')
     axios.get('/api/flow_api/' + id_camp)
         .then(function (response) {
             // handle success
@@ -116,27 +113,60 @@ function getFlow(id_camp) {
         })
         .then(function () {
             // always executed
-
+            for (let i = 0; i < data.length; i++) {
+                data[i].department = data[i].department || {'name':'ทุกคน'}
+                data[i].location = data[i].location || {'name':'ทั่วคณะ'}
+                    // data[i].department.name = 'ทุกฝ่าย'
+                $('#tbl > tbody:last-child').append(
+                    '<tr>'+
+                        '<td class="text-center">'+
+                            (data[i].time_start).slice(0, 5)+' - '+
+                            (data[i].time_end).slice(0, 5)+
+                        '</td>'+
+                        '<td class="text-center">'+data[i].activity+'</td>'+
+                        '<td class="text-center">'+(data[i].sub_time).slice(0, 5)+'</td>'+
+                        '<td>'+data[i].desc+'</td>'+
+                        '<td class="text-center">'+data[i].department.name+'</td>'+
+                        '<td class="text-center">'+data[i].location.name+'</td>'+
+                        '<td>'+data[i].note+'</td>'+
+                        '<th scope="col">'+
+                            '<span onclick="'+data[i].id+'" style="cursor:pointer;" class="m-1">'+
+                                '<a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">'+
+                                    '<i class="fas fa-edit fa-sm"></i>'+
+                                '</a>'+
+                            '</span>'+
+                            '<span onclick="'+data[i].id+'" style="cursor:pointer;">'+
+                                '<a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Delete">'+
+                                    '<i class="fas fa-times fa-sm"></i>'+
+                                '</a>'+
+                            '</span>'+
+                        '</th>'+
+                    '</tr>'
+                );
+            }
         });
 }
-
-function addFlow() {
-    axios
-    .post('/api/addFlow/', {
-      email : "test@gmail.com",
-      username : 'test'
+function addFlow(id) {
+    console.log('addFlow');
+    var time_start, time_end, activity, sub_time, desc, camp, department, mc, location, note;
+    // Send AJAX resuest to create in the DB
+    console.log('/api/flow_api/'+id)
+    axios.post('/api/flow_api/' + id, {
+        time_start: document.getElementById('time_start').value,
+        time_end: document.getElementById('time_end').value,
+        activity: document.getElementById('activity').value,
+        sub_time: document.getElementById('sub_time').value,
+        desc: document.getElementById('desc').value,
+        camp: document.getElementById('camp').value,
+        department: document.getElementById('department').value,
+        mc: '',
+        location: document.getElementById('location').value,
+        note: document.getElementById('note').value
     })
-    .then(response => (this.info = response.data))
-
-
-    // axios.post('/api/addFlow/', {
-    //     text: 'test'
-
-    // })
-    //     .then(function (response) {
-    //         console.log(response);
-    //     })
-    //     .catch(function (error) {
-    //         console.log(error);
-    //     });
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
