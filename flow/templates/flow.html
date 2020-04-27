@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
 <style>
     .table {
         background: transparent;
+        font-size: 15px !important;
     }
 
     .icon {
+        font-size: 16px;
         height: 20px;
     }
 
@@ -17,13 +21,19 @@
     thead {
         background-color: #222230;
     }
+
+    #submit {
+        background: transparent;
+        border: 0;
+        color: white;
+    }
 </style>
 <div class="table-responsive-xl">
     <button class="btn btn-outline-light mb-3" id="merge">Merge</button> (beta)
     <table class="table table-dark table-hover" id="tbl">
         <thead class="text-center">
             <tr>
-                <th scope="col" style="width: 9%;">เวลา</th>
+                <th scope="col" style="width: 10%;">เวลา</th>
                 <th scope="col" style="width: 15%;">กิจกรรม</th>
                 <th scope="col" style="width: 7%;">เวลาเริ่ม</th>
                 <th scope="col" style="width: 25%">รายละเอียด</th>
@@ -42,7 +52,7 @@
                 <td class="text-center">สถานที่</td>
                 <td class="text-center">คณะ</td>
                 <td>ภาระกิจส่วนตัว + ถึงคณะ</td>
-                <td class="text-center">
+                <td class="text-center icon">
                     <span data-toggle="modal" data-target="#modal_view" onclick="" style="cursor:pointer;">
                         <a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
                             <i class="fas fa-edit fa-sm"></i>
@@ -107,21 +117,32 @@
             </tr>
         </tbody>
     </table>
-    <form method="POST" id="flow">
+    <form method="POST">
+        {% csrf_token %}
         <table class="table table-dark table-hover" id="tbl">
-            {% csrf_token %}
             <thead class="text-center">
                 <tr id="table-row">
-                    <th scope="col" style="width: 9%;"><input type="text" class="form-control"></th>
-                    <th scope="col" style="width: 15%;"><input type="text" class="form-control"></th>
-                    <th scope="col" style="width: 7%;"><input type="text" class="form-control"></th>
-                    <th scope="col" style="width: 25%"><input type="text" class="form-control"></th>
-                    <th scope="col" style="width: 7%;"><input type="text" class="form-control"></th>
-                    <th scope="col" style="width: 7%;"><input type="text" class="form-control"></th>
-                    <th scope="col" style="width: 15%;"><input type="text" class="form-control"></th>
+                    <th scope="col" style="width: 10%;"><input type="text" class="form-control input-box-reg"
+                            name="time">
+                    </th>
+                    <th scope="col" style="width: 15%;"><input type="text" class="form-control input-box-reg"
+                            name="activity"></th>
+                    <th scope="col" style="width: 7%;"><input type="text" class="form-control input-box-reg"
+                            name="sub_time"></th>
+                    <th scope="col" style="width: 25%"><input type="text" class="form-control input-box-reg"
+                            name="desc">
+                    </th>
+                    <th scope="col" style="width: 7%;"><input type="text" class="form-control input-box-reg"
+                            name="department"></th>
+                    <th scope="col" style="width: 7%;"><input type="text" class="form-control input-box-reg"
+                            name="location"></th>
+                    <th scope="col" style="width: 15%;"><input type="text" class="form-control input-box-reg"
+                            name="note">
+                    </th>
                     <th scope="col" style="width: 5%; ">
                         <span data-toggle="modal" data-target="#modal_view">
-                            <button class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add" id="submit">
+                            <button class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add"
+                                id="submit">
                                 <i class="far fa-plus-square fa-lg"></i>
                             </button>
                         </span>
@@ -132,9 +153,13 @@
     </form>
 </div>
 <script>
-    $("#submit").click(function () {
-        document.getElementById("flow").submit();
+    // $("#submit").click(function () {
+    //     addFlow("{{ id_camp }}");
+    // });
+    $(document).ready(function () {
+        getFlow("{{ id_camp }}");
     });
+
     $("#merge").click(function () {
         var lenghth_col = document.getElementById('tbl').rows[0].cells.length - 1;
         var lenghth_row = document.getElementById('tbl').rows.length - 2
@@ -169,6 +194,19 @@
             })
         }
     });
+
+    function addFlow(id) {
+        axios.post('/api/addFlow/' + id, {
+            text: 'test'
+
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 </script>
 
 {% endblock %}

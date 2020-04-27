@@ -23,9 +23,9 @@ def camp(request, id_camp=""):
     sex = {'M':'Mr.', 'F':'Miss.'}
     if id_camp:
         camp = Camp.objects.get(pk=id_camp)
-        departments = Department.objects.filter(camp_id=id_camp)
-        MCs = MC.objects.filter(camp_id=id_camp)
-        count_total_staff = Staff.objects.select_related('camp').count
+        departments = reversed(Department.objects.filter(camp_id=id_camp))
+        MCs = reversed(MC.objects.filter(camp_id=id_camp))
+        count_total_staff = Staff.objects.select_related('camp').filter(camp_id=id_camp).count
 
         camp.head.sex = sex[camp.head.personal.sex]
         context['active_camp'] = True
