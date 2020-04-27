@@ -4,7 +4,7 @@ from camp.models import Camp
 
 # Create your models here.
 class Camper(models.Model):
-    camp = models.OneToOneField(Camp, on_delete=models.CASCADE)
+    camp = models.ForeignKey(to='camp.Camp', on_delete=models.CASCADE)
     personal = models.OneToOneField(Personal, on_delete=models.CASCADE)
     school = models.CharField(max_length=255)
     parent_phone = models.CharField(max_length=10)

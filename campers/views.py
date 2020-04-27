@@ -2,9 +2,10 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from index.views import getPersonal
+from index.views import getPersonal, savePersonal, Personal
 from personal.models import Personal
-# from .models import Camper
+from .models import Camper
+from .forms import *
 # Create your views here.
 
 def campers(request, id_camp):
@@ -24,24 +25,31 @@ def camper_detail(request, id_camp, id_camper):
     return render(request, 'camper_detail.html', context)
 
 def create_camper(request, id_camp):
-    context = {}
+    context = getPersonal(request)
     context['id_camp'] = id_camp
-    context['name'] = getPersonal(request)['name']
     camper_detail = Camper.objects.all()
     if id_camp:
         context['active_camp'] = True
-        if request.method == 'POST':
-            camper = Personal.objects.create(
-                nick_name= request.POST.get('nick_name'),
-                blood_type = request.POST.get('blood_type'),
-                birthday = request.POST.get('birthday'),
-                religion = request.POST.get('religion'),
-                food_allergy = request.POST.get('food_allergy'),
-                congenital_disease = request.POST.get('congenital_disease'),
-                shirt_size = request.POST.get('shirt_size'),
-            )
-            print('successfully add to database')
-        else:
-            camper = Personal.objects.none()
-    
+    if request.method == 'POST':
+        post = request.POST
+        
+        camp = Camp.objects.get(pk=id_camp)
+        personal = savePersonal(request)
+
+        school = post.get('school')
+        parent_name = post.get('parent_name')
+        profile_pic = post.get('profile_pic')
+        group = post.get('group')
+        camper = Camper(
+            camp = camp,
+            personal = personal,
+            group = group,
+        )
+        camper.save()
+        print('successfully add to database')
+        return HttpResponseRedirect('../../../../camp/%d/campers/'%id_camp)
+    else:
+        form = CamperForm()
+        context['form'] = form
+   
     return render(request, 'create_camper.html', context)

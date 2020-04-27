@@ -126,7 +126,7 @@ def getPersonal(request):
     if request.user.is_authenticated:
         user = request.user
         context = {}
-        personal = Personal.objects.get(pk=user.id)
+        personal = Personal.objects.get(pk=user.personal_id)
         sex = {'M':'Mr.', 'F':'Miss.'}
         name = sex[personal.sex] + personal.first_name + ' ' + personal.last_name
         context['name'] = name
