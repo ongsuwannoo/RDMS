@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from index.views import getPersonal
 from personal.models import Personal
-from .models import Camper
+# from .models import Camper
 # Create your views here.
 
 def campers(request, id_camp):

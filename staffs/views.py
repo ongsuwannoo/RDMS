@@ -105,8 +105,7 @@ def import_staff(request, id_camp):
             staff.department = department
 
         staff.save()
-        return render(request, 'staff.html', context)
-    return render(request, 'import_staff.html', context)
+    return HttpResponseRedirect('../../../../camp/%d/staffs/'%id_camp)
 
 def test(request):
     print(request['sid'])
