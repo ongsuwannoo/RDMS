@@ -11,6 +11,9 @@ from index.models import user
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from rest_framework import generics
 
 import csv, io
 from django.contrib import messages
@@ -159,7 +162,7 @@ def import_staff(request, id_camp):
     return HttpResponseRedirect('../../../../camp/%d/staffs/'%id_camp)
 
 @csrf_exempt
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def get_staffs_api(request, id_staff):
     """
     API ดึงข้อมูล staff โดย id_staff
@@ -170,3 +173,14 @@ def get_staffs_api(request, id_staff):
         serializer = StaffSerializer(staffs)
         return Response(serializer.data, status=status.HTTP_200_OK)
     return render(request, 'staffs.html', context)
+
+
+class StaffsView(generics.ListAPIView):
+    serializer_class = StaffSerializer
+    def get_queryset(self):
+        id_camp = self.request.query_params['id_camp']
+        search = self.request.query_params['search']
+        filter_staff = Staff.objects.select_related('personal').filter(
+            camp_id=id_camp, 
+            personal__first_name__startswith=search)
+        return filter_staff

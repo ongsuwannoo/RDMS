@@ -13,6 +13,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib import messages
 from rest_framework.views import APIView
+from django.db.models import Q
 # Create your views here.
 
 def camp(request, id_camp=""):
@@ -24,7 +25,7 @@ def camp(request, id_camp=""):
         departments = reversed(Department.objects.filter(camp_id=id_camp))
         MCs = reversed(MC.objects.filter(camp_id=id_camp))
         count_total_staff = Staff.objects.select_related('camp').filter(camp_id=id_camp).count
-        
+
         camp.head.sex = sex[camp.head.personal.sex]
         context['active_camp'] = True
         context['camp'] = camp
@@ -34,10 +35,11 @@ def camp(request, id_camp=""):
         messages.info(request, 'ยินดีตอนรับสู่ค่าย '+camp.name)
     else:
         user = request.user
-        camp = Camp.objects.filter(head=user)
+        staff = Staff.objects.get(personal=user.personal)
+        camp = Camp.objects.filter(Q(head=user) | Q(pk=staff.camp.id))
         context['camps'] = camp
         context['active_camp'] = False
-        
+
     return render(request, 'camp.html', context)
 
 @permission_required('camp.add_camp', login_url='')

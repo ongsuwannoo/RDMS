@@ -44,7 +44,7 @@
         <a type="button" class="btn btn-secondary" href="{% url 'import_staff' id_camp %}">import file</a>
     </div>
 </div>
-<table class="table table-dark table-hover table-fixed">
+<table class="table table-dark table-hover table-fixed" id="tbl">
     <thead class="">
         <tr class="text-center">
             <th scope="col" style="width: 7%;">รหัสนศ.</th>
@@ -58,7 +58,7 @@
             <th scope="col" style="width: 8%"></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tbd">
         {% for staff in staffs %}
         <tr id="table-row" class="text-center">
             <th scope="row">{{staff.personal.sid}}</th>
@@ -88,5 +88,64 @@
         {% endfor %}
     </tbody>
 </table>
+<!-- <input type="hidden" id="id_camp" value=""> -->
+<script>
+    var id_camp = "{{id_camp}}";
+    $('#searchBox').keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            console.log('Enter!'+id_camp)
+            axios.get('/api/search', {
+                params: {
+                    search: document.getElementById('searchBox').value,
+                    id_camp: id_camp
+                }
+            })
+                .then(function (response) {
+                    // handle success
+                    data = response.data
+                    console.log(data);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .then(function () {
+                    // always executed
+                    document.getElementById('tbd').innerHTML = '';
+                    for (let i = 0; i < data.length; i++) {
+                        data[i].department = data[i].department || { 'name': ' ' }
+                        data[i].personal.postscript = data[i].personal.postscript || { 'name': ' ' }
+                        $('#tbl > tbody:last-child').append(
+                        '<tr id="table-row" class="text-center">'+
+                        '<th scope="row">'+data[i].personal.sid+'</th>'+
+                        '<td>'+data[i].personal.first_name+' '+data[i].personal.last_name+'</td>'+
+                        '<td>'+data[i].personal.nick_name+'</td>'+
+                        '<td>'+data[i].department.name+'</td>'+
+                        '<td>'+data[i].personal.food_allergy+'</td>'+
+                        '<td>'+data[i].personal.congenital_disease+'</td>'+
+                        '<td>'+data[i].personal.shirt_size+'</td>'+
+                        '<td>'+data[i].personal.postscript+'</td>'+
+                        '<td>'+
+                            '<span data-toggle="modal" data-target="#modal_edit" onclick="modal_edit('+data[i].id+')"'+
+                                'style="cursor:pointer;">'+
+                                '<a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">'+
+                                    '<img src="/media/Icon awesome-edit.png" class="icon">'+
+                                '</a>'+
+                            '</span>'+
+                            '<span data-toggle="modal" data-target="#modal_view" onclick="getStaffsDetail('+data[i].id+')"'+
+                                'style="cursor:pointer;">'+
+                                '<a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">'+
+                                    '<img src="/media/Icon open-document.png" class="icon"></img>'+
+                                '</a>'+
+                            '</span>'+
+                        '</td>'+
+                    '</tr>'
+                    );
+                    }
+                });
+        }
+    });
+</script>
 {% include 'staff_modal.html' %}
 {% endblock %}

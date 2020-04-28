@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from camp.views import DepartmentView
 from locations.views import LocationView
-from staffs.views import get_staffs_api
+from staffs.views import get_staffs_api, StaffsView
 from flow.views import flow_api
 
 urlpatterns = [
@@ -31,6 +31,7 @@ urlpatterns = [
     path('api/getLocation/', LocationView.as_view(), name='LocationView'),
     path('api/getStaffsDetail/<int:id_staff>', get_staffs_api, name='get_staffs_api'),
     path('api/flow_api/<int:id_camp>', flow_api, name='flow_api'),
+    path('api/search', StaffsView.as_view(), name='searh_staff'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
