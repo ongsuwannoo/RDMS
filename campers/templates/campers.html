@@ -36,6 +36,7 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Full Name</th>
+            <th scope="col">Nick Name</th>
             <th scope="col">Food allergy</th>
             <th scope="col">Congenital Disease</th>
             <th scope="col">Group</th>
@@ -43,78 +44,27 @@
         </tr>
     </thead>
     <tbody>
-        <tr id="table-row">
-            <th scope="row">61070071</th>
-            <td>นายจักกล แสงนำพาลง</td>
-            <td>ใจ</td>
-            <td>ตาเป็นผัวยาย</td>
-            <td><label class="text-primary">IoT</label> / <label class="text-success">Tire</label></td>
-            <td>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
-                    <img src="/media/Icon awesome-edit.png" class="icon">
-                </a>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
-                    <img src="/media/Icon open-document.png" class="icon"></img>
-                </a>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Observe">
-                    <img src="/media/Icon ionic-md-document.png" class="icon"></img>
-                </a>
-            </td>
-        </tr>
-        <tr id="table-row">
-            <th scope="row">61070074</th>
-            <td>นายนิว สุดหล่อ</td>
-            <td>-</td>
-            <td>-</td>
-            <td><label class="text-primary">IoT</label> / <label class="text-success">Tire</label></td>
-            <td>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
-                    <img src="/media/Icon awesome-edit.png" class="icon">
-                </a>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
-                    <img src="/media/Icon open-document.png" class="icon"></img>
-                </a>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Observe">
-                    <img src="/media/Icon ionic-md-document.png" class="icon"></img>
-                </a>
-            </td>
-        </tr>
-        <tr id="table-row">
-            <th scope="row">61070090</th>
-            <td>นางสาวนิว สุดสวย</td>
-            <td>-</td>
-            <td>-</td>
-            <td><label class="text-danger">Network</label> / <label class="text-success">Tire</label></td>
-            <td>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
-                    <img src="/media/Icon awesome-edit.png" class="icon">
-                </a>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
-                    <img src="/media/Icon open-document.png" class="icon"></img>
-                </a>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Observe">
-                    <img src="/media/Icon ionic-md-document.png" class="icon"></img>
-                </a>
-            </td>
-        </tr>
-        <tr id="table-row">
-            <th scope="row">61070099</th>
-            <td>นายเครื่องเพชร เข็ดพลอย</td>
-            <td>-</td>
-            <td>-</td>
-            <td><label class="text-primary">IoT</label> / <label class="text-success">Tire</label></td>
-            <td>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
-                    <img src="/media/Icon awesome-edit.png" class="icon">
-                </a>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
-                    <img src="/media/Icon open-document.png" class="icon"></img>
-                </a>
-                <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Observe">
-                    <img src="/media/Icon ionic-md-document.png" class="icon"></img>
-                </a>
-            </td>
-        </tr>
+        {% for camper in campers %}
+            <tr id="table-row">
+                <th scope="row">{{ camper.id }}</th>
+                <td>{{ camper.personal.first_name }} {{camper.personal.last_name}}</td>
+                <td>{{ camper.personal.nick_name }}</td>
+                <td>{{ camper.personal.food_allergy }}</td>
+                <td>{{ camper.personal.congenital_disease }}</td>
+                <td>{{ camper.group }}</td>
+                <td>
+                    <a href="{% url 'edit_camper' id_camp camper.id  %}" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
+                        <img src="/media/Icon awesome-edit.png" class="icon">
+                    </a>
+                    <a href="{% url 'camper_detail' id_camp camper.id  %}" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="View">
+                        <img src="/media/Icon open-document.png" class="icon"></img>
+                    </a>
+                    <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Observe">
+                        <img src="/media/Icon ionic-md-document.png" class="icon"></img>
+                    </a>
+                </td>
+</tr>
+        {% endfor %}
     </tbody>
 </table>
 <script>
