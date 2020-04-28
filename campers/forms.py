@@ -35,7 +35,7 @@ class CamperForm(forms.ModelForm):
     
     # is_accept = forms.BooleanField()
     phone = forms.CharField(widget=
-        forms.TextInput(attrs={'class':'form-control input-box-reg'}),
+        forms.TextInput(attrs={'maxlength':'10', 'class':'form-control input-box-reg'}),
     )
     email = forms.EmailField(widget=
         forms.TextInput(attrs={'class':'form-control input-box-reg'}),
@@ -60,7 +60,7 @@ class CamperForm(forms.ModelForm):
         forms.TextInput(attrs={'class':'form-control input-box-reg'}),
     )
     parent_phone = forms.CharField(widget=
-        forms.TextInput(attrs={'class':'form-control input-box-reg'}),
+        forms.TextInput(attrs={'maxlength':'10' , 'class':'form-control input-box-reg'}),
     )
     parent_name = forms.CharField(widget=
         forms.TextInput(attrs={'class':'form-control input-box-reg'}),

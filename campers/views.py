@@ -27,29 +27,31 @@ def camper_detail(request, id_camp, id_camper):
 def create_camper(request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp
-    camper_detail = Camper.objects.all()
+    # camper_detail = Camper.objects.all()
     if id_camp:
         context['active_camp'] = True
+
     if request.method == 'POST':
         post = request.POST
         
         camp = Camp.objects.get(pk=id_camp)
+
         personal = savePersonal(request)
 
-        form = CamperForm(request.POST, request.FILES)
-        print(request.FILES)
-        if form.is_valid():
-            form.save()
-        # school = post.get('school')
-        # parent_name = post.get('parent_name')
-        # profile_pic = post.get('profile_pic')
-        # group = post.get('group')
-        # camper = Camper(
-        #     camp = camp,
-        #     personal = personal,
-        #     group = group,
-        # )
-        # camper.save()
+        school = post.get('school')
+        parent_phone = post.get('parent_phone')
+        parent_name = post.get('parent_name')
+        group = post.get('group')
+        camper = Camper(
+            camp = camp,
+            personal = personal,
+            school = school,
+            parent_phone = parent_phone,
+            parent_name = parent_name,
+            group = group,
+        )
+        camper.save()
+        messages.success(request, 'เพิ่ม Camper เรียบร้อยแล้ว')
         print('successfully add to database')
         return HttpResponseRedirect('../../../../camp/%d/campers/'%id_camp)
     else:

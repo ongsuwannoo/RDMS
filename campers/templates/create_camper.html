@@ -89,8 +89,6 @@
                                 {{ form.religion }}
                             </div>
                         </div>
-                    </div>
-                    <div class="row mt-3">
                         <div class="col-md-auto">
                             <div class="">
                                 วันเกิด :
@@ -106,6 +104,9 @@
                                 {{ form.birthday }}
                             </div>
                         </div>
+                    </div>
+                    <div class="row mt-3">
+                        
                         <div class="col-md-auto">
                             <div class="">
                                 กรุ๊ปเลือด :
@@ -138,6 +139,21 @@
                                 {{ form.shirt_size }}
                             </div>
                         </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                โรงเรียน :
+                            </div>
+                        </div>
+                        <div class="col-sm-4" title="
+                        <div class='text-danger'>
+                        {% for error in form.school.errors %}
+                            {{error}}<br/>
+                        {% endfor %}
+                        </div>">
+                            <div class="">
+                                {{ form.school }}
+                            </div>
+                        </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-auto">
@@ -160,7 +176,7 @@
                                 Email :
                             </div>
                         </div>
-                        <div class="col-sm-3" data-toggle="phone" data-html="true" data-placement="right" title="
+                        <div class="col-sm-4" data-toggle="phone" data-html="true" data-placement="right" title="
                                 <div class='text-danger'>
                                 {% for error in form.phone.errors %}
                                     {{error}}<br/>
@@ -170,6 +186,40 @@
                                 {{ form.email }}
                             </div>
                         </div>
+                        
+                        
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-auto">
+                            <div class="">
+                                ชื่อ-นามสกุลผู้ปกครอง :
+                            </div>
+                        </div>
+                        <div class="col-sm-3" data-toggle="parent_name" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.parent_name.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.parent_name }}
+                            </div>
+                        </div>   
+                        <div class="col-md-auto">
+                            <div class="">
+                                เบอร์โทรศัพท์ผู้ปกครอง :
+                            </div>
+                        </div>
+                        <div class="col-sm-3" data-toggle="parent_phone" data-html="true" data-placement="right" title="
+                                <div class='text-danger'>
+                                {% for error in form.parent_phone.errors %}
+                                    {{error}}<br/>
+                                {% endfor %}
+                                </div>">
+                            <div class="">
+                                {{ form.parent_phone }}
+                            </div>
+                        </div>   
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-auto">
@@ -272,6 +322,7 @@
             readURL(this);
         });
     });
+
     function fill() {
         // document.getElementById('id_username').value = 'ongsuwannoo'
         // document.getElementById('id_password1').value = 'ABCD_123456789'
