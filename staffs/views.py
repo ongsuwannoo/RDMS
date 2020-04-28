@@ -108,6 +108,14 @@ def add_staff(request, id_camp):
         context['departments'] = Department.objects.filter(camp_id=id_camp)
     return render(request, 'add_staff.html', context)
 
+def delete_staff(request, id_camp, id_staff=""):
+    context = getPersonal(request)
+    context['id_camp'] = id_camp
+
+    staff = Staff.objects.get(pk=id_staff)
+    staff.delete()
+    messages.warning(request, 'ลบ '+staff.personal.first_name+' '+staff.personal.last_name+' เรียบร้อย')
+    return HttpResponseRedirect('../../../../%d/staffs' % id_camp)
 
 def import_staff(request, id_camp):
     context = getPersonal(request)
