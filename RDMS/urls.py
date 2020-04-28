@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from camp.views import get_department_api
+from camp.views import DepartmentView
 from staffs.views import get_staffs_api
 from flow.views import flow_api
 
@@ -26,7 +26,7 @@ urlpatterns = [
     path('', include('index.urls')),
     path('camp/', include('camp.urls')),
     path('profile/', include('personal.urls')),
-    path('api/getDepartment/<int:id_department>', get_department_api, name='create_department_mc_api'),
+    path('api/getDepartment/', DepartmentView.as_view(), name='DepartmentView'),
     path('api/getStaffsDetail/<int:id_staff>', get_staffs_api, name='get_staffs_api'),
     path('api/flow_api/<int:id_camp>', flow_api, name='flow_api'),
 ]

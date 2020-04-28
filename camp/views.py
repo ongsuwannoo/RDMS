@@ -15,6 +15,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib import messages
+from rest_framework.views import APIView
 # Create your views here.
 
 def camp(request, id_camp=""):
@@ -105,12 +106,10 @@ def create_department_mc(request, id_camp):
         return HttpResponseRedirect('../../../camp/%d/'%id_camp)
     return render(request, 'camp.html', context)
 
-@csrf_exempt
-@api_view(['GET', 'POST'])
-def get_department_api(request, id_department):
-    context = {}
-    if request.method == 'GET':
+class DepartmentView(APIView):
+    def get(self, request):
+        id_department = request.query_params['id_department']
         department = Department.objects.get(pk=id_department)
         serializer = DepartmentSerializer(department)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    return render(request, 'create_department_mc.html', context)
+    
