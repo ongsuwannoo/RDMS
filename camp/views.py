@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
+from django.contrib import messages
 # Create your views here.
 
 def camp(request, id_camp=""):
@@ -33,6 +33,7 @@ def camp(request, id_camp=""):
         context['departments'] = departments
         context['MCs'] = MCs
         context['count_total_staff'] = count_total_staff
+        messages.info(request, 'ยินดีตอนรับสู่ค่าย '+camp.name)
     else:
         user = request.user
         camp = Camp.objects.filter(head=user)
@@ -59,11 +60,11 @@ def create_camp(request):
             logo = logo
         )
         camp.save()
+        messages.success(request, 'ดำเนินการสร้าง '+name+' แล้ว ขอให้สนุกกับการจัดค่าย')
         return redirect('camp')
     return render(request, 'create_camp.html', context)
 
 def create_department_mc(request, id_camp):
-    print('create_department_mc')
     context = getPersonal(request)
     context['id_camp'] = id_camp
     if id_camp:
@@ -85,6 +86,7 @@ def create_department_mc(request, id_camp):
                 desc = desc
             )
             department.save()
+            messages.success(request, 'ดำเนินการสร้างฝ่าย '+name+' แล้ว')
 
         elif choose == 'MC':
             name = request.POST.get('name_MC')
@@ -98,6 +100,7 @@ def create_department_mc(request, id_camp):
                 desc = desc
             )
             mc.save()
+            messages.success(request, 'ดำเนินการสร้าง MC '+name+' แล้ว')
 
         return HttpResponseRedirect('../../../camp/%d/'%id_camp)
     return render(request, 'camp.html', context)

@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
@@ -6,6 +6,7 @@ from index.views import getPersonal, savePersonal, Personal
 from personal.models import Personal
 from .models import Camper
 from .forms import *
+from django.contrib import messages
 # Create your views here.
 
 def campers(request, id_camp):
@@ -21,7 +22,6 @@ def camper_detail(request, id_camp, id_camper):
     context['name'] = getPersonal(request)['name']
     if id_camp:
         context['active_camp'] = True
-    print(id_camper)
     return render(request, 'camper_detail.html', context)
 
 def create_camper(request, id_camp):
@@ -36,16 +36,19 @@ def create_camper(request, id_camp):
         camp = Camp.objects.get(pk=id_camp)
         personal = savePersonal(request)
 
-        school = post.get('school')
-        parent_name = post.get('parent_name')
-        profile_pic = post.get('profile_pic')
-        group = post.get('group')
-        camper = Camper(
-            camp = camp,
-            personal = personal,
-            group = group,
-        )
-        camper.save()
+        form = CamperForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+        # school = post.get('school')
+        # parent_name = post.get('parent_name')
+        # profile_pic = post.get('profile_pic')
+        # group = post.get('group')
+        # camper = Camper(
+        #     camp = camp,
+        #     personal = personal,
+        #     group = group,
+        # )
+        # camper.save()
         print('successfully add to database')
         return HttpResponseRedirect('../../../../camp/%d/campers/'%id_camp)
     else:

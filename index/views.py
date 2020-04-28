@@ -28,6 +28,7 @@ def register(request):
             user.personal_id = savePersonal(request)
             user.save()
             login(request, user)
+            messages.success(request, 'สมัครสมาชิกสำเร็จแล้วยินดีต้อนรับ '+username+' สู่ RDMS')
             return redirect('index')
     else:
         form = regForm()
@@ -48,6 +49,7 @@ def my_login(request):
             if next_url and next_url != '/login/':
                 return redirect(next_url)
             else:
+                messages.info(request, 'เข้าสู่ระบบสำเร็จแล้วยินดีต้อนรับ '+username+' สู่ RDMS')
                 return redirect('index')
         else:
             context = {
@@ -84,8 +86,13 @@ def ChangePassword(request):
 
 def index(request):
     context = {}
-    if request.user.id:
+    if not request.user.is_authenticated:
+        pass
+    elif request.user.id and request.user.personal_id:
         context = getPersonal(request)
+    else:
+        if not request.user.personal_id:
+            messages.warning(request, 'user ของคุณไม่มีการกรอกข้อมูล personal ระวังบัค')
     camp = Camp.objects.all()
     context['camps'] = reversed(camp)
 
@@ -94,7 +101,6 @@ def index(request):
 
 def my_profile(request):
     context = getPersonal(request)
-    messages.success(request, 'Profile Page')
     if request.method == 'POST':
         post = request.POST
         user_personal_id = request.user.personal_id
@@ -105,7 +111,7 @@ def my_profile(request):
 
 def getPersonal(request):
 
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.personal_id:
         user = request.user
         context = {}
         personal = Personal.objects.get(pk=user.personal_id)
@@ -116,6 +122,9 @@ def getPersonal(request):
         context['personal'] = personal
 
         return context
+    else:
+        messages.warning(request, 'user ของคุณไม่มีการกรอกข้อมูล personal ระวังบัค')
+        return {}
 
 
 def savePersonal(request):

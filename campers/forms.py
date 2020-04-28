@@ -3,9 +3,6 @@ from django.db import models
 from .models import *
 
 class CamperForm(forms.ModelForm):
-    sid = forms.CharField(widget=
-        forms.TextInput(attrs={'class':'form-control input-box-reg', 'maxlength':'8', }),
-    )
     first_name = forms.CharField(widget=
         forms.TextInput(attrs={'class':'form-control input-box-reg'}),
     )
@@ -52,10 +49,6 @@ class CamperForm(forms.ModelForm):
         forms.TextInput(attrs={'class':'form-control input-box-reg'}),
     )
 
-    position = forms.CharField(widget=
-        forms.TextInput(attrs={'class':'form-control input-box-reg'}),
-    )
-
     group = forms.CharField(widget=
         forms.TextInput(attrs={'class':'form-control input-box-reg'}),
     )
@@ -63,14 +56,23 @@ class CamperForm(forms.ModelForm):
     profile_pic = forms.ImageField(required=True, widget=
         forms.FileInput(attrs={'class':'custom-file-input', 'aria-describedby':'inputGroupFileAddon01'})
     )
+    school = forms.CharField(widget=
+        forms.TextInput(attrs={'class':'form-control input-box-reg'}),
+    )
+    parent_phone = forms.CharField(widget=
+        forms.TextInput(attrs={'class':'form-control input-box-reg'}),
+    )
+    parent_name = forms.CharField(widget=
+        forms.TextInput(attrs={'class':'form-control input-box-reg'}),
+    )
 
     class Meta:
         model = Camper
         fields = (
-            'email',
-            'position',
             'group',
-            'profile_pic'
+            'school',
+            'parent_phone',
+            'parent_name'
         )
 
     

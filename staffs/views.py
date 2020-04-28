@@ -54,6 +54,7 @@ def create_staff(request, id_camp):
             staff.department = department
         
         staff.save()
+        messages.success(request, 'เพิ่ม Staff '+personal.first_name+' แล้ว')
         return HttpResponseRedirect('../../../../camp/%d/staffs/'%id_camp)
     else:
         form = StaffForm()
@@ -84,6 +85,8 @@ def import_staff(request, id_camp):
     dic = csv.DictReader(io.StringIO(data_set), delimiter=",")
     
     camp = Camp.objects.get(pk=id_camp)
+    # นับจำนวน staff ทั้งหมด
+    count = len(dic)
     for i in dic:
         # i.update((k, [v]) for k, v in i.items())
         
@@ -105,14 +108,15 @@ def import_staff(request, id_camp):
             staff.department = department[0]
 
         staff.save()
+    messages.warning(request, 'ทำการ import staff จำนวน '+count+' คน หากผิดพลาดโปรดติดต่อผู้ดูแล')
     return HttpResponseRedirect('../../../../camp/%d/staffs/'%id_camp)
-
-def test(request):
-    print(request['sid'])
 
 @csrf_exempt
 @api_view(['GET', 'POST'])
 def get_staffs_api(request, id_staff):
+    """
+    API ดึงข้อมูล staff โดย id_staff
+    """
     context = {}
     if request.method == 'GET':
         staffs = Staff.objects.get(pk=id_staff)

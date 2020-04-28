@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from .models import *
 from index.views import getPersonal
-
+from django.contrib import messages
 # Create your views here.
 def locations(request, id_camp, id_location=""):
     context = getPersonal(request)
@@ -42,5 +42,6 @@ def create_location (request, id_camp):
         )
         location.save()
         # return redirect('locations')
+        messages.success(request, 'สร้างสถานที่ '+name+' แล้ว')
         return HttpResponseRedirect('../../../%d/locations'%id_camp)
     return render(request, 'create_location.html', context)

@@ -13,6 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.contrib import messages
 
 # Create your views here.
 
@@ -63,6 +64,7 @@ def flow(request, id_camp):
             flow.mc = mc[0]
         
         flow.save()
+        messages.success(request, 'เพิ่ม Flow '+activity+' แล้ว')
     else:
         context['locations'] = Location.objects.all()
         context['departments'] = Department.objects.filter(camp_id=id_camp)

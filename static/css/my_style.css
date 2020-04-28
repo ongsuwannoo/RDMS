@@ -141,3 +141,9 @@ body {
     background-color: rgba(60, 58, 63, 0.3);
     border-radius: 5px;
 }
+#success-alert{
+    position: fixed;
+    top: 5px; 
+    left: 25%;
+    width: 70%;
+}
