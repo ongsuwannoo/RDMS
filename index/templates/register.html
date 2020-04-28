@@ -19,11 +19,12 @@
                         <th>
                             <div class="col Aligner ml-1" data-toggle="username" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.username.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.username.errors %}
+                                    <div class='text-danger'>
+                                    {{error}}<br/>
+                                    </div>
+                                {% endfor %}
+                                ">
                                 {{ form.username }}
                             </div>
                         </th>
@@ -40,8 +41,9 @@
                             {% for error in form.password1.errors %}
                             <div class='text-danger'>
                                 {{error}}<br/>
+                                </div>
                             {% endfor %}
-                            </div>">
+                            ">
                                 {{ form.password1 }}
                             </div>
                         </th>
@@ -55,11 +57,13 @@
                         <th>
                             <div class="col ml-1" data-toggle="password2" data-html="true" data-placement="right"
                                 title="
+                                {% for error in form.password2.errors %}
                             <div class='text-danger'>
-                            {% for error in form.password2.errors %}
+                            
                                 {{error}}<br/>
+                                </div>
                             {% endfor %}
-                            </div>">
+                            ">
                                 {{ form.password2 }}
                             </div>
                         </th>
@@ -73,11 +77,12 @@
                         <th>
                             <div class="col ml-1" data-toggle="email" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.email.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.email.errors %}
+                                <div class='text-danger'>
+                                    {{error}}<br/>
+                                    </div>
+                                {% endfor %}
+                            ">
                                 {{ form.email }}
                             </div>
                         </th>
@@ -93,11 +98,11 @@
                         </div>
                         <div class="col-sm-3" data-toggle="first_name" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.first_name.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.first_name.errors %}
+                                <div class='text-danger'>
+                                    {{error}}<br/>
+                                </div>
+                                {% endfor %}">
                             <div class="">
                                 {{ form.first_name }}
                             </div>
@@ -109,11 +114,12 @@
                         </div>
                         <div class="col-sm-3" data-toggle="last_name" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.last_name.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.last_name.errors %}
+                                    <div class='text-danger'>
+                                    {{error}}<br/>
+                                    </div>
+                                {% endfor %}
+                            ">
                             <div class="">
                                 {{ form.last_name }}
                             </div>
@@ -125,11 +131,12 @@
                         </div>
                         <div class="col-sm" data-toggle="sid" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.sid.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.sid.errors %}
+                                    <div class='text-danger'>
+                                    {{error}}<br/>
+                                    </div>
+                                {% endfor %}
+                            ">
                             <div class="">
                                 {{ form.sid }}
                             </div>
@@ -143,11 +150,12 @@
                         </div>
                         <div class="col-3" data-toggle="nick_name" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.nick_name.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.nick_name.errors %}
+                                    <div class='text-danger'>
+                                    {{error}}<br/>
+                                    </div>
+                                {% endfor %}
+                            ">
                             <div class="">
                                 <input type="text" class="form-control input-box-reg" required name="nick_name">
                             </div>
@@ -159,11 +167,12 @@
                         </div>
                         <div class="col-5 col-sm" data-toggle="sex" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.sex.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.sex.errors %}
+                                    <div class='text-danger'>
+                                    {{error}}<br/>
+                                    </div>
+                                {% endfor %}
+                            ">
                             <div class="">
                                 {{ form.sex }}
                             </div>
@@ -175,11 +184,12 @@
                         </div>
                         <div class="col-5 col-sm" data-toggle="religion" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.religion.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.religion.errors %}
+                                    <div class='text-danger'>
+                                    {{error}}<br/>
+                                    </div>
+                                {% endfor %}
+                            ">
                             <div class="">
                                 <select id="inputState" class="form-control select" name="religion">
                                     <option value="buddha">พุทธ</option>
@@ -198,11 +208,12 @@
                         </div>
                         <div class="col-sm-3" data-toggle="birthday" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.birthday.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.birthday.errors %}
+                                    <div class='text-danger'>
+                                    {{error}}<br/>
+                                    </div>
+                                {% endfor %}
+                            ">
                             <div class="">
                                 <input type="date" class="form-control input-box-reg date" required name="birthday">
                             </div>
@@ -214,11 +225,12 @@
                         </div>
                         <div class="col-5 col-sm" data-toggle="blood_type" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.blood_type.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.blood_type.errors %}
+                                <div class='text-danger'>
+                                    {{error}}<br/>
+                                    </div>
+                                {% endfor %}
+                            ">
                             <div class="">
                                 <select id="inputState" class="form-control select" name="blood_type">
                                     <option value="A">A</option>
@@ -235,11 +247,12 @@
                         </div>
                         <div class="col-5 col-sm" data-toggle="shirt_size" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.shirt_size.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.shirt_size.errors %}
+                                    <div class='text-danger'>
+                                    {{error}}<br/>
+                                    </div>
+                                {% endfor %}
+                            ">
                             <div class="">
                                 <select id="inputState" class="form-control select" name="shirt_size">
                                     <option value="S">S</option>
@@ -259,11 +272,12 @@
                         </div>
                         <div class="col-sm-3" data-toggle="phone" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.phone.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.phone.errors %}
+                                <div class='text-danger'>
+                                    {{error}}<br/>
+                                </div>
+                                {% endfor %}
+                                ">
                             <div class="">
                                 {{ form.phone }}
                             </div>
@@ -277,11 +291,12 @@
                         </div>
                         <div class="col-sm" data-toggle="food_allergy" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.food_allergy.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.food_allergy.errors %}
+                                    <div class='text-danger'>
+                                    {{error}}<br/>
+                                    </div>
+                                {% endfor %}
+                            ">
                             <div class="">
                                 <input type="text" class="form-control input-box-reg" name="food_allergy">
                             </div>
@@ -293,11 +308,12 @@
                         </div>
                         <div class="col-sm" data-toggle="congenital_disease" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.congenital_disease.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.congenital_disease.errors %}
+                                <div class='text-danger'>
+                                    {{error}}<br/>
+                                    </div>
+                                {% endfor %}
+                            ">
                             <div class="">
                                 <input type="text" class="form-control input-box-reg" name="congenital_disease">
                             </div>
@@ -311,11 +327,11 @@
                             <div class="input-group">
                                 <span class="custom-file" data-toggle="profile_pic" data-html="true" data-placement="right"
                                 title="
-                            <div class='text-danger'>
-                            {% for error in form.profile_pic.errors %}
-                                {{error}}<br/>
-                            {% endfor %}
-                            </div>">
+                                {% for error in form.profile_pic.errors %}
+                                <div class='text-danger'>
+                                    {{error}}<br/>
+                                </div>
+                                {% endfor %}">
                                     <!-- <input type="file" class="custom-file-input" id="id_profile_pic"
                                         aria-describedby="inputGroupFileAddon01"> -->
                                     {{ form.profile_pic }}

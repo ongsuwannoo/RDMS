@@ -4,15 +4,24 @@ from django.contrib.auth import authenticate, login, logout
 from django.template.context_processors import request
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from personal.models import *
 from index.models import user
 from camp.models import Camp
 from datetime import datetime
 from django.contrib import messages
 
-
 # Create your views here.
+def group_required(*group_names):
+    """Requires user membership in at least one of the groups passed in."""
+
+    def in_groups(u):
+        if u.is_authenticated:
+            if bool(u.groups.filter(name__in=group_names)) | u.is_superuser:
+                return True
+        return False
+    return user_passes_test(in_groups)
+
 
 def register(request):
     context = {}
@@ -29,7 +38,7 @@ def register(request):
             user.save()
             login(request, user)
             messages.success(request, 'สมัครสมาชิกสำเร็จแล้วยินดีต้อนรับ '+username+' สู่ RDMS')
-            return redirect('index')
+            return HttpResponseRedirect('../../../camp/%d/'%id_camp)
     else:
         form = regForm()
         context['form'] = form
@@ -98,13 +107,14 @@ def index(request):
 
     return render(request, 'index.html', context)
 
-
+@login_required
 def my_profile(request):
     context = getPersonal(request)
     if request.method == 'POST':
         post = request.POST
         user_personal_id = request.user.personal_id
         personal = updatePersonal(post, user_personal_id)
+        context['personal'] = personal
         messages.success(request, 'อัพเดตโปรไฟล์เสร็จสมบูรณ์')
     return render(request, 'profile.html', context)
 
@@ -200,15 +210,16 @@ def updatePersonal(request, id):
     post_data = request
 
     personal = Personal.objects.get(pk=id)
+    birthday = post_data.get('birthday')
 
     # บัคเวลาส่งวันเกิดมา และแปลงให้เป็น type date เพราะเวลาส่งมาจะเป็น text
     # (ไม่ได้เปลี่ยนแปลงค่า แต่ค่าที่ html ส่งมามันเป็น text)
     # print(datetime.strptime(post.get('birthday'), '%Y-%m-%d').date() , '==', personal.birthday)
-    if not datetime.strptime(post_data.get('birthday'), '%Y-%m-%d').date() == personal.birthday:
+    if not datetime.strptime(birthday, '%Y-%m-%d').date() == personal.birthday or birthday == '':
         # ในกรณีที่ไม่ได้เปลี่ยนแปลงค่าวันเกิด ก็เท่ากับวันเกิดเดิม
-        birthday = datetime.strptime(post_data.get('birthday'), '%Y-%m-%d').date()
+        birthday = datetime.strptime(birthday, '%Y-%m-%d').date()
     else: # เปลี่ยนแปลงค่าวันเกิด ค่าที่ไปกดแก้ไขจะเป็น date เพราะดักไว้ที่ html แล้ว
-        birthday = post_data.get('birthday')
+        birthday = birthday
 
     sid = post_data.get('sid')
     first_name = post_data.get('first_name')

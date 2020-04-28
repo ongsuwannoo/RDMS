@@ -30,7 +30,7 @@
                 <div class="profile">
                     <img src="{{ request.META.HTTP_NAME }}/media/{{ personal.profile_pic }}" class="mb-3 img_profile reg-login">
                     <p class="h4 mb-1 font-weight-bold" id="profile_name">{{ name }}</p>
-                    <p class="text-warning font-weight-bold role">SUPER ADMIN</p>
+                    <p class="text-warning font-weight-bold role text-uppercase">{{ user.groups.all.0 }}</p>
                     <p class="role">Edit Profile <a href="{% url 'profile' %}"><img src="/media/Icon awesome-edit.png"></a>
                         <a href="{% url 'logout' %}"><img src="/media/logout-16.png"></a>
                     </p>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from index.views import getPersonal, savePersonal, Personal
+from index.views import getPersonal, savePersonal, Personal, group_required
 from .forms import *
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -29,6 +29,7 @@ def staffs(request, id_camp):
         context['active_camp'] = True
     return render(request, 'staffs.html', context)
 
+@group_required('manager', 'head')
 def create_staff(request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp
@@ -65,6 +66,7 @@ def create_staff(request, id_camp):
         context['departments'] = Department.objects.filter(camp_id=id_camp)
     return render(request, 'create_staff.html', context)
 
+@group_required('manager', 'head')
 def add_staff(request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp
@@ -111,7 +113,7 @@ def add_staff(request, id_camp):
         context['departments'] = Department.objects.filter(camp_id=id_camp)
     return render(request, 'add_staff.html', context)
 
-
+@group_required('manager', 'head')
 def import_staff(request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp
