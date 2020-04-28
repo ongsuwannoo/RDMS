@@ -58,14 +58,11 @@
 </div>
 
 <script>
-    $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-        $("#success-alert").slideUp(500);
-    });
     // API ของ Flow
     axios.defaults.xsrfCookieName = 'csrftoken'
     axios.defaults.xsrfHerderName = 'X-CSRFTOKEN'
     $("#submit").click(function () {
-        addFlow(1);
+        // addFlow(1);
     });
     $(document).ready(function () {
         getFlow("{{ id_camp }}");

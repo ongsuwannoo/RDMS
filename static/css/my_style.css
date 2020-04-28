@@ -137,3 +137,7 @@ body {
     width: 70px;
     height: 70px;
 }
+.form-control:disabled{
+    background-color: rgba(60, 58, 63, 0.3);
+    border-radius: 5px;
+}

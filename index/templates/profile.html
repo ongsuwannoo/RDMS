@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
+<label class="h2 text-uppercase font-weight-bold" style="margin-bottom: 30px;">
+    My Profile
+</label>
+<form method="POST" action="{% url 'profile' %}">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-4 text-center">
+            <img src="/media/{{ personal.profile_pic }}" style="width: 60%;" class="mx-auto d-block img-responsive">
+            <p>Profile</p>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#change_password">change
+                password</button>
+        </div>
+        <div class="col-8">
+            <div class="row">
+                <div class="col-sm-2">
+                    รหัสนักศึกษา :
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control input-box-reg" name="sid" value="{{ personal.sid }}">
+                </div>
+                <div class="col-sm-2">
+                    ชื่อเล่น :
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control input-box-reg" name="nick_name"
+                        value="{{ personal.nick_name }}">
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-sm-2">
+                    ชื่อจริง :
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control input-box-reg" name="first_name"
+                        value="{{ personal.first_name }}">
+                </div>
+                <div class="col-sm-2">
+                    นามสกุล :
+                </div>
+                <div class="col">
+                    <div class="">
+                        <input type="text" class="form-control input-box-reg" name="last_name"
+                            value="{{ personal.last_name }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-sm-2">
+                    เพศ :
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control input-box-reg" name="sex" value="{{ personal.sex }}"
+                        disabled>
+                </div>
+                <div class="col-sm-2">
+                    กรุ๊ปเลือด :
+                </div>
+                <div class="col">
+                    <div class="">
+                        <input type="text" class="form-control input-box-reg" name="blood_type"
+                            value="{{ personal.blood_type }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-sm-2">
+                    เบอร์โทรศัพท์ :
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control input-box-reg" name="phone" value="{{ personal.phone }}">
+                </div>
+                <div class="col-sm-2">
+                    Email :
+                </div>
+                <div class="col">
+                    <div class="">
+                        <input type="text" class="form-control input-box-reg" name="email" value="{{ personal.email }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-sm-2">
+                    ศาสนา :
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control input-box-reg" name="religion"
+                        value="{{ personal.religion }}">
+                </div>
+                <div class="col-sm-2">
+                    วันเกิด :
+                </div>
+                <div class="col">
+                    <div class="">
+                        <input type="text" class="form-control input-box-reg" name="birthday" id="birthday"
+                            value="{{ personal.birthday|date:'Y-m-d' }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-sm-2">
+                    แพ้อาหาร :
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control input-box-reg" name="food_allergy"
+                        value="{{ personal.food_allergy }}">
+                </div>
+                <div class="col-sm-2">
+                    แพ้อื่นๆ :
+                </div>
+                <div class="col">
+                    <div class="">
+                        <input type="text" class="form-control input-box-reg" name="congenital_disease"
+                            value="{{ personal.congenital_disease }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-sm-2">
+                    ไซส์เสื้อ :
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control input-box-reg" name="shirt_size"
+                        value="{{ personal.shirt_size }}">
+                </div>
+                <div class="col-sm-2">
+                    - :
+                </div>
+                <div class="col">
+                    <div class="">
+                        <input type="text" class="form-control input-box-reg" name="" value="-">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-8">
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-next btn-reg mt-5" type="submit" id="btn_submit">SAVE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% include 'change_password.html' %}
+<script>
+    $(document).ready(function () {
+        $("#birthday").focus(function () {
+            document.getElementById('birthday').type = 'date';
+        });
+    });
+</script>
+
+{% endblock %}

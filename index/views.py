@@ -1,12 +1,16 @@
 from django.shortcuts import render
 from index.forms import *
 from django.contrib.auth import authenticate, login, logout
+from django.template.context_processors import request
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from personal.models import *
 from index.models import user
 from camp.models import Camp
+from datetime import datetime
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -30,6 +34,7 @@ def register(request):
         context['form'] = form
     return render(request, 'register.html', context)
 
+
 def my_login(request):
     logout(request)
     context = {}
@@ -52,12 +57,72 @@ def my_login(request):
 
     return render(request, 'login.html', context)
 
-@login_required
+
 def my_logout(request):
     logout(request)
     return redirect('index')
 
+
+@login_required
+def ChangePassword(request):
+    context = {}
+    if request.method == 'POST':
+        username = request.user.username
+        password = request.POST.get('password')
+        re_password = request.POST.get('password_confirm')
+
+        if password != re_password:
+            messages.warning(request, 'Please correct the error below.')
+        else:
+            u = user.objects.get(username=username)
+            u.set_password(password)
+            u.save()
+            messages.success(request, 'Your password was updated successfully!')
+            return redirect('logout')
+
+    return render(request, 'profile.html', context=context)
+
+def index(request):
+    context = {}
+    if request.user.id:
+        context = getPersonal(request)
+    camp = Camp.objects.all()
+    context['camps'] = reversed(camp)
+
+    return render(request, 'index.html', context)
+
+
+def my_profile(request):
+    context = getPersonal(request)
+    messages.success(request, 'Profile Page')
+    if request.method == 'POST':
+        post = request.POST
+        user_personal_id = request.user.personal_id
+        personal = updatePersonal(post, user_personal_id)
+        messages.success(request, 'อัพเดตโปรไฟล์เสร็จสมบูรณ์')
+    return render(request, 'profile.html', context)
+
+
+def getPersonal(request):
+
+    if request.user.is_authenticated:
+        user = request.user
+        context = {}
+        personal = Personal.objects.get(pk=user.personal_id)
+        sex = {'M': 'Mr.', 'F': 'Miss.'}
+        name = sex[personal.sex] + \
+            personal.first_name + ' ' + personal.last_name
+        context['name'] = name
+        context['personal'] = personal
+
+        return context
+
+
 def savePersonal(request):
+    """
+    savePersonal() รับค่าได้ 2 ชนิด queryset และ dict
+    เพราะว่าเวลา import ส่งเป็น dict จะสะดวกกว่า
+    """
     context = {}
     post_data = request
 
@@ -66,7 +131,7 @@ def savePersonal(request):
         print('type data != dict')
         post_data = dict(request.POST)
         post_data.update(request.FILES)
-    
+
     # เช็คว่า value เป็น List ไหม แล้วแปลงเป็น String
     for i in post_data:
         if type(post_data[i]) == list:
@@ -77,7 +142,7 @@ def savePersonal(request):
     first_name = post_data.get('first_name')
     last_name = post_data.get('last_name')
     nick_name = post_data.get('nick_name')
-    
+
     sex = post_data.get('sex')
     phone = post_data.get('phone')
     email = post_data.get('email')
@@ -88,50 +153,84 @@ def savePersonal(request):
     food_allergy = post_data.get('food_allergy')
     congenital_disease = post_data.get('congenital_disease')
     shirt_size = post_data.get('shirt_size')
-    
+
     profile_pic = post_data.get('profile_pic')
 
     personal = Personal(
-        sid = sid,
+        sid=sid,
 
-        first_name = first_name,
-        last_name = last_name,
-        nick_name = nick_name,
-        
-        sex = sex,
-        phone = phone,
-        email = email,
+        first_name=first_name,
+        last_name=last_name,
+        nick_name=nick_name,
 
-        blood_type = blood_type,
-        birthday = birthday,
-        religion = religion,
-        food_allergy = food_allergy,
-        congenital_disease = congenital_disease,
-        shirt_size = shirt_size,
-        
-        profile_pic = profile_pic
+        sex=sex,
+        phone=phone,
+        email=email,
+
+        blood_type=blood_type,
+        birthday=birthday,
+        religion=religion,
+        food_allergy=food_allergy,
+        congenital_disease=congenital_disease,
+        shirt_size=shirt_size,
+
+        profile_pic=profile_pic
     )
     print('save personal success!')
     personal.save()
     return personal
 
-def index(request):
+
+def updatePersonal(request, id):
+    """
+    รับ id personal มาด้วยเพื่อทำการอัพเดตค่าใน personal นั้น
+    """
+    print(request)
+
     context = {}
-    # context = getPersonal(request)
-    camp = Camp.objects.all()
-    print(camp)
-    context['camps'] = reversed(camp)
-    return render(request, 'index.html', context)
+    post_data = request
 
-def getPersonal(request):
+    personal = Personal.objects.get(pk=id)
 
-    if request.user.is_authenticated:
-        user = request.user
-        context = {}
-        personal = Personal.objects.get(pk=user.personal_id)
-        sex = {'M':'Mr.', 'F':'Miss.'}
-        name = sex[personal.sex] + personal.first_name + ' ' + personal.last_name
-        context['name'] = name
-        context['personal'] = personal
-        
-        return context
+    # บัคเวลาส่งวันเกิดมา และแปลงให้เป็น type date เพราะเวลาส่งมาจะเป็น text
+    # (ไม่ได้เปลี่ยนแปลงค่า แต่ค่าที่ html ส่งมามันเป็น text)
+    # print(datetime.strptime(post.get('birthday'), '%Y-%m-%d').date() , '==', personal.birthday)
+    if not datetime.strptime(post_data.get('birthday'), '%Y-%m-%d').date() == personal.birthday:
+        # ในกรณีที่ไม่ได้เปลี่ยนแปลงค่าวันเกิด ก็เท่ากับวันเกิดเดิม
+        birthday = datetime.strptime(post_data.get('birthday'), '%Y-%m-%d').date()
+    else: # เปลี่ยนแปลงค่าวันเกิด ค่าที่ไปกดแก้ไขจะเป็น date เพราะดักไว้ที่ html แล้ว
+        birthday = post_data.get('birthday')
+
+    sid = post_data.get('sid')
+    first_name = post_data.get('first_name')
+    last_name = post_data.get('last_name')
+    nick_name = post_data.get('nick_name')
+    # sex = post_data.get('sex')
+    phone = post_data.get('phone')
+    email = post_data.get('email')
+    blood_type = post_data.get('blood_type')
+
+    religion = post_data.get('religion')
+    food_allergy = post_data.get('food_allergy')
+    congenital_disease = post_data.get('congenital_disease')
+    shirt_size = post_data.get('shirt_size')
+    # profile_pic = post_data.get('profile_pic')
+
+
+    personal.sid = sid
+    personal.first_name = first_name
+    personal.last_name = last_name
+    personal.nick_name = nick_name
+    # personal.sex = sex
+    personal.phone = phone
+    personal.email = email
+    personal.blood_type = blood_type
+    personal.birthday = birthday
+    personal.religion = religion
+    personal.food_allergy = food_allergy
+    personal.congenital_disease = congenital_disease
+    personal.shirt_size = shirt_size
+    # personal.profile_pic = profile_pic
+    personal.save()
+    print('update personal success!')
+    return personal
