@@ -2,19 +2,22 @@
 {% block content %}
 <div class="card">
     <div class="card-header text-primary">
-        <ul class="nav nav-tabs card-header-tabs">
+        <ul class="nav nav-tabs card-header-tabs" id="changeStep">
             <li class="nav-item">
-                <a class="nav-link active" href="#">ข้อมูลส่วนตัว</a>
+                <a class="nav-link active" href="#" id="1">ข้อมูลส่วนตัว</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">ข้อมูลการศึกษา</a>
+                <a class="nav-link" href="#" id="2">ข้อมูลการศึกษา</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">คำถามจิตวิทยา</a>
+                <a class="nav-link" href="#" id="3">คำถามจิตวิทยา</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="4">Observe</a>
             </li>
         </ul>
     </div>
-    <div class="card-body text-dark">
+    <div class="card-body text-dark" id="step1">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -52,5 +55,133 @@
             </div>
         </div>
     </div>
+    <div class="card-body text-dark" style="display: none;" id="step2">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="card-text">ชื่อ:นายธนพล</p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <p> ชื่อเล่น: </p>
+                            </div>
+                            <div class="col">
+                                <p> เพศ: </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p> อายุ: 343</p>
+                            </div>
+                            <div class="col">
+                                <p> กรุ๊ปเลือด: B+</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-text">ศาสนา: พุทธยัวร์ฟัคกิ้งแฮนด์ซัพ</p>
+                    <p class="card-text">วันเกิด: xx/xx/xxxx</p>
+                    <p class="card-text">โรงเรียน: บดินทร์เดชา(สิงห์ สิงหเสนี)๒</p>
+                    <p class="card-text">ที่อยู่: </p>
+                    <p class="card-text">เบอร์โทร: 08x-xxx-xxxx</p>
+                    <p class="card-text">Email: asdfg@gmail.com</p>
+                </div>
+                <div class="col text-right">
+                    <img src="https://via.placeholder.com/350x350" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body text-dark" style="display: none;" id="step3">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="card-text">ชื่อ:นายธนพล</p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <p> ชื่อเล่น: </p>
+                            </div>
+                            <div class="col">
+                                <p> เพศ: </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p> อายุ: 343</p>
+                            </div>
+                            <div class="col">
+                                <p> กรุ๊ปเลือด: B+</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-text">ศาสนา: พุทธยัวร์ฟัคกิ้งแฮนด์ซัพ</p>
+                    <p class="card-text">วันเกิด: xx/xx/xxxx</p>
+                    <p class="card-text">โรงเรียน: บดินทร์เดชา(สิงห์ สิงหเสนี)๒</p>
+                    <p class="card-text">ที่อยู่: </p>
+                    <p class="card-text">เบอร์โทร: 08x-xxx-xxxx</p>
+                    <p class="card-text">Email: asdfg@gmail.com</p>
+                </div>
+                <div class="col text-right">
+                    <img src="https://via.placeholder.com/350x350" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body text-dark" style="display: none;" id="step4">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="card-text">ชื่อ:นายธนพล</p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <p> ชื่อเล่น: </p>
+                            </div>
+                            <div class="col">
+                                <p> เพศ: </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p> อายุ: 343</p>
+                            </div>
+                            <div class="col">
+                                <p> กรุ๊ปเลือด: B+</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-text">ศาสนา: พุทธยัวร์ฟัคกิ้งแฮนด์ซัพ</p>
+                    <p class="card-text">วันเกิด: xx/xx/xxxx</p>
+                    <p class="card-text">โรงเรียน: บดินทร์เดชา(สิงห์ สิงหเสนี)๒</p>
+                    <p class="card-text">ที่อยู่: </p>
+                    <p class="card-text">เบอร์โทร: 08x-xxx-xxxx</p>
+                    <p class="card-text">Email: asdfg@gmail.com</p>
+                </div>
+                <div class="col text-right">
+                    <img src="https://via.placeholder.com/350x350" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    $(document).ready(function () {
+        var $listItems = $('.nav-link');
+        var step;
+        var count;
+        $listItems.click(function () {
+            step = 'step';
+            $listItems.removeClass('active');
+            $(this).addClass('active');
+            step += this.id;
+            count = document.getElementsByClassName('card-body');
+            for (let item of count) {
+                document.getElementById(item.id).style.display = 'none'
+            }
+            document.getElementById(step).style.display = 'block'
+        });
+    });
+</script>
 {% endblock %}
