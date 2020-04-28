@@ -53,7 +53,7 @@ class CamperForm(forms.ModelForm):
         forms.TextInput(attrs={'class':'form-control input-box-reg'}),
     )
 
-    profile_pic = forms.ImageField(required=True, widget=
+    profile_pic = forms.ImageField(widget=
         forms.FileInput(attrs={'class':'custom-file-input', 'aria-describedby':'inputGroupFileAddon01'})
     )
     school = forms.CharField(widget=

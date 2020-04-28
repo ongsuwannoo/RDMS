@@ -2,13 +2,13 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
-<button type="button" class="btn btn-success" onclick="fill()">Fill</button>
-<form method="POST" action="{% url 'create_camper' id_camp %}" enctype="multipart/form-data" class="phase1">
+{% for camper in campers %}
+<form method="POST" action="{% url 'edit_camper' id_camp camper.id %}" enctype="multipart/form-data" class="phase1">
     {% csrf_token %}
     <div class="modal-dialog modal-reg modal-dialog-centered" role="document">
         <div class="modal-content modal-content-reg">
             <div class="modal-body text-center p-5">
-                <p style="font-weight: bold;font-size: larger; color:var(--bg-purple);">Camper Adder</p>
+                <p style="font-weight: bold;font-size: larger; color:var(--bg-purple);">Camper Editor</p>
                 <div class="" style="display: grid;" id="step2">
                     <div class="row">
                         <div class="col-md-auto">
@@ -23,7 +23,8 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.first_name }}
+                                <input type="text" class="from-control input-box-reg"
+                                    value="{{ camper.personal.first_name }}" name="first_name">
                             </div>
                         </div>
                         <div class="col-md-auto">
@@ -38,7 +39,8 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.last_name }}
+                                <input type="text" class="from-control input-box-reg"
+                                    value="{{ camper.personal.last_name }}" name="last_name">
                             </div>
                         </div>
                         <div class="col-md-auto">
@@ -53,12 +55,12 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{form.nick_name}}
+                                <input type="text" class="from-control input-box-reg"
+                                    value="{{ camper.personal.nick_name }}" name="nick_name">
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3 mt-3">
-
                         <div class="col-md-auto">
                             <div class="">
                                 เพศ :
@@ -71,7 +73,8 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.sex }}
+                                <input type="text" class="from-control input-box-reg" value="{{ camper.personal.sex }}"
+                                    name="sex">
                             </div>
                         </div>
                         <div class="col-md-auto">
@@ -86,7 +89,8 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.religion }}
+                                <input type="text" class="from-control input-box-reg"
+                                    value="{{ camper.personal.religion }}" name="religion">
                             </div>
                         </div>
                         <div class="col-md-auto">
@@ -101,12 +105,13 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.birthday }}
+                                <input type="date" class="from-control input-box-reg"
+                                    value="{{ camper.personal.birthday|date:'Y-m-d' }}" name="birthday" id="birthday">
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3">
-                        
+
                         <div class="col-md-auto">
                             <div class="">
                                 กรุ๊ปเลือด :
@@ -120,7 +125,8 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.blood_type }}
+                                <input type="text" class="from-control input-box-reg"
+                                    value="{{ camper.personal.blood_type }}" name="blood_type">
                             </div>
                         </div>
                         <div class="col-md-auto">
@@ -135,25 +141,12 @@
                                     {{error}}<br/>
                                 {% endfor %}
                                 </div>">
-                            <div class="">
-                                {{ form.shirt_size }}
-                            </div>
                         </div>
-                        <div class="col-md-auto">
-                            <div class="">
-                                โรงเรียน :
-                            </div>
+                        <div class="">
+                            <input type="text" class="from-control input-box-reg"
+                                value="{{ camper.personal.shirt_size }}" name="shirt_size">
                         </div>
-                        <div class="col-sm-4" title="
-                        <div class='text-danger'>
-                        {% for error in form.school.errors %}
-                            {{error}}<br/>
-                        {% endfor %}
-                        </div>">
-                            <div class="">
-                                {{ form.school }}
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-auto">
@@ -168,7 +161,8 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.phone }}
+                                <input type="text" class="from-control input-box-reg"
+                                    value="{{ camper.personal.phone }}" name="phone">
                             </div>
                         </div>
                         <div class="col-md-auto">
@@ -183,11 +177,11 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.email }}
+                                <input type="text" class="from-control input-box-reg"
+                                    value="{{ camper.personal.email }}" name="email">
                             </div>
                         </div>
-                        
-                        
+
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-auto">
@@ -202,9 +196,9 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.parent_name }}
-                            </div>
-                        </div>   
+                                <input type="text" class="from-control input-box-reg" value="{{ camper.parent_name }}"
+                                    name="parent_name"> </div>
+                        </div>
                         <div class="col-md-auto">
                             <div class="">
                                 เบอร์โทรศัพท์ผู้ปกครอง :
@@ -217,9 +211,10 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.parent_phone }}
+                                <input type="text" class="from-control input-box-reg" value="{{ camper.parent_phone }}"
+                                    name="parent_phone">
                             </div>
-                        </div>   
+                        </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-auto">
@@ -234,7 +229,8 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.food_allergy }}
+                                <input type="text" class="from-control input-box-reg"
+                                    value="{{ camper.personal.food_allergy }}" name="food_allergy">
                             </div>
                         </div>
                         <div class="col-md-auto">
@@ -250,11 +246,28 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.congenital_disease }}
+                                <input type="text" class="from-control input-box-reg"
+                                    value="{{ camper.personal.congenital_disease }}" name="congenital_disease">
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3">
+                    <div class="col-md-auto">
+                            <div class="">
+                                โรงเรียน :
+                            </div>
+                        </div>
+                        <div class="col-sm-4" title="
+                        <div class='text-danger'>
+                        {% for error in form.school.errors %}
+                            {{error}}<br/>
+                        {% endfor %}
+                        </div>">
+                            <div class="">
+                                <input type="text" class="from-control input-box-reg"
+                                    value="{{ camper.school }}" name="school">
+                            </div>
+                        </div>
                         <div class="col-md-auto">
                             <div class="">
                                 กลุ่ม :
@@ -268,36 +281,40 @@
                                 {% endfor %}
                                 </div>">
                             <div class="">
-                                {{ form.group }}
+                                <input type="text" class="from-control input-box-reg" value="{{ camper.group }}"
+                                    name="group">
                             </div>
                         </div>
+                        
                     </div>
-                    <div class="row justify-content-md-center">
-                        <div class="col-sm-4">
-                            <img src="{{ request.META.HTTP_NAME }}/media/Group 65.png"
-                                class="pic_camp m-3 rounded-circle mx-auto d-block img-responsive" id="img_profile">
-                            <p class="font-weight-bold">รูปโปรไฟล์ (รูปจริง)</p>
-                            <div class="input-group">
-                                <span class="custom-file" data-toggle="profile_pic" data-html="true"
-                                    data-placement="right" title="
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-sm-4">
+                        <img src="{{ request.META.HTTP_NAME }}/media/{{camper.personal.profile_pic}}"
+                            class="pic_camp m-3 rounded-circle mx-auto d-block img-responsive" id="img_profile">
+                        <p class="font-weight-bold">รูปโปรไฟล์ (รูปจริง)</p>
+                        <div class="input-group">
+                            <span class="custom-file" data-toggle="profile_pic" data-html="true" data-placement="right"
+                                title="
                                 <div class='text-danger'>
                                 {% for error in form.profile_pic.errors %}
                                     {{error}}<br/>
                                 {% endfor %}
                                 </div>">
-                                    <!-- <input type="file" class="custom-file-input" id="id_profile_pic"
+                                <!-- <input type="file" class="custom-file-input" id="id_profile_pic"
                                             aria-describedby="inputGroupFileAddon01"> -->
-                                    {{ form.profile_pic }}
-                                    <label class="custom-file-label text-left" for="id_profile_pic">Choose
-                                        file</label>
-                                </span>
-                            </div>
+                                {{ form.profile_pic }}
+                                <label class="custom-file-label text-left" for="id_profile_pic">Choose
+                                    file</label>
+                            </span>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-next btn-reg mt-5" type="submit" id="btn_submit">SUBMIT</button>
             </div>
+            {% endfor %}
+            <button class="btn btn-next btn-reg mt-5" type="submit" id="btn_submit">SUBMIT</button>
         </div>
+    </div>
     </div>
 </form>
 <script>

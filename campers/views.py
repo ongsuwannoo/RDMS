@@ -5,7 +5,11 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+
 from index.views import Personal, getPersonal, savePersonal, group_required
+
+from index.views import Personal, getPersonal, savePersonal, updatePersonal
+
 from personal.models import Personal
 
 from .forms import *
@@ -90,34 +94,42 @@ def create_camper(request, id_camp):
 def edit_camper(request, id_camp, id_camper):
     context = getPersonal(request)
     context['id_camp'] = id_camp
-    # camper_detail = Camper.objects.all()
+    context['id_camper'] = id_camper
+    context['campers'] = Camper.objects.filter(pk=id_camper)
+    camper = Camper.objects.get(pk=id_camper)
+    print(camper.personal_id)
     if id_camp:
         context['active_camp'] = True
-
     if request.method == 'POST':
         post = request.POST
-        
-        camp = Camp.objects.get(pk=id_camp)
-
-        personal = savePersonal(request)
-
+        personal_id = camper.personal_id
+        print(personal_id)
+        personal = updatePersonal(post, personal_id)
         school = post.get('school')
         parent_phone = post.get('parent_phone')
         parent_name = post.get('parent_name')
         group = post.get('group')
-        camper = Camper(
-            camp = camp,
-            personal = personal,
-            school = school,
-            parent_phone = parent_phone,
-            parent_name = parent_name,
-            group = group,
-        )
+
+        camper.school = school
+        camper.parent_phone = parent_phone
+        camper.parent_name = parent_name
+        camper.group = group
+
         camper.save()
-        messages.success(request, 'เพิ่ม Camper เรียบร้อยแล้ว')
-        print('successfully add to database')
-        return HttpResponseRedirect('../../../../camp/%d/campers/'%id_camp)
+
+        messages.success(request, 'อัพเดตโปรไฟล์เสร็จสมบูรณ์')
+        return HttpResponseRedirect('../../../../%d/campers/'%id_camp)
     else:
         form = CamperForm()
         context['form'] = form
     return render(request, 'edit_camper.html', context)
+
+def delete_camper(request, id_camp, id_camper=""):
+    context = getPersonal(request)
+    context['id_camp'] = id_camp
+
+    camper = Camper.objects.get(pk=id_camper)
+    camper.delete()
+    messages.warning(request, 'ลบ '+camper.personal.first_name+' '+camper.personal.last_name+' เรียบร้อย')
+    return HttpResponseRedirect('../../../../%d/campers' % id_camp)
+

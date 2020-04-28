@@ -37,22 +37,15 @@ def create_location (request, id_camp):
     if id_camp:
         context['active_camp'] = True
     if request.method == 'POST':
-        # user = request.user
         name = request.POST.get('name')
         desc = request.POST.get('desc')
-        # start_date = request.POST.get('start_date')
-        # end_date = request.POST.get('end_date')
         logo = request.FILES.get('logo')
         location = Location(
-            # head = user,
             name = name,
             desc = desc,
-            # start_date = start_date,
-            # end_date = end_date,
             logo = logo
         )
         location.save()
-        # return redirect('locations')
         messages.success(request, 'สร้างสถานที่ '+name+' แล้ว')
         return HttpResponseRedirect('../../../%d/locations'%id_camp)
     return render(request, 'create_location.html', context)
@@ -82,7 +75,6 @@ def delete_location(request, id_camp, id_location=""):
     location.delete()
     messages.warning(request, 'ลบสถานที่ '+location.name+' เรียบร้อย')
     return HttpResponseRedirect('../../../../%d/locations' % id_camp)
-    # return redirect(to='locations')
 
 class LocationView(APIView):
     def get(self, request):
