@@ -41,7 +41,7 @@
         opacity: 0.5;
     }
 	a{
-		color: rgb(227, 18, 18);
+		color: white;
 	}
 	a:hover{
 		color: rgb(240, 41, 41);
@@ -63,29 +63,29 @@
 {% include 'edit_location.html' %}
 <!-- Card แสดง Location -->
 {% for location in locations %}
-<div class="card mr-5 ml-5 card-loca" >
+<div class="card mr-5 ml-5 card-loca" style="cursor:default;">
 	<div class="row no-gutters">
-		<div class="col-md-3">
+		<div class="col-md-3 pl-2">
 			<img src="{{ request.META.HTTP_NAME }}/media/{{ location.logo }}" alt=""
 				class="pic_loca m-3  mx-auto d-block img-responsive">
 		</div>
 		<div class="col-md-7">
-			<div class="card-body m-3 card-body-loca">
-				<h5 class="card-title font-weight-bold h3">Location : {{ location.name }}</h5>
+			<div class="card-body m-3 card-body-loca" >
+				<h5 class="card-title font-weight-bold h3">Location : <span style="color: #10FF28;">{{ location.name }}</span></h5>
 				<em>
 					<p class="card-text">Description: {{ location.desc }}</p>
-					<p class="text-uppercase head font-weight-bold"> Time :
+					{% comment %} <p class="text-uppercase head font-weight-bold"> Time :
 						<a class="text-uppercase" style="color: #10FF28;">
                             09:00 - 12:00
 						</a>
-					</p>
+					</p> {% endcomment %}
 				</em>
 			</div>
 		</div>
 		<div class="col p-2 ml-5">
 			<div class="row no-gutters">
 				<p  data-toggle="modal" data-target="#edit_location" ><a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit"
-					onclick="getLocation({{ location.id }})">
+					onclick="getLocation({{ location.id }})" style="cursor:pointer;">
 							{% comment %} <img src="/media/Icon awesome-edit.png" class="icon"> {% endcomment %}
 							<i class="fas fa-edit"></i>
 						</a>
