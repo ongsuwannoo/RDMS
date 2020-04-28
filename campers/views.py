@@ -133,3 +133,10 @@ def delete_camper(request, id_camp, id_camper=""):
     messages.warning(request, 'ลบ '+camper.personal.first_name+' '+camper.personal.last_name+' เรียบร้อย')
     return HttpResponseRedirect('../../../../%d/campers' % id_camp)
 
+def Observe(request, id_camp, id_staff):
+    context = {}
+    context['id_camp'] = id_camp
+    context['id_camper'] = id_camper
+    context['name'] = getPersonal(request)['name']
+    context['camper'] = Camper.objects.filter(id=id_camper)
+    return render(request, 'camper_detail.html', context)

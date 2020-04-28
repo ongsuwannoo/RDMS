@@ -11,3 +11,7 @@ class Camper(models.Model):
     parent_name = models.CharField(max_length=255)
     group = models.CharField(max_length=255, null=True)
 
+class Observe(models.Model):
+    camper = models.ForeignKey(Camper, on_delete=models.CASCADE)
+    time = models.CharField(max_length=255)
+    text = models.CharField(max_length=255)
