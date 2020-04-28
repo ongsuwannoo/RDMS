@@ -66,6 +66,30 @@ function getDepartment(id) {
     });
 }
 
+function getLocation(id) {
+    axios.get('/api/getLocation/', {
+        params: {
+            id_location: id
+        }
+    })
+    .then(function (response) {
+        // handle success
+        data = response.data
+        console.log(data);
+    })
+    .catch(function (error) {
+        // handle error
+        console.log(error);
+    })
+    .then(function () {
+        // always executed
+        document.getElementById('name').value = data.name
+        document.getElementById('desc').value = data.desc
+        document.getElementById('img_profile').src = '/media/'+data.logo
+        document.getElementById('id').value = data.id
+    });
+}
+
 function getStaffsDetail(id_staff) {
     axios.get('/api/getStaffsDetail/' + id_staff)
         .then(function (response) {

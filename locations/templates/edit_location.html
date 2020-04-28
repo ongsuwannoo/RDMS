@@ -1,7 +1,8 @@
 <div class="modal fade" id="edit_location" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true" >
-    <form method="POST" action="{% url 'profile' %}">
+    <form method="POST" action="{% url 'update_location' id_camp %}">
         {% csrf_token %}
+        <input type="hidden" name="id" id="id" value="">
         <div class="modal-dialog modal-reg modal-dialog-centered" role="document">
             <div class="modal-content modal-content-reg modal-content-login-back">
                 <div class="modal-body text-center p-5">
@@ -15,7 +16,7 @@
                             </th>
                             <th>
                                 <div class="col Aligner ml-1">
-                                <input class="form-control input-box-reg" type="text" placeholder="Name" required name="name">
+                                <input class="form-control input-box-reg" type="text" placeholder="Name" required id="name" name="name">
                                 </div>
                             </th>
                         </tr>
@@ -27,7 +28,7 @@
                             </th>
                             <th>
                                 <div class="col ml-1">
-                                <textarea class="form-control input-box-reg" placeholder="Description" required name="desc"></textarea>
+                                <textarea class="form-control input-box-reg" placeholder="Description" required id="desc" name="desc"></textarea>
                                 </div>
                             </th>
                         </tr>

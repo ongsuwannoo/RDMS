@@ -2,7 +2,17 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from .models import *
 from index.views import getPersonal
+from .serializers import *
+
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from django.contrib import messages
+from rest_framework.views import APIView
+
 # Create your views here.
 def locations(request, id_camp, id_location=""):
     context = getPersonal(request)
@@ -45,3 +55,26 @@ def create_location (request, id_camp):
         messages.success(request, 'สร้างสถานที่ '+name+' แล้ว')
         return HttpResponseRedirect('../../../%d/locations'%id_camp)
     return render(request, 'create_location.html', context)
+
+def update_location(request, id_camp):
+    context = getPersonal(request)
+    context['id_camp'] = id_camp
+
+    if request.method == 'POST':
+        post = request.POST
+        post_file = request.FILES
+        location = Location.objects.get(pk=post.get('id'))
+        location.name = post.get('name')
+        location.desc = post.get('desc')
+        # location.logo = post_file.get('logo')
+        location.save()
+        messages.success(request, 'แก้ไขสถานที่ '+post.get('name')+' เรียบร้อย')
+    return HttpResponseRedirect('../../../%d/locations'%id_camp)
+
+
+class LocationView(APIView):
+    def get(self, request):
+        id_location = request.query_params['id_location']
+        location = Location.objects.get(pk=id_location)
+        serializer = LocationSerializer(location)
+        return Response(serializer.data, status=status.HTTP_200_OK)
