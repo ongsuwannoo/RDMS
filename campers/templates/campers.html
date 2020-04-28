@@ -61,7 +61,10 @@
                     </a>
                     <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Observe">
                         <img src="/media/Icon ionic-md-document.png" class="icon"></img>
-                    </a>    
+                    </a>
+                    <a href="{% url 'delete_camper' id_camp camper.id %}" onclick="return confirm('Are you sure you want to delete this?')" class="material-tooltip-main del" data-toggle="tooltip" data-placement="top" title="Delete">
+                        {% comment %} <img src="/media/Icon open-document.png" class="icon"></img> {% endcomment %}
+                        <i class="fas fa-trash-alt"></i>    
                 </td>
 </tr>
         {% endfor %}

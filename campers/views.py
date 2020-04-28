@@ -115,3 +115,12 @@ def edit_camper(request, id_camp, id_camper):
         form = CamperForm()
         context['form'] = form
     return render(request, 'edit_camper.html', context)
+
+def delete_camper(request, id_camp, id_camper=""):
+    context = getPersonal(request)
+    context['id_camp'] = id_camp
+
+    camper = Camper.objects.get(pk=id_camper)
+    camper.delete()
+    messages.warning(request, 'ลบ '+camper.personal.first_name+' '+camper.personal.last_name+' เรียบร้อย')
+    return HttpResponseRedirect('../../../../%d/campers' % id_camp)
