@@ -74,7 +74,7 @@
                                 </div>">
                             <div class="">
                                 <input type="text" class="from-control input-box-reg" value="{{ camper.personal.sex }}"
-                                    name="sex" disabled>
+                                    name="sex">
                             </div>
                         </div>
                         <div class="col-md-auto">
@@ -252,6 +252,22 @@
                         </div>
                     </div>
                     <div class="row mt-3">
+                    <div class="col-md-auto">
+                            <div class="">
+                                โรงเรียน :
+                            </div>
+                        </div>
+                        <div class="col-sm-4" title="
+                        <div class='text-danger'>
+                        {% for error in form.school.errors %}
+                            {{error}}<br/>
+                        {% endfor %}
+                        </div>">
+                            <div class="">
+                                <input type="text" class="from-control input-box-reg"
+                                    value="{{ camper.school }}" name="school">
+                            </div>
+                        </div>
                         <div class="col-md-auto">
                             <div class="">
                                 กลุ่ม :
