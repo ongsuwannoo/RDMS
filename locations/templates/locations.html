@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
 <style>
 	.card {
 		background-color: var(--bg-aside);
@@ -51,10 +53,10 @@
 		<a type="button" class="btn btn-success " href="{% url 'create_location' id_camp %}">Add Location</a>
     </div>
 </div>
-
+{% include 'edit_location.html' %}
 <!-- Card แสดง Location -->
 {% for location in locations %}
-<div class="card mr-5 ml-5 card-loca" onclick="window.location={{ location.id }}">
+<div class="card mr-5 ml-5 card-loca" >
 	<div class="row no-gutters">
 		<div class="col-md-3">
 			<img src="{{ request.META.HTTP_NAME }}/media/{{ location.logo }}" alt=""
@@ -73,6 +75,15 @@
 				</em>
 			</div>
 		</div>
+		<div class="col p-2">
+			<p  data-toggle="modal" data-target="#edit_location" ><a  class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
+						<img src="/media/Icon awesome-edit.png" class="icon">
+					</a>
+			</p>
+			{% comment %} <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
+						<img src="/media/Icon awesome-edit.png" class="icon">
+					</a> {% endcomment %}
+		</div>	
 	</div>
 </div>
 <br>
