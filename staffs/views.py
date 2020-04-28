@@ -86,7 +86,7 @@ def import_staff(request, id_camp):
     
     camp = Camp.objects.get(pk=id_camp)
     # นับจำนวน staff ทั้งหมด
-    count = len(dic)
+    count = 0
     for i in dic:
         # i.update((k, [v]) for k, v in i.items())
         
@@ -108,7 +108,8 @@ def import_staff(request, id_camp):
             staff.department = department[0]
 
         staff.save()
-    messages.warning(request, 'ทำการ import staff จำนวน '+count+' คน หากผิดพลาดโปรดติดต่อผู้ดูแล')
+        count += 1
+    messages.warning(request, 'ทำการ import staff จำนวน '+str(count)+' คน หากผิดพลาดโปรดติดต่อผู้ดูแล')
     return HttpResponseRedirect('../../../../camp/%d/staffs/'%id_camp)
 
 @csrf_exempt
