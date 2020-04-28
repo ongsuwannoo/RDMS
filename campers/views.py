@@ -37,6 +37,7 @@ def create_camper(request, id_camp):
         personal = savePersonal(request)
 
         form = CamperForm(request.POST, request.FILES)
+        print(request.FILES)
         if form.is_valid():
             form.save()
         # school = post.get('school')
