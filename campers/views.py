@@ -5,13 +5,18 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+
+from index.views import Personal, getPersonal, savePersonal, group_required
+
 from index.views import Personal, getPersonal, savePersonal, updatePersonal
+
 from personal.models import Personal
 
 from .forms import *
 from .models import Camper
 
 # Create your views here.
+
 
 def campers(request, id_camp):
     context = getPersonal(request)
@@ -20,14 +25,15 @@ def campers(request, id_camp):
     if id_camp:
         context['active_camp'] = True
     return render(request, 'campers.html', context)
-    
+
+@group_required('manager', 'head', 'staff')
 def camper_detail(request, id_camp, id_camper):
     context = {}
     context['id_camp'] = id_camp
     context['id_camper'] = id_camper
     context['name'] = getPersonal(request)['name']
     context['camper'] = Camper.objects.filter(id=id_camper)
-    
+
     #use to link to personal
     link = Camper.objects.values('personal_id')
 
@@ -47,6 +53,7 @@ def camper_detail(request, id_camp, id_camper):
         context['active_camp'] = True
     return render(request, 'camper_detail.html', context)
 
+@group_required('manager')
 def create_camper(request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp
@@ -83,6 +90,7 @@ def create_camper(request, id_camp):
    
     return render(request, 'create_camper.html', context)
 
+@group_required('manager')
 def edit_camper(request, id_camp, id_camper):
     context = getPersonal(request)
     context['id_camp'] = id_camp
@@ -124,3 +132,4 @@ def delete_camper(request, id_camp, id_camper=""):
     camper.delete()
     messages.warning(request, 'ลบ '+camper.personal.first_name+' '+camper.personal.last_name+' เรียบร้อย')
     return HttpResponseRedirect('../../../../%d/campers' % id_camp)
+

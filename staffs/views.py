@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from index.views import getPersonal, savePersonal, Personal
+from index.views import getPersonal, savePersonal, Personal, group_required
 from .forms import *
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -11,6 +11,9 @@ from index.models import user
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from rest_framework import generics
 
 import csv, io
 from django.contrib import messages
@@ -26,6 +29,7 @@ def staffs(request, id_camp):
         context['active_camp'] = True
     return render(request, 'staffs.html', context)
 
+@group_required('manager', 'head')
 def create_staff(request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp
@@ -62,6 +66,7 @@ def create_staff(request, id_camp):
         context['departments'] = Department.objects.filter(camp_id=id_camp)
     return render(request, 'create_staff.html', context)
 
+@group_required('manager', 'head')
 def add_staff(request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp
@@ -108,6 +113,8 @@ def add_staff(request, id_camp):
         context['departments'] = Department.objects.filter(camp_id=id_camp)
     return render(request, 'add_staff.html', context)
 
+
+@group_required('manager', 'head')
 def delete_staff(request, id_camp, id_staff=""):
     context = getPersonal(request)
     context['id_camp'] = id_camp
@@ -116,6 +123,7 @@ def delete_staff(request, id_camp, id_staff=""):
     staff.delete()
     messages.warning(request, 'ลบ '+staff.personal.first_name+' '+staff.personal.last_name+' เรียบร้อย')
     return HttpResponseRedirect('../../../../%d/staffs' % id_camp)
+
 
 def import_staff(request, id_camp):
     context = getPersonal(request)
@@ -167,7 +175,7 @@ def import_staff(request, id_camp):
     return HttpResponseRedirect('../../../../camp/%d/staffs/'%id_camp)
 
 @csrf_exempt
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def get_staffs_api(request, id_staff):
     """
     API ดึงข้อมูล staff โดย id_staff
@@ -178,3 +186,14 @@ def get_staffs_api(request, id_staff):
         serializer = StaffSerializer(staffs)
         return Response(serializer.data, status=status.HTTP_200_OK)
     return render(request, 'staffs.html', context)
+
+
+class StaffsView(generics.ListAPIView):
+    serializer_class = StaffSerializer
+    def get_queryset(self):
+        id_camp = self.request.query_params['id_camp']
+        search = self.request.query_params['search']
+        filter_staff = Staff.objects.select_related('personal').filter(
+            camp_id=id_camp, 
+            personal__first_name__startswith=search)
+        return filter_staff

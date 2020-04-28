@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from .models import *
-from index.views import getPersonal
+from index.views import getPersonal, group_required
 from .serializers import *
 
 from django.shortcuts import render
@@ -30,6 +30,7 @@ def locations(request, id_camp, id_location=""):
         context['locations'] = location
     return render(request, 'locations.html', context)
 
+@group_required('manager', 'head', 'mc')
 def create_location (request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp
@@ -49,6 +50,7 @@ def create_location (request, id_camp):
         return HttpResponseRedirect('../../../%d/locations'%id_camp)
     return render(request, 'create_location.html', context)
 
+@group_required('manager', 'head', 'mc')
 def update_location(request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp
@@ -64,6 +66,7 @@ def update_location(request, id_camp):
         messages.success(request, 'แก้ไขสถานที่ '+post.get('name')+' เรียบร้อย')
     return HttpResponseRedirect('../../../%d/locations'%id_camp)
 
+@group_required('manager', 'head', 'mc')
 def delete_location(request, id_camp, id_location=""):
     context = getPersonal(request)
     context['id_camp'] = id_camp
@@ -79,3 +82,4 @@ class LocationView(APIView):
         location = Location.objects.get(pk=id_location)
         serializer = LocationSerializer(location)
         return Response(serializer.data, status=status.HTTP_200_OK)
+

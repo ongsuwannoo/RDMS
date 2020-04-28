@@ -23,7 +23,6 @@ function hamburger(x) {
         document.getElementById('menu-toggle2').style.display = 'none';
         $("#main-content").removeClass("toggled");
     }
-
 }
 
 window.onload = function () {

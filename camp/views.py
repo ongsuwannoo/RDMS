@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from index.views import getPersonal
+from index.views import getPersonal, group_required
 from .models import *
 from staffs.models import Staff
 from django.shortcuts import redirect, render
@@ -13,8 +13,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib import messages
 from rest_framework.views import APIView
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required
 def camp(request, id_camp=""):
     context = getPersonal(request)
     context['id_camp'] = id_camp
@@ -24,7 +27,7 @@ def camp(request, id_camp=""):
         departments = reversed(Department.objects.filter(camp_id=id_camp))
         MCs = reversed(MC.objects.filter(camp_id=id_camp))
         count_total_staff = Staff.objects.select_related('camp').filter(camp_id=id_camp).count
-        
+
         camp.head.sex = sex[camp.head.personal.sex]
         context['active_camp'] = True
         context['camp'] = camp
@@ -34,13 +37,18 @@ def camp(request, id_camp=""):
         messages.info(request, 'ยินดีตอนรับสู่ค่าย '+camp.name)
     else:
         user = request.user
-        camp = Camp.objects.filter(head=user)
+        staff = Staff.objects.filter(personal=user.personal)
+        if staff:
+            staff = staff[0]
+            camp = Camp.objects.filter(pk=staff.camp.id)
+        else:
+            camp = Camp.objects.filter(head=user)
         context['camps'] = camp
         context['active_camp'] = False
-        
+
     return render(request, 'camp.html', context)
 
-@permission_required('camp.add_camp', login_url='')
+@group_required('manager')
 def create_camp(request):
     context = getPersonal(request)
     if request.method == 'POST':
@@ -63,6 +71,7 @@ def create_camp(request):
         return redirect('camp')
     return render(request, 'create_camp.html', context)
 
+@group_required('manager')
 def create_department_mc(request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp

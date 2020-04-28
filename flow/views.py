@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from index.views import getPersonal
+from index.views import getPersonal, group_required
 from locations.models import Location
 from .models import Flow
 from camp.models import Department, MC, Camp
 import datetime
-
+from django.http import HttpResponse, HttpResponseRedirect
 from .serializers import *
 
 from django.shortcuts import render
@@ -14,7 +14,6 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib import messages
-
 # Create your views here.
 
 def flow(request, id_camp):
@@ -22,7 +21,18 @@ def flow(request, id_camp):
     context['id_camp'] = id_camp
     if id_camp:
         context['active_camp'] = True
+    context['locations'] = Location.objects.all()
+    context['departments'] = Department.objects.filter(camp_id=id_camp)
+    context['mc'] = MC.objects.filter(camp_id=id_camp)
 
+    return render(request, 'flow.html', context)
+
+@group_required('manager')
+def updateFlow(request):
+    pass
+
+@group_required('manager')
+def addFlow(request, id_camp):
     if request.method == 'POST':
         post = request.POST
         t1 = int((post.get('time_start')).split(':')[0])
@@ -65,12 +75,11 @@ def flow(request, id_camp):
         
         flow.save()
         messages.success(request, 'เพิ่ม Flow '+activity+' แล้ว')
-    else:
-        context['locations'] = Location.objects.all()
-        context['departments'] = Department.objects.filter(camp_id=id_camp)
-        context['mc'] = MC.objects.filter(camp_id=id_camp)
+        return HttpResponseRedirect('../../../../camp/%d/flow'%id_camp)
 
-    return render(request, 'flow.html', context)
+@group_required('manager')
+def deleteFlow(request):
+    pass
 
 
 @csrf_exempt
