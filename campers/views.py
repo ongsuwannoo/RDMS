@@ -86,6 +86,7 @@ def create_camper(request, id_camp):
 def edit_camper(request, id_camp, id_camper):
     context = getPersonal(request)
     context['id_camp'] = id_camp
+    context['campers'] = Camper.objects.filter(id=id_camper)
     # camper_detail = Camper.objects.all()
     if id_camp:
         context['active_camp'] = True
@@ -110,7 +111,7 @@ def edit_camper(request, id_camp, id_camper):
             group = group,
         )
         camper.save()
-        messages.success(request, 'เพิ่ม Camper เรียบร้อยแล้ว')
+        messages.success(request, 'แก้ไข Camper เรียบร้อยแล้ว')
         print('successfully add to database')
         return HttpResponseRedirect('../../../../camp/%d/campers/'%id_camp)
     else:
