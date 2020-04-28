@@ -76,14 +76,19 @@
 			</div>
 		</div>
 		<div class="col p-2">
-			<p  data-toggle="modal" data-target="#edit_location" ><a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit"
-				onclick="getLocation({{ location.id }})">
-						<img src="/media/Icon awesome-edit.png" class="icon">
-					</a>
-			</p>
-			{% comment %} <a href="#" class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">
-						<img src="/media/Icon awesome-edit.png" class="icon">
-					</a> {% endcomment %}
+			<div class="row no-gutters">
+				<p  data-toggle="modal" data-target="#edit_location" ><a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit"
+					onclick="getLocation({{ location.id }})">
+							{% comment %} <img src="/media/Icon awesome-edit.png" class="icon"> {% endcomment %}
+							<i class="fas fa-edit"></i>
+						</a>
+				</p>
+
+				<p href="{% url 'delete_location' id_camp location.id %}" class="material-tooltip-main " data-toggle="tooltip" data-placement="top" title="Delete">
+							{% comment %} <img src="/media/icondelete.png" class="icon"> {% endcomment %}
+							<i class="fas fa-trash-alt"></i>
+						</p>
+			</div>
 		</div>	
 	</div>
 </div>

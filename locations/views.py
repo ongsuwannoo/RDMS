@@ -71,6 +71,15 @@ def update_location(request, id_camp):
         messages.success(request, 'แก้ไขสถานที่ '+post.get('name')+' เรียบร้อย')
     return HttpResponseRedirect('../../../%d/locations'%id_camp)
 
+def delete_location(request, id_camp, id_location=""):
+    context = getPersonal(request)
+    context['id_camp'] = id_camp
+
+    location = Location.objects.get(pk=id_location)
+    location.delete()
+    messages.warning(request, 'ลบสถานที่ '+location.name+' เรียบร้อย')
+    return HttpResponseRedirect('../../../../%d/locations' % id_camp)
+    # return redirect(to='locations')
 
 class LocationView(APIView):
     def get(self, request):
