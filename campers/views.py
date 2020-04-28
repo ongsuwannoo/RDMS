@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from index.views import Personal, getPersonal, savePersonal
+from index.views import Personal, getPersonal, savePersonal, updatePersonal
 from personal.models import Personal
 
 from .forms import *
@@ -89,26 +89,28 @@ def edit_camper(request, id_camp, id_camper):
     context['id_camper'] = id_camper
     context['campers'] = Camper.objects.filter(pk=id_camper)
     camper = Camper.objects.get(pk=id_camper)
+    print(camper.personal_id)
     if id_camp:
         context['active_camp'] = True
     if request.method == 'POST':
         post = request.POST
-        user_personal_id = request.user.personal_id
-        personal = updatePersonal(post, user_personal_id)
+        personal_id = camper.personal_id
+        print(personal_id)
+        personal = updatePersonal(post, personal_id)
         school = post.get('school')
         parent_phone = post.get('parent_phone')
         parent_name = post.get('parent_name')
         group = post.get('group')
 
         camper.school = school
-        camper.parent_home = parent_home
+        camper.parent_phone = parent_phone
         camper.parent_name = parent_name
         camper.group = group
 
         camper.save()
 
         messages.success(request, 'อัพเดตโปรไฟล์เสร็จสมบูรณ์')
-        return HttpResponseRedirect('../../../../camp/%d/campers/'%id_camp)
+        return HttpResponseRedirect('../../../../%d/campers/'%id_camp)
     else:
         form = CamperForm()
         context['form'] = form

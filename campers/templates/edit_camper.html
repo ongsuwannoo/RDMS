@@ -2,9 +2,9 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
-<form method="POST" action="{% url 'create_camper' id_camp %}" enctype="multipart/form-data" class="phase1">
+{% for camper in campers %}
+<form method="POST" action="{% url 'edit_camper' id_camp camper.id %}" enctype="multipart/form-data" class="phase1">
     {% csrf_token %}
-    {% for camper in campers %}
     <div class="modal-dialog modal-reg modal-dialog-centered" role="document">
         <div class="modal-content modal-content-reg">
             <div class="modal-body text-center p-5">
