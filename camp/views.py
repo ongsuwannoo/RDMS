@@ -4,13 +4,10 @@ from .models import *
 from staffs.models import Staff
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
-
-
+from django.contrib.auth.decorators import login_required, permission_required
 from .serializers import *
-
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -43,6 +40,7 @@ def camp(request, id_camp=""):
         
     return render(request, 'camp.html', context)
 
+@permission_required('camp.add_camp', login_url='')
 def create_camp(request):
     context = getPersonal(request)
     if request.method == 'POST':

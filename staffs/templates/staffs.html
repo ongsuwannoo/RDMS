@@ -35,7 +35,10 @@
         <input type="text" class="form-control  search" placeholder="Search" id="searchBox">
     </div>
     <div class="col-sm-auto">
-        <a type="button" class="btn btn-primary" href="{% url 'create_staff' id_camp %}">Add staff</a>
+        <a type="button" class="btn btn-success" href="{% url 'add_staff' id_camp %}">Add staff</a>
+    </div>
+    <div class="col-sm-auto">
+        <a type="button" class="btn btn-primary" href="{% url 'create_staff' id_camp %}">Create staff</a>
     </div>
     <div class="col-sm">
         <a type="button" class="btn btn-secondary" href="{% url 'import_staff' id_camp %}">import file</a>

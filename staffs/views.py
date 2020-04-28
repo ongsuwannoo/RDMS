@@ -7,7 +7,7 @@ from .serializers import *
 
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-
+from index.models import user
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -61,6 +61,52 @@ def create_staff(request, id_camp):
         context['form'] = form
         context['departments'] = Department.objects.filter(camp_id=id_camp)
     return render(request, 'create_staff.html', context)
+
+def add_staff(request, id_camp):
+    context = getPersonal(request)
+    context['id_camp'] = id_camp
+    if id_camp:
+        context['active_camp'] = True
+
+    if request.method == 'POST':
+        post = request.POST
+        
+        camp = Camp.objects.get(pk=id_camp)
+
+        username = post.get('username')
+        data_user = user.objects.get(username=username)
+        personal = Personal.objects.get(pk=data_user.personal_id)
+
+        position = post.get('position')
+        group = post.get('group')
+
+        staff = Staff(
+            camp = camp,
+            personal = personal,
+            position = position,
+            group = group,
+        )
+
+        if post.get('department') != '0':
+            department = Department.objects.get(pk=post.get('department'))
+            staff.department = department
+        
+        if post.get('mc') != '0':
+            mc = MC.objects.get(pk=post.get('mc'))
+            staff.mc = mc
+
+        staff.save()
+        messages.success(request, 'เพิ่ม Staff '+personal.first_name+' แล้ว')
+        return HttpResponseRedirect('../../../../camp/%d/staffs/'%id_camp)
+
+    else:
+        form = StaffForm()
+        context['camp'] = Camp.objects.get(pk=id_camp)
+        context['userAll'] = user.objects.all()
+        context['form'] = form
+        context['MCs'] = MC.objects.filter(camp_id=id_camp) 
+        context['departments'] = Department.objects.filter(camp_id=id_camp)
+    return render(request, 'add_staff.html', context)
 
 
 def import_staff(request, id_camp):

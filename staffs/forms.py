@@ -76,11 +76,10 @@ class StaffForm(forms.ModelForm):
     class Meta:
         model = Staff
         fields = (
-            'email',
             'position',
             'department',
-            'group',
-            'profile_pic'
+            'mc',
+            'group'
         )
 
     

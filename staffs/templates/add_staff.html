@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
+<button type="button" class="btn btn-success" onclick="fill()">Fill</button>
+<form method="POST" action="{% url 'add_staff' id_camp %}" class="phase1">
+    {% csrf_token %}
+    <div class="modal-dialog modal-reg modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-reg">
+            <div class="modal-body text-center p-5">
+                <p style="font-weight: bold;font-size: larger; color:var(--bg-purple);">ADD STAFF FORM</p>
+                <div class="" style="display: grid;" id="step2">
+                    <div class="row mt-5">
+                        <div class="col-md-auto">
+                            <div class="">
+                                Staff username :
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="">
+                                <select name="username" id="" class="form-control select">
+                                    {% for u in userAll %}
+                                        <option value="{{u.username}}">{{u.username}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                ค่าย :
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="">
+                                <input type="text" class="form-control select" value="{{ camp.name }}" disabled>
+                            </div>
+                        </div>
+                    <div class="row mt-5">
+                        <div class="col-md-auto">
+                            <div class="">
+                                ฝ่าย :
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="">
+                                <select name="department" id="" class="form-control select">
+                                    <option value="0">ไม่มี</option>
+                                    {% for department in departments %}
+                                        <option value="{{department.name}}">{{department.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                MC :
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="">
+                                <select name="mc" id="" class="form-control select">
+                                    <option value="0">ไม่มี</option>
+                                    {% for mc in MCs %}
+                                        <option value="{{mc.name}}">{{mc.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                ตำแหน่ง :
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm">
+                            <div class="">
+                                {{ form.position }}
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="">
+                                กลุ่ม :
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm">
+                            <div class="">
+                                {{ form.group }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-login mt-5">ADD</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
