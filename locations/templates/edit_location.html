@@ -1,0 +1,54 @@
+<div class="modal fade" id="edit_location" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true" >
+    <form method="POST" action="{% url 'profile' %}">
+        {% csrf_token %}
+        <div class="modal-dialog modal-reg modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-reg modal-content-login-back">
+                <div class="modal-body text-center p-5">
+                    <p >แก้ไขรายละเอียดสถานที่</p>
+                    <table class="Aligner" style="display: grid;" id="step1">
+                        <tr height="50">
+                            <th class="">
+                                <div class="col-md-auto text-left">
+                                    Name :
+                                </div>
+                            </th>
+                            <th>
+                                <div class="col Aligner ml-1">
+                                <input class="form-control input-box-reg" type="text" placeholder="Name" required name="name">
+                                </div>
+                            </th>
+                        </tr>
+                        <tr height="50">
+                            <th class="">
+                                <div class="col-md-auto text-left">
+                                    Description :
+                                </div>
+                            </th>
+                            <th>
+                                <div class="col ml-1">
+                                <textarea class="form-control input-box-reg" placeholder="Description" required name="desc"></textarea>
+                                </div>
+                            </th>
+                        </tr>
+                    </table>
+                    <div class="row justify-content-md-center">
+                        <div class="col-sm-4">
+                            <img src="{{ request.META.HTTP_NAME }}/media/Group 65.png"
+                                class="pic_camp m-3 rounded-circle mx-auto d-block img-responsive" id="img_profile">
+                            <p class="font-weight-bold">รูป สถานที่</p>
+                            <div class="input-group">
+                                <span class="custom-file">
+                                    <input type="file" class="custom-file-input" id="logo_pic" name="logo"
+                                        aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label text-left" for="logo_pic">Choose file</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <button href="#" class="btn btn-next btn-reg mt-5" type="submit" id="btn_submit">แก้ไขสถานที่</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
