@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from camp.views import DepartmentView
 from locations.views import LocationView
 from staffs.views import get_staffs_api, StaffsView
-from flow.views import flow_api
+from flow.views import flow_api, flow_api_delete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +32,7 @@ urlpatterns = [
     path('api/getStaffsDetail/<int:id_staff>', get_staffs_api, name='get_staffs_api'),
     path('api/flow_api/<int:id_camp>', flow_api, name='flow_api'),
     path('api/search', StaffsView.as_view(), name='searh_staff'),
+    path('api/flow_api_delete/<int:id_flow>', flow_api_delete, name='flow_api_delete'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

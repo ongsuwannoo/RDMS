@@ -7,6 +7,7 @@ class Camp(models.Model):
     desc = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
+    amount = models.IntegerField(null=True, default=0)
     logo = models.ImageField(upload_to='logo/')
 
 class Department(models.Model):

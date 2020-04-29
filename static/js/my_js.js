@@ -48,21 +48,21 @@ function getDepartment(id) {
             id_department: id
         }
     })
-    .then(function (response) {
-        // handle success
-        data = response.data
-        console.log(data);
-    })
-    .catch(function (error) {
-        // handle error
-        console.log(error);
-    })
-    .then(function () {
-        // always executed
-        document.getElementById('name_modal_department').innerHTML = 'ฝ่าย' + data.name;
-        document.getElementById('desc_modal_department').innerHTML = data.desc;
-        // document.getElementById('head_modal_department')
-    });
+        .then(function (response) {
+            // handle success
+            data = response.data
+            console.log(data);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+            document.getElementById('name_modal_department').innerHTML = 'ฝ่าย' + data.name;
+            document.getElementById('desc_modal_department').innerHTML = data.desc;
+            // document.getElementById('head_modal_department')
+        });
 }
 
 function getLocation(id) {
@@ -71,22 +71,22 @@ function getLocation(id) {
             id_location: id
         }
     })
-    .then(function (response) {
-        // handle success
-        data = response.data
-        console.log(data);
-    })
-    .catch(function (error) {
-        // handle error
-        console.log(error);
-    })
-    .then(function () {
-        // always executed
-        document.getElementById('name').value = data.name
-        document.getElementById('desc').value = data.desc
-        document.getElementById('img_profile').src = '/media/'+data.logo
-        document.getElementById('id').value = data.id
-    });
+        .then(function (response) {
+            // handle success
+            data = response.data
+            console.log(data);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+            document.getElementById('name').value = data.name
+            document.getElementById('desc').value = data.desc
+            document.getElementById('img_profile').src = '/media/' + data.logo
+            document.getElementById('id').value = data.id
+        });
 }
 
 function getStaffsDetail(id_staff) {
@@ -158,12 +158,12 @@ function getFlow(id_camp) {
                     '<td class="text-center">' + data[i].location.name + '</td>' +
                     '<td>' + data[i].note + '</td>' +
                     '<th scope="col">' +
-                    '<span onclick="' + data[i].id + '" style="cursor:pointer;" class="m-1">' +
+                    '<span onclick="editFlow(' + data[i].id + ')" data-toggle="modal" data-target="#add_flow" style="cursor:pointer;" class="m-1">' +
                     '<a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Edit">' +
                     '<i class="fas fa-edit fa-sm"></i>' +
                     '</a>' +
                     '</span>' +
-                    '<span onclick="' + data[i].id + '" style="cursor:pointer;">' +
+                    '<span onclick="deleteFlow(' + data[i].id + ')" style="cursor:pointer;">' +
                     '<a class="material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Delete">' +
                     '<i class="fas fa-times fa-sm"></i>' +
                     '</a>' +
@@ -174,6 +174,13 @@ function getFlow(id_camp) {
             }
         });
 }
+
+function editFlow(id){
+    document.getElementById('id_flow').value = id;
+    var p = document.getElementById('id_flow')
+    console.log(p.parentNode)
+}
+
 function addFlow(id) {
     console.log('addFlow');
     var time_start, time_end, activity, sub_time, desc, camp, department, mc, location, note;
@@ -196,5 +203,25 @@ function addFlow(id) {
         })
         .catch(function (error) {
             console.log(error);
+        });
+}
+
+function deleteFlow(id_camp) {
+    console.log('deleteFlow', id_camp)
+    axios.get('/api/flow_api_delete/' + id_camp)
+        .then(function (response) {
+            // handle success
+            data = response.data
+            console.log(data);
+            location.reload(); 
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+
+        })
+        .then(function () {
+            // always executed
+            
         });
 }

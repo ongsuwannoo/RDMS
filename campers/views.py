@@ -10,8 +10,9 @@ from index.views import (Personal, getPersonal, group_required, savePersonal,
 from personal.models import Personal
 
 from .forms import *
-from .models import Camper, Observe
 
+from .models import Camper, Observe
+import csv, io
 # Create your views here.
 
 
@@ -150,3 +151,49 @@ def add_observe(request, id_camp, id_camper):
         observe_object.save()
 
     return render(request, 'camper_detail.html', context)
+
+def import_camper(request, id_camp):
+    context = getPersonal(request)
+    context['id_camp'] = id_camp
+    if id_camp:
+        context['active_camp'] = True
+    template = "import_camper.html"
+
+    data = Camper.objects.all()
+    # GET request returns the value of the data with the specified key.
+    if request.method == "GET":
+        return render(request, template, context)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'THIS IS NOT A CSV FILE')
+        
+    data_set = csv_file.read().decode('utf-8-sig')
+    dic = csv.DictReader(io.StringIO(data_set), delimiter=",")
+    
+    camp = Camp.objects.get(pk=id_camp)
+    # นับจำนวน camper ทั้งหมด
+    count = 0
+    for i in dic:
+        # i.update((k, [v]) for k, v in i.items())
+
+        personal = savePersonal(i)
+        school = i['school']
+        parent_phone = i['parent_phone']
+        parent_name = '-'
+        group = i['group']
+
+        camper = Camper(
+            camp = camp,
+            personal = personal,
+            school = school,
+            parent_phone = parent_phone,
+            parent_name = parent_name,
+            group = group
+        )
+
+        camper.save()
+        count += 1
+    messages.warning(request, 'ทำการ import camper จำนวน '+str(count)+' คน หากผิดพลาดโปรดติดต่อผู้ดูแล')
+    return HttpResponseRedirect('../../../../camp/%d/campers/'%id_camp)

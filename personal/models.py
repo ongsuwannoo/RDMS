@@ -21,8 +21,8 @@ class Personal(models.Model):
     blood_type = models.CharField(max_length=2, null=True)
     birthday = models.DateField(null=True)
     religion = models.CharField(max_length=255, null=True)
-    food_allergy = models.CharField(max_length=255, default='-')
-    congenital_disease = models.CharField(max_length=255, default='-')
+    food_allergy = models.TextField(default='-')
+    congenital_disease = models.TextField(default='-')
     shirt_size = models.CharField(max_length=5)
     
     profile_pic = models.ImageField(upload_to='profiles/')
