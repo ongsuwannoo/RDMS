@@ -58,6 +58,7 @@ def create_camp(request):
         user = request.user
         name = request.POST.get('name')
         desc = request.POST.get('desc')
+        amount = request.POST.get('amount')
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
         logo = request.FILES.get('logo_pic')
@@ -65,6 +66,7 @@ def create_camp(request):
             head = user,
             name = name,
             desc = desc,
+            amount = amount,
             start_date = start_date,
             end_date = end_date,
             logo = logo
