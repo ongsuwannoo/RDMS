@@ -62,20 +62,29 @@ def addFlow(request, id_camp, id_flow=""):
                 camp = camp,
                 note = note
             )
+            messages.success(request, 'เพิ่ม Flow '+activity+' แล้ว')
 
-            if location:
-                flow.location = location[0]
-
-            if department:
-                flow.department = department[0]
-
-            elif mc:
-                flow.mc = mc[0]
         else:
-            print('Edit')
-        
+            flow = Flow.objects.get(pk=id_flow)
+            flow.time_start = time_start
+            flow.time_end = time_end
+            flow.activity = activity
+            flow.sub_time = sub_time
+            flow.desc = desc
+            flow.camp = camp
+            flow.note = note
+            messages.success(request, 'แก้ไข Flow '+activity+' แล้ว')
+
+        if location:
+            flow.location = location[0]
+
+        if department:
+            flow.department = department[0]
+
+        elif mc:
+            flow.mc = mc[0]
+
         flow.save()
-        messages.success(request, 'เพิ่ม Flow '+activity+' แล้ว')
         return HttpResponseRedirect('../../../../camp/%d/flow'%id_camp)
 
 
