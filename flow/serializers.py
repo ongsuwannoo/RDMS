@@ -34,6 +34,7 @@ class CampSerializer(serializers.Serializer):
     logo = serializers.CharField()
 
 class FlowSerializer(serializers.Serializer):
+    id = serializers.CharField()
     time_start = serializers.CharField()
     time_end = serializers.CharField()
     activity = serializers.CharField()

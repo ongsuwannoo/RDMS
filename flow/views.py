@@ -9,7 +9,7 @@ from .serializers import *
 
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-
+from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -28,11 +28,7 @@ def flow(request, id_camp):
     return render(request, 'flow.html', context)
 
 @group_required('manager')
-def updateFlow(request):
-    pass
-
-@group_required('manager')
-def addFlow(request, id_camp):
+def addFlow(request, id_camp, id_flow=""):
     if request.method == 'POST':
         post = request.POST
         t1 = int((post.get('time_start')).split(':')[0])
@@ -54,35 +50,35 @@ def addFlow(request, id_camp):
         location = Location.objects.filter(pk=location)
         camp = Camp.objects.get(pk=id_camp)
 
-        flow = Flow(
-            time_start = time_start,
-            time_end = time_end,
-            activity = activity,
-            sub_time = sub_time,
-            desc = desc,
-            camp = camp,
-            note = note
-        )
+        id_flow = post.get('id_flow')
 
-        if location:
-            flow.location = location[0]
+        if not id_flow:
+            flow = Flow(
+                time_start = time_start,
+                time_end = time_end,
+                activity = activity,
+                sub_time = sub_time,
+                desc = desc,
+                camp = camp,
+                note = note
+            )
 
-        if department:
-            flow.department = department[0]
+            if location:
+                flow.location = location[0]
 
-        elif mc:
-            flow.mc = mc[0]
+            if department:
+                flow.department = department[0]
+
+            elif mc:
+                flow.mc = mc[0]
+        else:
+            print('Edit')
         
         flow.save()
         messages.success(request, 'เพิ่ม Flow '+activity+' แล้ว')
         return HttpResponseRedirect('../../../../camp/%d/flow'%id_camp)
 
-@group_required('manager')
-def deleteFlow(request):
-    pass
 
-
-@csrf_exempt
 @api_view(['GET'])
 def flow_api(request, id_camp):
     """
@@ -95,4 +91,17 @@ def flow_api(request, id_camp):
         serializer = FlowSerializer(flow, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+@group_required('manager')
+@api_view(['GET'])
+def flow_api_delete(request, id_flow):
+    """
+    API FLOW
+    id_camp = ค่าคงที่ของ camp ระบุ camp
+    method GET = ดึงค่าตารางไปเปิดในหน้า flow.html โดยใช้ id_camp
+    """
+    if request.method == 'GET':
+        flow = Flow.objects.get(pk=id_flow)
+        flow.delete()
+        messages.warning(request, 'ลบ Flow เรียบร้อย')
+        return Response(status=status.HTTP_200_OK)
 
