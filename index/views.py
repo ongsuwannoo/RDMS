@@ -38,7 +38,7 @@ def register(request):
             user.save()
             login(request, user)
             messages.success(request, 'สมัครสมาชิกสำเร็จแล้วยินดีต้อนรับ '+username+' สู่ RDMS')
-            return HttpResponseRedirect('../../../camp/%d/'%id_camp)
+            return redirect('index')
     else:
         form = regForm()
         context['form'] = form
