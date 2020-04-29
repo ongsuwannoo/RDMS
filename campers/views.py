@@ -122,6 +122,7 @@ def edit_camper(request, id_camp, id_camper):
         context['form'] = form
     return render(request, 'edit_camper.html', context)
 
+@group_required('manager')
 def delete_camper(request, id_camp, id_camper=""):
     context = getPersonal(request)
     context['id_camp'] = id_camp
