@@ -5,15 +5,12 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-
-from index.views import Personal, getPersonal, savePersonal, group_required
-
-from index.views import Personal, getPersonal, savePersonal, updatePersonal
-
+from index.views import (Personal, getPersonal, group_required, savePersonal,
+                         updatePersonal)
 from personal.models import Personal
 
 from .forms import *
-from .models import Camper
+from .models import Camper, Observe
 
 # Create your views here.
 
@@ -32,8 +29,8 @@ def camper_detail(request, id_camp, id_camper):
     context['id_camp'] = id_camp
     context['id_camper'] = id_camper
     context['name'] = getPersonal(request)['name']
-    context['camper'] = Camper.objects.filter(id=id_camper)
-
+    context['campers'] = Camper.objects.filter(id=id_camper)
+    context['observe'] = Observe.objects.filter(camper_id = id_camper)
     #use to link to personal
     link = Camper.objects.values('personal_id')
 
@@ -133,10 +130,23 @@ def delete_camper(request, id_camp, id_camper=""):
     messages.warning(request, 'ลบ '+camper.personal.first_name+' '+camper.personal.last_name+' เรียบร้อย')
     return HttpResponseRedirect('../../../../%d/campers' % id_camp)
 
-def Observe(request, id_camp, id_staff):
+@group_required('staff')
+def add_observe(request, id_camp, id_camper):
     context = {}
     context['id_camp'] = id_camp
     context['id_camper'] = id_camper
     context['name'] = getPersonal(request)['name']
-    context['camper'] = Camper.objects.filter(id=id_camper)
+    context['observes'] = Observe.objects.filter(camper_id = id_camper)
+    
+    if request.method == 'POST':
+        split_second = str(datetime.now().time()).split('.')[0]
+        time = str(datetime.now().date()) +' ' + split_second
+        observe = request.POST.get('observe')
+        observe_object = Observe(
+            text = observe,
+            time = time,
+            camper_id = id_camper
+            )
+        observe_object.save()
+
     return render(request, 'camper_detail.html', context)
