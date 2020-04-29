@@ -26,7 +26,7 @@ def campers(request, id_camp):
 
 @group_required('manager', 'head', 'staff')
 def camper_detail(request, id_camp, id_camper):
-    context = {}
+    context = getPersonal(request)
     context['id_camp'] = id_camp
     context['id_camper'] = id_camper
     context['name'] = getPersonal(request)['name']

@@ -37,6 +37,7 @@ def camp(request, id_camp=""):
         context['MCs'] = MCs
         context['count_total_staff'] = count_total_staff
         context['count_total_camper'] = count_total_camper
+        context['amount'] = camp.amount
         messages.info(request, 'ยินดีตอนรับสู่ค่าย '+camp.name)
     else:
         user = request.user
