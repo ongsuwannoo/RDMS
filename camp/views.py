@@ -15,6 +15,7 @@ from django.contrib import messages
 from rest_framework.views import APIView
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from campers.models import Camper
 # Create your views here.
 
 @login_required
@@ -27,6 +28,7 @@ def camp(request, id_camp=""):
         departments = reversed(Department.objects.filter(camp_id=id_camp))
         MCs = reversed(MC.objects.filter(camp_id=id_camp))
         count_total_staff = Staff.objects.select_related('camp').filter(camp_id=id_camp).count
+        count_total_camper = Camper.objects.select_related('camp').filter(camp_id=id_camp).count
 
         camp.head.sex = sex[camp.head.personal.sex]
         context['active_camp'] = True
@@ -34,6 +36,7 @@ def camp(request, id_camp=""):
         context['departments'] = departments
         context['MCs'] = MCs
         context['count_total_staff'] = count_total_staff
+        context['count_total_camper'] = count_total_camper
         messages.info(request, 'ยินดีตอนรับสู่ค่าย '+camp.name)
     else:
         user = request.user
@@ -119,4 +122,3 @@ class DepartmentView(APIView):
         department = Department.objects.get(pk=id_department)
         serializer = DepartmentSerializer(department)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
