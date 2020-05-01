@@ -195,8 +195,8 @@ def savePersonal(request):
 
         profile_pic=profile_pic
     )
-    print('save personal success!')
     personal.save()
+    print('save personal success!')
     return personal
 
 

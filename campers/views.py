@@ -10,7 +10,7 @@ from index.views import (Personal, getPersonal, group_required, savePersonal,
 from personal.models import Personal
 
 from .forms import *
-
+from personal.views import*
 from .models import Camper, Observe
 import csv, io
 # Create your views here.
@@ -160,9 +160,26 @@ def import_camper(request, id_camp):
         context['active_camp'] = True
     template = "import_camper.html"
 
+    camp = Camp.objects.get(pk=id_camp)
     data = Camper.objects.all()
     # GET request returns the value of the data with the specified key.
     if request.method == "GET":
+        count = 0
+        # for _ in range(200):
+        #     personal = savePersonal(randomPersonal())
+        #     rand = randomCamper()
+        #     camper = Camper(
+        #         camp = camp,
+        #         personal = personal,
+        #         school = rand['school'],
+        #         parent_phone = rand['parent_phone'],
+        #         parent_name = rand['parent_name'],
+        #         group = rand['group']
+        #     )
+        #     camper.save()
+        #     count += 1
+        #     print('save camper', count)
+        # messages.warning(request, 'ทำการ import camper จำนวน '+str(count)+' คน หากผิดพลาดโปรดติดต่อผู้ดูแล')
         return render(request, template, context)
 
     csv_file = request.FILES['file']
@@ -173,7 +190,6 @@ def import_camper(request, id_camp):
     data_set = csv_file.read().decode('utf-8-sig')
     dic = csv.DictReader(io.StringIO(data_set), delimiter=",")
     
-    camp = Camp.objects.get(pk=id_camp)
     # นับจำนวน camper ทั้งหมด
     count = 0
     for i in dic:
@@ -198,3 +214,4 @@ def import_camper(request, id_camp):
         count += 1
     messages.warning(request, 'ทำการ import camper จำนวน '+str(count)+' คน หากผิดพลาดโปรดติดต่อผู้ดูแล')
     return HttpResponseRedirect('../../../../camp/%d/campers/'%id_camp)
+
