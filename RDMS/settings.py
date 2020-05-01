@@ -84,20 +84,20 @@ WSGI_APPLICATION = 'RDMS.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     # 'default': {
-#     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#     #     'NAME': 'RDMS_db',
-#     #     'USER': 'postgres',
-#     #     'PASSWORD': '1234',
-#     #     'HOST': 'localhost',
-#     #     'PORT': '5432',
-#     # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'RDMS_db',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
-# }
+}
 
 DATABASES['default'] = "postgres://jhebsxamnobomk:0765b85014917b65e25f3e34d2a8da2121c7777fd54b34f21b22c99b1ae25694@ec2-34-234-228-127.compute-1.amazonaws.com:5432/dff723t4ogagl0"
 
