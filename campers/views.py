@@ -153,6 +153,7 @@ def add_observe(request, id_camp, id_camper):
 
     return render(request, 'camper_detail.html', context)
 
+@group_required('manager')
 def import_camper(request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp
