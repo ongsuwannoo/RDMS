@@ -1,1 +1,1 @@
-web: gunicorn rdms.wsgi --log-file -
+web: gunicorn RDMS.wsgi --log-file -
