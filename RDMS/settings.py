@@ -99,7 +99,7 @@ DATABASES = {
 #     }
 }
 
-DATABASES['default'] = "postgres://jhebsxamnobomk:0765b85014917b65e25f3e34d2a8da2121c7777fd54b34f21b22c99b1ae25694@ec2-34-234-228-127.compute-1.amazonaws.com:5432/dff723t4ogagl0"
+# DATABASES['default'] = "postgres://jhebsxamnobomk:0765b85014917b65e25f3e34d2a8da2121c7777fd54b34f21b22c99b1ae25694@ec2-34-234-228-127.compute-1.amazonaws.com:5432/dff723t4ogagl0"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
