@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'g0ck(11rl%-$mj-d1q)6%8w016%xcq6z-*w*vq@d@fn97qr=4u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'flow',
     'locations',
     'staffs',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'RDMS.urls'
@@ -97,6 +99,7 @@ DATABASES = {
     }
 }
 
+DATABASES['default'] = "postgres://jhebsxamnobomk:0765b85014917b65e25f3e34d2a8da2121c7777fd54b34f21b22c99b1ae25694@ec2-34-234-228-127.compute-1.amazonaws.com:5432/dff723t4ogagl0"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -145,6 +148,7 @@ AUTH_USER_MODEL = 'index.user'
 
 LOGIN_URL = '/login/'
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
