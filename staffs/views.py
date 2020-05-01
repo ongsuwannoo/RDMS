@@ -120,6 +120,8 @@ def delete_staff(request, id_camp, id_staff=""):
     context['id_camp'] = id_camp
 
     staff = Staff.objects.get(pk=id_staff)
+    personal = Personal.objects.get(pk=staff.personal.id)
+    personal.delete()
     staff.delete()
     messages.warning(request, 'ลบ '+staff.personal.first_name+' '+staff.personal.last_name+' เรียบร้อย')
     return HttpResponseRedirect('../../../../%d/staffs' % id_camp)
@@ -151,7 +153,7 @@ def import_staff(request, id_camp):
     count = 0
     for i in dic:
         # i.update((k, [v]) for k, v in i.items())
-        
+
         personal = savePersonal(i)
 
         department = Department.objects.filter(name=i['department'], camp_id=id_camp)

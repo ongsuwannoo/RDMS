@@ -134,7 +134,7 @@
 				จำนวน Campers ที่รับ
 			</div>
 			<div class="card-body text-center">
-				<h5 class="card-title"><label class="h2 text-success">120</label> คน</h5>
+				<h5 class="card-title"><label class="h2 text-success">{{amount}}</label> คน</h5>
 			</div>
 		</div>
 	</div>
@@ -256,7 +256,7 @@
       data: {
         labels: ["จำนวน Campers ที่รับ", "จำนวน Campers ที่สมัคร", "จำนวน Campers ที่สละสิทธิ์", "จำนวน Staffs"],
         datasets: [{
-          data: [120, {{ count_total_camper }}, 0, {{ count_total_staff }}],
+          data: [{{amount}}, {{ count_total_camper }}, 0, {{ count_total_staff }}],
 		  borderColor: colorHex,
 		  backgroundColor: ["rgba(40, 167, 69,0.3)", "rgba(255, 193, 7,0.3)", "rgba(220, 53, 69,0.3)", "rgba(0, 123, 255,0.3)"],
           hoverBackgroundColor: ["#37bf56", "#ffd042", "#f74d5d", "#2b91ff"]
