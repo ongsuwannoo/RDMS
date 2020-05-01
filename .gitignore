@@ -5,5 +5,4 @@ __pycache__/
 profiles/
 logo/
 media/camp/
-migrations/
 staticfiles
