@@ -26,7 +26,7 @@ SECRET_KEY = 'g0ck(11rl%-$mj-d1q)6%8w016%xcq6z-*w*vq@d@fn97qr=4u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [' * ']
+ALLOWED_HOSTS = ['rdms-itkmitl.herokuapp.com']
 
 
 # Application definition
