@@ -26,7 +26,7 @@ SECRET_KEY = 'g0ck(11rl%-$mj-d1q)6%8w016%xcq6z-*w*vq@d@fn97qr=4u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['rdms-itkmitl.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'rdms-itkmitl.herokuapp.com']
 
 
 # Application definition
@@ -148,7 +148,7 @@ AUTH_USER_MODEL = 'index.user'
 
 LOGIN_URL = '/login/'
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
