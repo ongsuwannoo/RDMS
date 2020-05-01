@@ -26,7 +26,7 @@ SECRET_KEY = 'g0ck(11rl%-$mj-d1q)6%8w016%xcq6z-*w*vq@d@fn97qr=4u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [' * ']
 
 
 # Application definition
@@ -93,13 +93,13 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     }
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
 }
 
-# DATABASES['default'] = "postgres://jhebsxamnobomk:0765b85014917b65e25f3e34d2a8da2121c7777fd54b34f21b22c99b1ae25694@ec2-34-234-228-127.compute-1.amazonaws.com:5432/dff723t4ogagl0"
+DATABASES['default'] = dj_database_url.config(default="postgres://ayxjghdsxtqxvl:0a140edfac6ffa241a467e5fe1d2548d6786c08a8b5482b34abef00784a2b0c8@ec2-3-91-139-25.compute-1.amazonaws.com:5432/d1k69ijoi4i8s3")
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
