@@ -98,110 +98,110 @@ def flow_api(request, id_camp):
     method GET = ดึงค่าตารางไปเปิดในหน้า flow.html โดยใช้ id_camp
     """
 
-    for i in range(113):
+    # for i in range(113):
 
-        gen_flow = get_flow(i)
-        department = Department.objects.filter(name=gen_flow['department'])
-        mc = MC.objects.filter(name=gen_flow['department'])
-        location = Location.objects.filter(name=gen_flow['location'])
-        camp = Camp.objects.get(pk=id_camp)
+    #     gen_flow = get_flow(i)
+    #     department = Department.objects.filter(name=gen_flow['department'])
+    #     mc = MC.objects.filter(name=gen_flow['department'])
+    #     location = Location.objects.filter(name=gen_flow['location'])
+    #     camp = Camp.objects.get(pk=id_camp)
 
-        # if not id_flow:
-        #     flow = Flow(
-        #         time_start = time_start,
-        #         time_end = time_end,
-        #         activity = activity,
-        #         sub_time = sub_time,
-        #         desc = desc,
-        #         camp = camp,
-        #         note = note
-        #     )
+    #     # if not id_flow:
+    #     #     flow = Flow(
+    #     #         time_start = time_start,
+    #     #         time_end = time_end,
+    #     #         activity = activity,
+    #     #         sub_time = sub_time,
+    #     #         desc = desc,
+    #     #         camp = camp,
+    #     #         note = note
+    #     #     )
         
-        flow = Flow(
-            time_start = gen_flow['time_start'],
-            time_end = gen_flow['time_end'],
-            activity = gen_flow['activity'],
-            sub_time = gen_flow['sub_time'],
-            desc = gen_flow['desc'],
-            camp = camp,
-            note = gen_flow['note']
-        )
+    #     flow = Flow(
+    #         time_start = gen_flow['time_start'],
+    #         time_end = gen_flow['time_end'],
+    #         activity = gen_flow['activity'],
+    #         sub_time = gen_flow['sub_time'],
+    #         desc = gen_flow['desc'],
+    #         camp = camp,
+    #         note = gen_flow['note']
+    #     )
 
-        check = 0
+    #     check = 0
 
-        if gen_flow['department'][0] == 'M':
-            if mc:
-                flow.mc = mc[0]
-            else:
-                name = gen_flow['department']
-                if gen_flow['department'] != '-' and check == 0:
-                    typeOfMC = '-'
-                    desc = '-'
+    #     if gen_flow['department'][0] == 'M':
+    #         if mc:
+    #             flow.mc = mc[0]
+    #         else:
+    #             name = gen_flow['department']
+    #             if gen_flow['department'] != '-' and check == 0:
+    #                 typeOfMC = '-'
+    #                 desc = '-'
 
-                    mc = MC(
-                        camp = camp,
-                        name = name,
-                        typeOfMC = typeOfMC,
-                        desc = desc
-                    )
-                    print('MC save! '+name)
-                    mc.save()
-                    flow.mc = mc
+    #                 mc = MC(
+    #                     camp = camp,
+    #                     name = name,
+    #                     typeOfMC = typeOfMC,
+    #                     desc = desc
+    #                 )
+    #                 print('MC save! '+name)
+    #                 mc.save()
+    #                 flow.mc = mc
 
-        elif department:
-            flow.department = department[0]
-        else:
-            name = gen_flow['department']
-            typeOfDepartment = '-'
-            desc = '-'
+    #     elif department:
+    #         flow.department = department[0]
+    #     else:
+    #         name = gen_flow['department']
+    #         typeOfDepartment = '-'
+    #         desc = '-'
 
-            if name in ['ค่าย IOT', 'ค่าย Network','ค่าย App',' ค่าย Data','ค่าย Game']:
-                depart = Department.objects.filter(typeOfDepartment=name, camp_id=id_camp)
+    #         if name in ['ค่าย IOT', 'ค่าย Network','ค่าย App',' ค่าย Data','ค่าย Game']:
+    #             depart = Department.objects.filter(typeOfDepartment=name, camp_id=id_camp)
 
-                if not depart:
-                    typeOfDepartment = 'วิชาการ'
-                    group = 'วิชาการ'
-                else:
-                    check = 1
+    #             if not depart:
+    #                 typeOfDepartment = 'วิชาการ'
+    #                 group = 'วิชาการ'
+    #             else:
+    #                 check = 1
 
-            if name == 'พี่บ้าน':
-                depart = Department.objects.filter(typeOfDepartment=name, camp_id=id_camp)
+    #         if name == 'พี่บ้าน':
+    #             depart = Department.objects.filter(typeOfDepartment=name, camp_id=id_camp)
 
-                if not depart:
-                    typeOfDepartment = 'ส้นทนาการ'
-                    group = 'ส้นทนาการ'
-                else:
-                    check = 1
+    #             if not depart:
+    #                 typeOfDepartment = 'ส้นทนาการ'
+    #                 group = 'ส้นทนาการ'
+    #             else:
+    #                 check = 1
 
-            if check == 0:
-                department = Department(
-                    camp = camp,
-                    name = name,
-                    typeOfDepartment = typeOfDepartment,
-                    desc = desc
-                )
-                print('department save! '+name)
-                department.save()
-                flow.department = department
+    #         if check == 0:
+    #             department = Department(
+    #                 camp = camp,
+    #                 name = name,
+    #                 typeOfDepartment = typeOfDepartment,
+    #                 desc = desc
+    #             )
+    #             print('department save! '+name)
+    #             department.save()
+    #             flow.department = department
 
-        if location:
-            flow.location = location[0]
-        else:
-            name = gen_flow['location']
-            if gen_flow['location'] != '-' and check == 0:
-                typeOfMC = '-'
-                desc = '-'
+    #     if location:
+    #         flow.location = location[0]
+    #     else:
+    #         name = gen_flow['location']
+    #         if gen_flow['location'] != '-' and check == 0:
+    #             typeOfMC = '-'
+    #             desc = '-'
 
-                location = Location(
-                    name = gen_flow['location'],
-                    desc = "-",
-                    logo = "logo/"+str(random.randrange(99999999))+random.choice(['.png', '.jpg'])
-                )
-                print('location save! '+name)
-                location.save()
-                flow.location = location
-        print('flow save!', (i+1))
-        flow.save()
+    #             location = Location(
+    #                 name = gen_flow['location'],
+    #                 desc = "-",
+    #                 logo = "logo/"+str(random.randrange(99999999))+random.choice(['.png', '.jpg'])
+    #             )
+    #             print('location save! '+name)
+    #             location.save()
+    #             flow.location = location
+    #     print('flow save!', (i+1))
+    #     flow.save()
         # break
 
     # id_flow = post.get('id_flow')

@@ -139,83 +139,83 @@ def import_staff(request, id_camp):
     if request.method == "GET":
         count = 0
         camp = Camp.objects.get(pk=id_camp)
-        for _ in range(200):
-            per = randomPersonal()
-            per['sid'] = '61070'+('%03d'%random.randrange(1, 500))
-            personal = savePersonal(per)
-            rand = randomStaff()
+        # for _ in range(200):
+        #     per = randomPersonal()
+        #     per['sid'] = '61070'+('%03d'%random.randrange(1, 500))
+        #     personal = savePersonal(per)
+        #     rand = randomStaff()
 
-            department = Department.objects.filter(name=rand['department'], camp_id=id_camp)
-            mc = MC.objects.filter(name=rand['mc'], camp_id=id_camp)
+        #     department = Department.objects.filter(name=rand['department'], camp_id=id_camp)
+        #     mc = MC.objects.filter(name=rand['mc'], camp_id=id_camp)
 
-            group = '-'
-            staff = Staff(
-                camp = camp,
-                personal = personal,
-                position = rand['position'],
-            )
-            check = 0
+        #     group = '-'
+        #     staff = Staff(
+        #         camp = camp,
+        #         personal = personal,
+        #         position = rand['position'],
+        #     )
+        #     check = 0
 
-            if department:
-                staff.department = department[0]
-            else:
-                name = rand['department']
-                typeOfDepartment = '-'
-                desc = '-'
+        #     if department:
+        #         staff.department = department[0]
+        #     else:
+        #         name = rand['department']
+        #         typeOfDepartment = '-'
+        #         desc = '-'
 
-                if name in ['ค่าย IOT', 'ค่าย Network','ค่าย App',' ค่าย Data','ค่าย Game']:
-                    depart = Department.objects.filter(typeOfDepartment=name, camp_id=id_camp)
+        #         if name in ['ค่าย IOT', 'ค่าย Network','ค่าย App',' ค่าย Data','ค่าย Game']:
+        #             depart = Department.objects.filter(typeOfDepartment=name, camp_id=id_camp)
 
-                    if not depart:
-                        typeOfDepartment = 'วิชาการ'
-                        group = 'วิชาการ'
-                    else:
-                        check = 1
+        #             if not depart:
+        #                 typeOfDepartment = 'วิชาการ'
+        #                 group = 'วิชาการ'
+        #             else:
+        #                 check = 1
 
-                if name == 'พี่บ้าน':
-                    depart = Department.objects.filter(typeOfDepartment=name, camp_id=id_camp)
+        #         if name == 'พี่บ้าน':
+        #             depart = Department.objects.filter(typeOfDepartment=name, camp_id=id_camp)
 
-                    if not depart:
-                        typeOfDepartment = 'ส้นทนาการ'
-                        group = 'ส้นทนาการ'
-                    else:
-                        check = 1
+        #             if not depart:
+        #                 typeOfDepartment = 'ส้นทนาการ'
+        #                 group = 'ส้นทนาการ'
+        #             else:
+        #                 check = 1
 
-                if check == 0:
-                    department = Department(
-                        camp = camp,
-                        name = name,
-                        typeOfDepartment = typeOfDepartment,
-                        desc = desc
-                    )
+        #         if check == 0:
+        #             department = Department(
+        #                 camp = camp,
+        #                 name = name,
+        #                 typeOfDepartment = typeOfDepartment,
+        #                 desc = desc
+        #             )
 
-                    department.save()
-                    staff.department = department
+        #             department.save()
+        #             staff.department = department
 
-            if mc:
-                staff.mc = mc[0]
-            else:
-                name = rand['mc']
-                if rand['mc'] != '-' and check == 0:
-                    typeOfMC = '-'
-                    desc = '-'
+        #     if mc:
+        #         staff.mc = mc[0]
+        #     else:
+        #         name = rand['mc']
+        #         if rand['mc'] != '-' and check == 0:
+        #             typeOfMC = '-'
+        #             desc = '-'
 
-                    mc = MC(
-                        camp = camp,
-                        name = name,
-                        typeOfMC = typeOfMC,
-                        desc = desc
-                    )
+        #             mc = MC(
+        #                 camp = camp,
+        #                 name = name,
+        #                 typeOfMC = typeOfMC,
+        #                 desc = desc
+        #             )
 
-                    mc.save()
-                    staff.mc = mc
+        #             mc.save()
+        #             staff.mc = mc
 
-            staff.group = group
+        #     staff.group = group
 
-            staff.save()
+        #     staff.save()
 
-            count += 1
-            print('save staff', count)
+        #     count += 1
+        #     print('save staff', count)
         return render(request, template, context)
 
     csv_file = request.FILES['file']

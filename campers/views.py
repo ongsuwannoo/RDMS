@@ -166,20 +166,20 @@ def import_camper(request, id_camp):
     # GET request returns the value of the data with the specified key.
     if request.method == "GET":
         count = 0
-        for _ in range(200):
-            personal = savePersonal(randomPersonal())
-            rand = randomCamper()
-            camper = Camper(
-                camp = camp,
-                personal = personal,
-                school = rand['school'],
-                parent_phone = rand['parent_phone'],
-                parent_name = rand['parent_name'],
-                group = rand['group']
-            )
-            camper.save()
-            count += 1
-            print('save camper', count)
+        # for _ in range(200):
+        #     personal = savePersonal(randomPersonal())
+        #     rand = randomCamper()
+        #     camper = Camper(
+        #         camp = camp,
+        #         personal = personal,
+        #         school = rand['school'],
+        #         parent_phone = rand['parent_phone'],
+        #         parent_name = rand['parent_name'],
+        #         group = rand['group']
+        #     )
+        #     camper.save()
+        #     count += 1
+        #     print('save camper', count)
         messages.warning(request, 'ทำการ import camper จำนวน '+str(count)+' คน หากผิดพลาดโปรดติดต่อผู้ดูแล')
         return render(request, template, context)
 
