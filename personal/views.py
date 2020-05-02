@@ -61,7 +61,7 @@ def randomCamper():
     return camper
 
 def randomStaff():
-    position_list = ['staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'head']
+    position_list = ['staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff', 'staff','head']
     department_list = ['พี่บ้าน','พี่บ้าน','พี่บ้าน','พี่บ้าน', 'ค่าย IOT', 'ค่าย Network','ค่าย App',' ค่าย Data','ค่าย Game','ประสานงาน','เหรัญญิก','ทะเบียน','สถานที่','สวัสดิการ','พัสดุ','พยาบาล','พิธีการ','Guard','Sponsor','Web','Art','PR','Photo','Video']
     mc_list = ['Hotmail', 'อิสลาม', 'All Camp', 'รับน้อง', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-']
     staff = {

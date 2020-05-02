@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'g0ck(11rl%-$mj-d1q)6%8w016%xcq6z-*w*vq@d@fn97qr=4u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'flow',
     'locations',
     'staffs',
-    'whitenoise.runserver_nostatic',
+    # 'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'RDMS.urls'
@@ -85,21 +85,21 @@ WSGI_APPLICATION = 'RDMS.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'RDMS_db',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
     # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'RDMS_db',
+    #     'USER': 'postgres',
+    #     'PASSWORD': '1234',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432',
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
-DATABASES['default'] = dj_database_url.config(default="postgres://ilhufqepwquncv:6b8aa304c7c3dfaf4b0bec59e3e51d5d797fd5bf07b536243ce6a1ca2427f73a@ec2-54-175-117-212.compute-1.amazonaws.com:5432/d8pjlqnobfj554")
+# DATABASES['default'] = dj_database_url.config(default="postgres://ilhufqepwquncv:6b8aa304c7c3dfaf4b0bec59e3e51d5d797fd5bf07b536243ce6a1ca2427f73a@ec2-54-175-117-212.compute-1.amazonaws.com:5432/d8pjlqnobfj554")
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -136,6 +136,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -148,8 +149,8 @@ AUTH_USER_MODEL = 'index.user'
 
 LOGIN_URL = '/login/'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
