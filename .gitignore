@@ -2,7 +2,4 @@
 env/
 *.pyc
 __pycache__/
-profiles/
-logo/
-media/camp/
 staticfiles
