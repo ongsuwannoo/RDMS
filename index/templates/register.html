@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<button type="button" class="btn btn-success" onclick="fill()">Fill</button>
+{% comment %} <button type="button" class="btn btn-success" onclick="fill()">Fill</button> {% endcomment %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
 <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data" class="phase1">
     {% csrf_token %}

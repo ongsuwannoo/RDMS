@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
-<button type="button" class="btn btn-success" onclick="fill()">Fill</button>
+{% comment %} <button type="button" class="btn btn-success" onclick="fill()">Fill</button> {% endcomment %}
 <form method="POST" action="{% url 'add_staff' id_camp %}" class="phase1">
     {% csrf_token %}
     <div class="modal-dialog modal-reg modal-dialog-centered" role="document">

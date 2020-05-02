@@ -13,6 +13,7 @@ from .forms import *
 from personal.views import*
 from .models import Camper, Observe
 import csv, io
+from datetime import datetime
 # Create your views here.
 
 
@@ -180,7 +181,7 @@ def import_camper(request, id_camp):
         #     camper.save()
         #     count += 1
         #     print('save camper', count)
-        messages.warning(request, 'ทำการ import camper จำนวน '+str(count)+' คน หากผิดพลาดโปรดติดต่อผู้ดูแล')
+        # messages.warning(request, 'ทำการ import camper จำนวน '+str(count)+' คน หากผิดพลาดโปรดติดต่อผู้ดูแล')
         return render(request, template, context)
 
     csv_file = request.FILES['file']
