@@ -84,18 +84,18 @@ WSGI_APPLICATION = 'RDMS.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'daitpfnso0knif',
-        'USER': 'xsyurzwdjyavpb',
-        'PASSWORD': 'c2bbecc50f510eba49f007d46bf7c6bbf4825f86d7f4f891672a2bfb10c4c610',
-        'HOST': 'ec2-18-206-84-251.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
     # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'daitpfnso0knif',
+    #     'USER': 'xsyurzwdjyavpb',
+    #     'PASSWORD': 'c2bbecc50f510eba49f007d46bf7c6bbf4825f86d7f4f891672a2bfb10c4c610',
+    #     'HOST': 'ec2-18-206-84-251.compute-1.amazonaws.com',
+    #     'PORT': '5432',
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 # Password validation
@@ -143,7 +143,6 @@ STATICFILES_DIRS = (
 AUTH_USER_MODEL = 'index.user'
 
 LOGIN_URL = '/login/'
-
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
