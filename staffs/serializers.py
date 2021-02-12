@@ -8,6 +8,9 @@ class MCSerializer(serializers.ModelSerializer):
     name = serializers.CharField()
     typeOfMC = serializers.CharField()
     desc = serializers.CharField()
+    class Meta:
+        model = MC
+        fields = ('name', 'typeOfMC', 'desc')
 
 class DepartmentSerializer(serializers.Serializer):
     name = serializers.CharField()

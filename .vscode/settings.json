@@ -1,3 +1,7 @@
 {
-    "python.pythonPath": "env\\Scripts\\python.exe"
+    "html.format.enable": false,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--enable=W0614"
+    ]
 }

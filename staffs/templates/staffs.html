@@ -3,10 +3,6 @@
 <style>
     .table {
         background: transparent;
-        /* font-family: 'THSarabunNewRegular';
-        font-weight: normal;
-        font-style: normal;
-        font-size: 23px !important; */
         border-collapse: collapse;
         table-layout: fixed;
         width: 100%;
@@ -107,7 +103,6 @@
     $('#searchBox').keypress(function (event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if (keycode == '13') {
-            console.log('Enter!'+id_camp)
             axios.get('/api/search', {
                 params: {
                     search: document.getElementById('searchBox').value,

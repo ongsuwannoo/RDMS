@@ -12,16 +12,51 @@ from datetime import datetime
 from django.contrib import messages
 
 # Create your views here.
-def group_required(*group_names):
-    """Requires user membership in at least one of the groups passed in."""
 
-    def in_groups(u):
-        if u.is_authenticated:
-            if bool(u.groups.filter(name__in=group_names)) | u.is_superuser:
-                return True
+from six import text_type
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth import REDIRECT_FIELD_NAME
+from functools import wraps
+from urllib.parse import urlparse
+from django.shortcuts import resolve_url
+
+def group_required(group, login_url=None, raise_exception=False):
+    """
+    Decorator for views that checks whether a user has a group permission,
+    redirecting to the log-in page if necessary.
+    If the raise_exception parameter is given the PermissionDenied exception
+    is raised.
+    """
+    def check_perms(user):
+        if isinstance(group, six.string_types):
+            groups = (group, )
+        else:
+            groups = group
+        # First check if the user has the permission (even anon users)
+
+        if user.groups.filter(name__in=groups).exists():
+            return True
+        # In case the 403 handler should be called raise the exception
+        if raise_exception:
+            raise PermissionDenied
+        # As the last resort, show the login form
         return False
-    return user_passes_test(in_groups)
+    return my_user_passes_test(check_perms, login_url=login_url)
 
+def my_user_passes_test(test_func, login_url=None, redirect_field_name=REDIRECT_FIELD_NAME):
+    """
+    Decorator for views that checks that the user passes the given test,
+    redirecting to the "HTTP_REFERER" page if necessary. The test should be a callable
+    that takes the user object and returns True if the user passes.
+    """
+
+    def decorator(view_func):
+        @wraps(view_func)
+        def _wrapped_view(request, *args, **kwargs):
+            messages.error(request, 'สิทธิของคุณไม่สามารถทำได้ กรุณาติดต่อ Admin หรือ เปลี่ยนเป็น user อื่น')
+            return redirect(request.META.get('HTTP_REFERER'))
+        return _wrapped_view
+    return decorator
 
 def register(request):
     context = {}
@@ -37,7 +72,8 @@ def register(request):
             user.personal_id = savePersonal(request)
             user.save()
             login(request, user)
-            messages.success(request, 'สมัครสมาชิกสำเร็จแล้วยินดีต้อนรับ '+username+' สู่ RDMS')
+            messages.success(
+                request, 'สมัครสมาชิกสำเร็จแล้วยินดีต้อนรับ '+username+' สู่ RDMS')
             return redirect('index')
     else:
         form = regForm()
@@ -58,7 +94,8 @@ def my_login(request):
             if next_url and next_url != '/login/':
                 return redirect(next_url)
             else:
-                messages.info(request, 'เข้าสู่ระบบสำเร็จแล้วยินดีต้อนรับ '+username+' สู่ RDMS')
+                messages.info(
+                    request, 'เข้าสู่ระบบสำเร็จแล้วยินดีต้อนรับ '+username+' สู่ RDMS')
                 return redirect('index')
         else:
             context = {
@@ -88,10 +125,12 @@ def ChangePassword(request):
             u = user.objects.get(username=username)
             u.set_password(password)
             u.save()
-            messages.success(request, 'Your password was updated successfully!')
+            messages.success(
+                request, 'Your password was updated successfully!')
             return redirect('logout')
 
     return render(request, 'profile.html', context=context)
+
 
 def index(request):
     context = {}
@@ -101,11 +140,13 @@ def index(request):
         context = getPersonal(request)
     else:
         if not request.user.personal_id:
-            messages.warning(request, 'user ของคุณไม่มีการกรอกข้อมูล personal ระวังบัค')
+            messages.warning(
+                request, 'user ของคุณไม่มีการกรอกข้อมูล personal ระวังบัค')
     camp = Camp.objects.all()
     context['camps'] = reversed(camp)
 
     return render(request, 'index.html', context)
+
 
 @login_required
 def my_profile(request):
@@ -133,7 +174,8 @@ def getPersonal(request):
 
         return context
     else:
-        messages.warning(request, 'user ของคุณไม่มีการกรอกข้อมูล personal ระวังบัค')
+        messages.warning(
+            request, 'user ของคุณไม่มีการกรอกข้อมูล personal ระวังบัค')
         return {}
 
 
@@ -218,7 +260,7 @@ def updatePersonal(request, id):
     if not datetime.strptime(birthday, '%Y-%m-%d').date() == personal.birthday or birthday == '':
         # ในกรณีที่ไม่ได้เปลี่ยนแปลงค่าวันเกิด ก็เท่ากับวันเกิดเดิม
         birthday = datetime.strptime(birthday, '%Y-%m-%d').date()
-    else: # เปลี่ยนแปลงค่าวันเกิด ค่าที่ไปกดแก้ไขจะเป็น date เพราะดักไว้ที่ html แล้ว
+    else:  # เปลี่ยนแปลงค่าวันเกิด ค่าที่ไปกดแก้ไขจะเป็น date เพราะดักไว้ที่ html แล้ว
         birthday = birthday
 
     sid = post_data.get('sid')
@@ -235,7 +277,6 @@ def updatePersonal(request, id):
     congenital_disease = post_data.get('congenital_disease')
     shirt_size = post_data.get('shirt_size')
     # profile_pic = post_data.get('profile_pic')
-
 
     personal.sid = sid
     personal.first_name = first_name

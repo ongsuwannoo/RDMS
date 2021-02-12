@@ -18,17 +18,20 @@ from django.contrib.auth.decorators import login_required
 from campers.models import Camper
 # Create your views here.
 
+
 @login_required
 def camp(request, id_camp=""):
     context = getPersonal(request)
     context['id_camp'] = id_camp
-    sex = {'M':'Mr.', 'F':'Miss.'}
+    sex = {'M': 'Mr.', 'F': 'Miss.'}
     if id_camp:
         camp = Camp.objects.get(pk=id_camp)
         departments = reversed(Department.objects.filter(camp_id=id_camp))
         MCs = reversed(MC.objects.filter(camp_id=id_camp))
-        count_total_staff = Staff.objects.select_related('camp').filter(camp_id=id_camp).count
-        count_total_camper = Camper.objects.select_related('camp').filter(camp_id=id_camp).count
+        count_total_staff = Staff.objects.select_related(
+            'camp').filter(camp_id=id_camp).count
+        count_total_camper = Camper.objects.select_related(
+            'camp').filter(camp_id=id_camp).count
 
         camp.head.sex = sex[camp.head.personal.sex]
         context['active_camp'] = True
@@ -52,7 +55,8 @@ def camp(request, id_camp=""):
 
     return render(request, 'camp.html', context)
 
-@group_required('manager')
+
+@group_required('manager', login_url='/camp/')
 def create_camp(request):
     context = getPersonal(request)
     if request.method == 'POST':
@@ -64,20 +68,22 @@ def create_camp(request):
         end_date = request.POST.get('end_date')
         logo = request.FILES.get('logo_pic')
         camp = Camp(
-            head = user,
-            name = name,
-            desc = desc,
-            amount = amount,
-            start_date = start_date,
-            end_date = end_date,
-            logo = logo
+            head=user,
+            name=name,
+            desc=desc,
+            amount=amount,
+            start_date=start_date,
+            end_date=end_date,
+            logo=logo
         )
         camp.save()
-        messages.success(request, 'ดำเนินการสร้าง '+name+' แล้ว ขอให้สนุกกับการจัดค่าย')
+        messages.success(request, 'ดำเนินการสร้าง '+name +
+                         ' แล้ว ขอให้สนุกกับการจัดค่าย')
         return redirect('camp')
     return render(request, 'create_camp.html', context)
 
-@group_required('manager')
+
+@group_required('manager', '/camp/')
 def create_department_mc(request, id_camp):
     context = getPersonal(request)
     context['id_camp'] = id_camp
@@ -86,18 +92,18 @@ def create_department_mc(request, id_camp):
 
     if request.method == 'POST':
         camp = Camp.objects.get(pk=id_camp)
-        choose =  request.POST.get('choose')
-        
+        choose = request.POST.get('choose')
+
         if choose == 'department':
             name = request.POST.get('name_department')
             typeOfDepartment = request.POST.get('typeOfDepartment')
             desc = request.POST.get('desc_department')
 
             department = Department(
-                camp = camp,
-                name = name,
-                typeOfDepartment = typeOfDepartment,
-                desc = desc
+                camp=camp,
+                name=name,
+                typeOfDepartment=typeOfDepartment,
+                desc=desc
             )
             department.save()
             messages.success(request, 'ดำเนินการสร้างฝ่าย '+name+' แล้ว')
@@ -108,16 +114,17 @@ def create_department_mc(request, id_camp):
             desc = request.POST.get('desc_MC')
 
             mc = MC(
-                camp = camp,
-                name = name,
-                typeOfMC = typeOfMC,
-                desc = desc
+                camp=camp,
+                name=name,
+                typeOfMC=typeOfMC,
+                desc=desc
             )
             mc.save()
             messages.success(request, 'ดำเนินการสร้าง MC '+name+' แล้ว')
 
-        return HttpResponseRedirect('../../../camp/%d/'%id_camp)
+        return HttpResponseRedirect('../../../camp/%d/' % id_camp)
     return render(request, 'camp.html', context)
+
 
 class DepartmentView(APIView):
     def get(self, request):
