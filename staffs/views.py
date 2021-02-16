@@ -98,11 +98,12 @@ def add_staff(request, id_camp):
         )
 
         if post.get('department') != '0':
-            department = Department.objects.get(pk=post.get('department'))
+            print(post.get('department'))
+            department = Department.objects.get(name=post.get('department'))
             staff.department = department
 
         if post.get('mc') != '0':
-            mc = MC.objects.get(pk=post.get('mc'))
+            mc = MC.objects.get(name=post.get('mc'))
             staff.mc = mc
 
         staff.save()

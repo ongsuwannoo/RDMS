@@ -56,7 +56,7 @@ def camp(request, id_camp=""):
     return render(request, 'camp.html', context)
 
 
-@group_required('manager', login_url='/camp/')
+@group_required('head', login_url='/camp/')
 def create_camp(request):
     context = getPersonal(request)
     if request.method == 'POST':

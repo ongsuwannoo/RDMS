@@ -20,7 +20,17 @@ from functools import wraps
 from urllib.parse import urlparse
 from django.shortcuts import resolve_url
 
-def group_required(group, login_url=None, raise_exception=False):
+def group_required(*group_names, login_url=None):
+    """Requires user membership in at least one of the groups passed in."""
+    def in_groups(u):
+        if u.is_authenticated:
+            if bool(u.groups.filter(name__in=group_names)) | u.is_superuser:
+                return True
+        return False
+
+    return my_user_passes_test(in_groups, login_url=login_url)
+
+def group_required1(*group, login_url=None, raise_exception=False):
     """
     Decorator for views that checks whether a user has a group permission,
     redirecting to the log-in page if necessary.
@@ -33,7 +43,6 @@ def group_required(group, login_url=None, raise_exception=False):
         else:
             groups = group
         # First check if the user has the permission (even anon users)
-
         if user.groups.filter(name__in=groups).exists():
             return True
         # In case the 403 handler should be called raise the exception
@@ -53,6 +62,18 @@ def my_user_passes_test(test_func, login_url=None, redirect_field_name=REDIRECT_
     def decorator(view_func):
         @wraps(view_func)
         def _wrapped_view(request, *args, **kwargs):
+            if test_func(request.user):
+                return view_func(request, *args, **kwargs)
+            path = request.build_absolute_uri()
+            resolved_login_url = resolve_url(login_url or settings.LOGIN_URL)
+            # If the login url is the same scheme and net location then just
+            # use the path as the "next" url.
+            login_scheme, login_netloc = urlparse(resolved_login_url)[:2]
+            current_scheme, current_netloc = urlparse(path)[:2]
+            if ((not login_scheme or login_scheme == current_scheme) and
+                    (not login_netloc or login_netloc == current_netloc)):
+                path = request.get_full_path()
+            from django.contrib.auth.views import redirect_to_login
             messages.error(request, 'สิทธิของคุณไม่สามารถทำได้ กรุณาติดต่อ Admin หรือ เปลี่ยนเป็น user อื่น')
             return redirect(request.META.get('HTTP_REFERER'))
         return _wrapped_view
