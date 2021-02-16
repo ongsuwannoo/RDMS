@@ -5,3 +5,9 @@ PATH `~:\RDMS>`
 ```
 docker-compose up
 ```
+
+User admin
+```
+admin
+rdms_admin001
+```
