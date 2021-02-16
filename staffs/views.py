@@ -7,6 +7,7 @@ from .serializers import *
 
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import Group
 from index.models import user
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -19,6 +20,7 @@ import csv
 import io
 from django.contrib import messages
 from personal.views import *
+
 # Create your views here.
 
 
@@ -98,13 +100,15 @@ def add_staff(request, id_camp):
         )
 
         if post.get('department') != '0':
-            print(post.get('department'))
             department = Department.objects.get(name=post.get('department'))
             staff.department = department
 
         if post.get('mc') != '0':
             mc = MC.objects.get(name=post.get('mc'))
             staff.mc = mc
+
+        my_group = Group.objects.get(name='staff') 
+        my_group.user_set.add(data_user)
 
         staff.save()
         messages.success(request, 'เพิ่ม Staff '+personal.first_name+' แล้ว')
