@@ -11,3 +11,5 @@ User admin
 admin
 rdms_admin001
 ```
+VDO
+https://youtu.be/zLHz8zYHCus
